@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌈 Kelas 1 Ceria - Selamat Datang!</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Fredoka', sans-serif;
+    background: #fff9e6;
+    color: #333;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Baloo 2', cursive;
+  }
+
+  /* ====== NAVBAR ====== */
+  nav {
+    background: #ffde59;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 0 #e8b923;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #d97706;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo span { font-size: 2rem; animation: bounce 2s infinite; }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+  }
+  nav a {
+    text-decoration: none;
+    color: #b45309;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: 0.2s;
+  }
+  nav a:hover {
+    background: #fff;
+    transform: scale(1.05);
+  }
+
+  /* ====== HERO ====== */
+  .hero {
+    background: linear-gradient(180deg, #87ceeb 0%, #b3e5fc 60%, #e1f5fe 100%);
+    padding: 60px 30px 120px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: #fff9e6;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  }
+  .sun {
+    position: absolute;
+    top: 30px;
+    right: 60px;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, #fff176, #ffb300);
+    border-radius: 50%;
+    box-shadow: 0 0 40px #ffd54f;
+    animation: pulse 3s infinite;
+  }
+  .cloud {
+    position: absolute;
+    background: white;
+    border-radius: 50px;
+    opacity: 0.9;
+  }
+  .cloud::before, .cloud::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+  }
+  .cloud1 {
+    top: 60px; left: 10%;
+    width: 100px; height: 35px;
+    animation: float 6s infinite ease-in-out;
+  }
+  .cloud1::before { width: 50px; height: 50px; top: -25px; left: 15px; }
+  .cloud1::after { width: 40px; height: 40px; top: -18px; left: 50px; }
+  .cloud2 {
+    top: 130px; left: 70%;
+    width: 80px; height: 28px;
+    animation: float 8s infinite ease-in-out reverse;
+  }
+  .cloud2::before { width: 40px; height: 40px; top: -20px; left: 10px; }
+  .cloud2::after { width: 32px; height: 32px; top: -14px; left: 40px; }
+
+  .hero-content { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
+  .hero-badge {
+    display: inline-block;
+    background: #fff;
+    color: #f59e0b;
+    padding: 8px 22px;
+    border-radius: 30px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 0 #fbbf24;
+    font-size: 0.95rem;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: #fff;
+    text-shadow: 4px 4px 0 #f59e0b, 6px 6px 15px rgba(0,0,0,0.15);
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  .hero h1 .highlight {
+    color: #fff176;
+    display: inline-block;
+    animation: wiggle 2s infinite;
+  }
+  .hero p {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 35px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 500;
+  }
+  .btn-main {
+    display: inline-block;
+    background: #ff6b6b;
+    color: white;
+    padding: 18px 45px;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 8px 0 #d64545, 0 12px 25px rgba(0,0,0,0.15);
+    transition: 0.15s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-main:hover {
+    transform: translateY(4px);
+    box-shadow: 0 4px 0 #d64545, 0 8px 15px rgba(0,0,0,0.15);
+  }
+  .btn-main:active { transform: translateY(8px); box-shadow: 0 0 0 #d64545; }
+
+  .hero-emoji {
+    font-size: 3rem;
+    margin-top: 40px;
+    letter-spacing: 15px;
+    animation: bounce 2.5s infinite;
+  }
+
+  /* ====== SECTION UMUM ====== */
+  section { padding: 70px 30px; }
+  .section-title {
+    text-align: center;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: #4a4a4a;
+    margin-bottom: 15px;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: #777;
+    font-size: 1.1rem;
+    margin-bottom: 50px;
+  }
+  .section-title .emoji {
+    display: inline-block;
+    animation: wiggle 1.5s infinite;
+  }
+
+  /* ====== PELAJARAN ====== */
+  .pelajaran { background: #fff9e6; }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .card {
+    background: white;
+    border-radius: 25px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 8px 0 #e5e5e5, 0 12px 25px rgba(0,0,0,0.08);
+    transition: 0.3s;
+    cursor: pointer;
+    border: 3px solid transparent;
+  }
+  .card:hover {
+    transform: translateY(-8px) rotate(-1deg);
+    box-shadow: 0 12px 0 #e5e5e5, 0 18px 35px rgba(0,0,0,0.12);
+  }
+  .card-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    display: inline-block;
+    transition: 0.3s;
+  }
+  .card:hover .card-icon { transform: scale(1.2) rotate(10deg); }
+  .card h3 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  .card p {
+    color: #777;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .card.math   { border-color: #60a5fa; background: #eff6ff; }
+  .card.bindo  { border-color: #f87171; background: #fef2f2; }
+  .card.sains  { border-color: #34d399; background: #ecfdf5; }
+  .card.seni   { border-color: #c084fc; background: #faf5ff; }
+
+  /* ====== AKTIVITAS / GAME ====== */
+  .aktivitas { background: #e0f2fe; }
+  .game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .game-card {
+    border-radius: 25px;
+    padding: 35px 25px;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 0 rgba(0,0,0,0.15), 0 12px 25px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  .game-card:hover { transform: translateY(-6px) scale(1.02); }
+  .game-card::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+    transition: 0.5s;
+  }
+  .game-card:hover::before { top: -30%; right: -30%; }
+  .game1 { background: linear-gradient(135deg, #667eea, #764ba2); }
+  .game2 { background: linear-gradient(135deg, #f093fb, #f5576c); }
+  .game3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+  .game-icon { font-size: 4rem; margin-bottom: 15px; }
+  .game-card h3 { font-size: 1.4rem; margin-bottom: 8px; }
+  .game-card p { font-size: 0.95rem; opacity: 0.95; margin-bottom: 20px; }
+  .btn-play {
+    background: white;
+    color: #333;
+    padding: 10px 30px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+    transition: 0.15s;
+    position: relative;
+    z-index: 2;
+  }
+  .btn-play:hover { transform: scale(1.08); }
+  .btn-play:active { transform: scale(0.98); box-shadow: 0 1px 0 rgba(0,0,0,0.2); }
+
+  /* ====== GALERI / INFO ====== */
+  .info { background: #fff9e6; }
+  .info-box {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .info-item {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 6px 0 #ffe082;
+  }
+  .info-item .num {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #f59e0b;
+    font-family: 'Baloo 2', cursive;
+  }
+  .info-item .label {
+    color: #666;
+    font-weight: 500;
+    margin-top: 5px;
+  }
+
+  /* ====== CTA ====== */
+  .cta {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    text-align: center;
+    padding: 80px 30px;
+    position: relative;
+  }
+  .cta h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: white;
+    text-shadow: 3px 3px 0 #f5576c;
+    margin-bottom: 20px;
+  }
+  .cta p { color: #fff; font-size: 1.2rem; margin-bottom: 35px; }
+
+  /* ====== FOOTER ====== */
+  footer {
+    background: #4a4a4a;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    font-size: 0.95rem;
+  }
+  footer .heart { color: #ff6b6b; animation: pulse 1.5s infinite; display: inline-block; }
+
+  /* ====== ANIMASI ====== */
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(20px); }
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.08); opacity: 0.9; }
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-8deg); }
+    75% { transform: rotate(8deg); }
+  }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .hero { padding: 40px 20px 100px; }
+    .hero-emoji { font-size: 2rem; letter-spacing: 8px; }
+    section { padding: 50px 20px; }
+    .sun { width: 55px; height: 55px; top: 20px; right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo"><span>🎒</span> Kelas 1 Ceria</div>
+  <ul>
+    <li><a href="#pelajaran">📚 Pelajaran</a></li>
+    <li><a href="#aktivitas">🎮 Permainan</a></li>
+    <li><a href="#info">⭐ Info</a></li>
+    <li><a href="#daftar">✏️ Daftar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="sun"></div>
+  <div class="cloud cloud1"></div>
+  <div class="cloud cloud2"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">✨ Selamat Datang di Kelas 1 ✨</div>
+    <h1>Belajar Sambil <span class="highlight">Bermain!</span> 🎉</h1>
+    <p>Hai teman-teman! Ayo belajar membaca, menulis, dan berhitung dengan cara yang menyenangkan!</p>
+    <a href="#pelajaran" class="btn-main">🚀 Ayo Mulai!</a>
+    <div class="hero-emoji">📚 ✏️ 🎨 🎵</div>
+  </div>
+</header>
+
+<!-- PELAJARAN -->
+<section class="pelajaran" id="pelajaran">
+  <h2 class="section-title"><span class="emoji">📖</span> Pelajaran Seru</h2>
+  <p class="section-subtitle">Pilih pelajaran favoritmu dan mulai belajar!</p>
+
+  <div class="cards">
+    <div class="card math">
+      <div class="card-icon">🔢</div>
+      <h3>Berhitung</h3>
+      <p>Belajar angka 1 sampai 100 dengan lagu dan gambar lucu!</p>
+    </div>
+    <div class="card bindo">
+      <div class="card-icon">🔤</div>
+      <h3>Membaca</h3>
+      <p>Kenali huruf A sampai Z dan belajar membaca kata sederhana.</p>
+    </div>
+    <div class="card sains">
+      <div class="card-icon">🌱</div>
+      <h3>Alam Sekitar</h3>
+      <p>Yuk kenali hewan, tumbuhan, dan tubuh kita sendiri!</p>
+    </div>
+    <div class="card seni">
+      <div class="card-icon">🎨</div>
+      <h3>Menggambar</h3>
+      <p>Warnai gambar dan buat karya seni yang indah!</p>
+    </div>
+  </div>
+</section>
+
+<!-- AKTIVITAS -->
+<section class="aktivitas" id="aktivitas">
+  <h2 class="section-title"><span class="emoji">🎮</span> Permainan Seru</h2>
+  <p class="section-subtitle">Belajar sambil bermain itu paling asyik!</p>
+
+  <div class="game-grid">
+    <div class="game-card game1">
+      <div class="game-icon">🧩</div>
+      <h3>Tebak Gambar</h3>
+      <p>Tebak nama hewan dari gambarnya!</p>
+      <button class="btn-play" onclick="alert('🎉 Ayo main Tebak Gambar! (Demo)')">Main Yuk!</button>
+    </div>
+    <div class="game-card game2">
+      <div class="game-icon">🎵</div>
+      <h3>Nyanyi Bersama</h3>
+      <p>Belajar angka dan huruf lewat lagu ceria!</p>
+      <button class="btn-play" onclick="alert('🎵 La la la... Ayo nyanyi! (Demo)')">Nyanyi Yuk!</button>
+    </div>
+    <div class="game-card game3">
+      <div class="game-icon">🎯</div>
+      <h3>Hitung Cepat</h3>
+      <p>Hitung jumlah benda dengan cepat dan tepat!</p>
+      <button class="btn-play" onclick="alert('🎯 Siap? 1... 2... 3... Mulai! (Demo)')">Main Yuk!</button>
+    </div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section class="info" id="info">
+  <h2 class="section-title"><span class="emoji">🌟</span> Kelas Kami</h2>
+  <p class="section-subtitle">Kelas 1 yang penuh keceriaan dan semangat belajar!</p>
+
+  <div class="info-box">
+    <div class="info-item">
+      <div class="num">25</div>
+      <div class="label">👧👦 Teman Sekelas</div>
+    </div>
+    <div class="info-item">
+      <div class="num">4</div>
+      <div class="label">📚 Pelajaran Seru</div>
+    </div>
+    <div class="info-item">
+      <div class="num">100%</div>
+      <div class="label">😊 Senang Belajar</div>
+    </div>
+    <div class="info-item">
+      <div class="num">∞</div>
+      <div class="label">💡 Ide Kreatif</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="daftar">
+  <h2>🎈 Siap Belajar Bersama? 🎈</h2>
+  <p>Ayo bergabung dan jadilah anak hebat yang pintar dan ceria!</p>
+  <button class="btn-main" onclick="alert('📝 Terima kasih! Pendaftaran akan segera dibuka. (Demo)')">✏️ Daftar Sekarang</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Dibuat dengan <span class="heart">❤️</span> untuk anak-anak hebat Kelas 1 SD</p>
+  <p style="margin-top: 8px; opacity: 0.7;">© 2025 Kelas 1 Ceria — Belajar Sambil Bermain</p>
+</footer>
+
+<script>
+  // Efek scroll halus untuk link navigasi
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Animasi muncul saat di-scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.card, .game-card, .info-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s, transform 0.6s';
+    observer.observe(el);
+  });
+
+  // Efek klik kartu pelajaran
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      const title = card.querySelector('h3').textContent;
+      alert(`📚 Ayo belajar ${title}! (Demo)`);
+    });
+  });
+</script>
+</body>
+</html>
