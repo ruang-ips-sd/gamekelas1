@@ -469,6 +469,36 @@
   .card.sains { border-color: #34D399; background: linear-gradient(180deg, #FFFFFF, #ECFDF5); }
   .card.seni  { border-color: #C084FC; background: linear-gradient(180deg, #FFFFFF, #FAF5FF); }
 
+  /* Kartu pelajaran yang bisa diklik (link) */
+  a.card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .card-play {
+    display: inline-block;
+    margin-top: clamp(12px, 2.5vw, 16px);
+    background: linear-gradient(135deg, #60A5FA, #3B82F6);
+    color: #fff;
+    padding: clamp(8px, 1.8vw, 11px) clamp(18px, 3.5vw, 26px);
+    border-radius: 30px;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+    box-shadow: 0 5px 0 #2563EB, 0 8px 18px rgba(59,130,246,0.35);
+    transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    z-index: 2;
+  }
+  a.card:hover .card-play {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 #2563EB, 0 12px 24px rgba(59,130,246,0.45);
+  }
+  a.card:active .card-play {
+    transform: translateY(2px);
+    box-shadow: 0 3px 0 #2563EB;
+  }
+
   /* ====== GAME CARDS PREMIUM ====== */
   .game-grid {
     display: grid;
@@ -896,11 +926,16 @@
   <p class="section-subtitle">Pilih pelajaran favoritmu dan mulai belajar! 🌟</p>
 
   <div class="cards">
-    <div class="card math reveal">
+    <a href="https://ruang-ips-sd.github.io/gamekelas1/gamehitung.html"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="card math reveal">
       <div class="card-icon">🔢</div>
       <h3>Berhitung</h3>
       <p>Belajar angka 1 sampai 100 dengan lagu dan gambar lucu!</p>
-    </div>
+      <span class="card-play">🚀 Main Yuk!</span>
+    </a>
+
     <div class="card bindo reveal">
       <div class="card-icon">🔤</div>
       <h3>Membaca</h3>
@@ -1045,8 +1080,9 @@
     item.style.transitionDelay = (i * 0.08) + 's';
   });
 
-  // Klik kartu pelajaran
+  // Klik kartu pelajaran (kartu yang berupa link dibiarkan terbuka)
   document.querySelectorAll('.card').forEach(card => {
+    if (card.tagName === 'A') return; // jangan ganggu kartu yang punya link
     card.addEventListener('click', () => {
       const title = card.querySelector('h3').textContent;
       alert(`📚 Ayo belajar ${title}! (Demo)`);
