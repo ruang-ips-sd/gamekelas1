@@ -2,383 +2,853 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌈 Kelas 1 Ceria - Selamat Datang!</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#FFB6D9">
+<title>🌈 Kelas 1 Ceria - Belajar Sambil Bermain!</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
   body {
-    font-family: 'Fredoka', sans-serif;
-    background: #fff9e6;
-    color: #333;
+    font-family: 'Fredoka', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(180deg,
+      #FFB6D9 0%,
+      #FFD1E8 8%,
+      #B0E0FF 22%,
+      #DFF6FF 42%,
+      #FFF6CC 62%,
+      #FFE4C4 80%,
+      #FFF2D9 100%);
+    background-attachment: fixed;
+    color: #4a4a4a;
     overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
   }
 
-  h1, h2, h3 {
-    font-family: 'Baloo 2', cursive;
+  h1, h2, h3, h4 { font-family: 'Baloo 2', cursive; }
+
+  /* ====== BACKGROUND DECORATION ====== */
+  .bg-deco { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+
+  /* Sun */
+  .sun-deco {
+    position: absolute;
+    top: clamp(15px, 4vw, 40px);
+    right: clamp(15px, 4vw, 60px);
+    width: clamp(70px, 12vw, 110px);
+    height: clamp(70px, 12vw, 110px);
   }
+  .sun-core {
+    position: absolute; inset: 18%;
+    background: radial-gradient(circle, #FFF176 0%, #FFD93D 45%, #FFB300 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(255,217,61,0.9), 0 0 80px rgba(255,217,61,0.5);
+    animation: sunPulse 3s ease-in-out infinite;
+  }
+  .sun-rays {
+    position: absolute; inset: 0;
+    animation: raysSpin 30s linear infinite;
+  }
+  .sun-rays::before, .sun-rays::after {
+    content: ''; position: absolute; top: 50%; left: 50%;
+    width: 100%; height: 4px;
+    background: linear-gradient(90deg, rgba(255,217,61,0.75), transparent);
+    transform-origin: left center;
+    border-radius: 2px;
+  }
+  .sun-rays::before { transform: translate(-50%, -50%) rotate(0deg); }
+  .sun-rays::after { transform: translate(-50%, -50%) rotate(90deg); }
+  @keyframes sunPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+  @keyframes raysSpin { to { transform: rotate(360deg); } }
+
+  /* Clouds */
+  .cloud-deco {
+    position: absolute;
+    background: white;
+    border-radius: 60px;
+    opacity: 0.9;
+    filter: drop-shadow(0 6px 12px rgba(135,180,220,0.3));
+  }
+  .cloud-deco::before, .cloud-deco::after {
+    content: ''; position: absolute; background: white; border-radius: 50%;
+  }
+  .cloud-deco::before { width: 55%; height: 130%; top: -65%; left: 15%; }
+  .cloud-deco::after { width: 45%; height: 110%; top: -45%; left: 50%; }
+  .cloud-1 { top: 5%; left: -180px; width: 140px; height: 46px; animation: drift 45s linear infinite; }
+  .cloud-2 { top: 18%; left: -180px; width: 100px; height: 34px; animation: drift 55s linear infinite 8s; }
+  .cloud-3 { top: 28%; left: -180px; width: 160px; height: 52px; opacity: 0.75; animation: drift 65s linear infinite 20s; }
+  .cloud-4 { top: 12%; left: -180px; width: 80px; height: 28px; opacity: 0.85; animation: drift 50s linear infinite 30s; }
+  @keyframes drift { to { transform: translateX(calc(100vw + 300px)); } }
+
+  /* Butterflies */
+  .butterfly {
+    position: absolute;
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    animation: flutterFly 20s ease-in-out infinite;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+  }
+  .butterfly-1 { top: 15%; left: 8%; }
+  .butterfly-2 { top: 40%; right: 10%; animation-delay: 6s; font-size: clamp(1rem, 2vw, 1.5rem); }
+  .butterfly-3 { top: 60%; left: 15%; animation-delay: 12s; }
+  @keyframes flutterFly {
+    0%,100% { transform: translate(0,0) rotate(0); }
+    25% { transform: translate(40px,-30px) rotate(15deg); }
+    50% { transform: translate(80px,10px) rotate(-10deg); }
+    75% { transform: translate(30px,50px) rotate(8deg); }
+  }
+
+  /* Stars/Twinkle */
+  .twinkle {
+    position: absolute;
+    color: white;
+    text-shadow: 0 0 8px #FFD93D, 0 0 12px #FFD93D;
+    animation: twinkleAnim 3s infinite;
+    font-size: clamp(0.8rem, 1.8vw, 1.1rem);
+  }
+  .twinkle:nth-child(odd) { animation-delay: 1.5s; }
+  @keyframes twinkleAnim {
+    0%,100% { opacity: 0.3; transform: scale(0.85); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+
+  /* Balloons */
+  .balloon {
+    position: absolute;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    animation: balloonUp linear infinite;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+  }
+  @keyframes balloonUp {
+    0% { transform: translateY(100vh) rotate(-10deg); opacity: 0; }
+    10% { opacity: 0.85; }
+    90% { opacity: 0.85; }
+    100% { transform: translateY(-150px) rotate(10deg); opacity: 0; }
+  }
+
+  /* Heart floating */
+  .heart-float {
+    position: absolute;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    animation: heartUp linear infinite;
+    opacity: 0.7;
+  }
+  @keyframes heartUp {
+    0% { transform: translateY(100vh) scale(0.6); opacity: 0; }
+    15% { opacity: 0.75; }
+    85% { opacity: 0.75; }
+    100% { transform: translateY(-100px) scale(1); opacity: 0; }
+  }
+
+  /* Hills at bottom */
+  .hills-deco {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    width: 100%;
+    height: clamp(100px, 22vh, 200px);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .hills-deco svg { display: block; width: 100%; height: 100%; }
 
   /* ====== NAVBAR ====== */
   nav {
-    background: #ffde59;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 0 #e8b923;
     position: sticky;
     top: 0;
     z-index: 100;
+    padding: clamp(10px, 2vw, 16px) clamp(16px, 4vw, 40px);
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 2px dashed rgba(255,105,180,0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
   }
   .logo {
-    font-size: 1.6rem;
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
     font-weight: 800;
-    color: #d97706;
+    background: linear-gradient(135deg, #FF6B6B, #FF9A3D, #FFD93D);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    white-space: nowrap;
   }
-  .logo span { font-size: 2rem; animation: bounce 2s infinite; }
+  .logo .logo-icon {
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    -webkit-text-fill-color: initial;
+    animation: bounce 2s infinite;
+    display: inline-block;
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-8px) rotate(5deg); }
+  }
   nav ul {
     list-style: none;
     display: flex;
-    gap: 25px;
+    gap: clamp(4px, 1.5vw, 8px);
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
   nav a {
     text-decoration: none;
     color: #b45309;
-    font-weight: 600;
-    font-size: 1.05rem;
-    padding: 8px 16px;
+    font-weight: 700;
+    font-size: clamp(0.78rem, 2.2vw, 0.95rem);
+    padding: clamp(6px, 1.5vw, 8px) clamp(10px, 2.5vw, 16px);
     border-radius: 20px;
-    transition: 0.2s;
+    transition: 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: inline-block;
+    white-space: nowrap;
   }
   nav a:hover {
-    background: #fff;
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #FFD93D, #FFB84D);
+    color: white;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 15px rgba(255,184,77,0.4);
   }
 
   /* ====== HERO ====== */
   .hero {
-    background: linear-gradient(180deg, #87ceeb 0%, #b3e5fc 60%, #e1f5fe 100%);
-    padding: 60px 30px 120px;
+    padding: clamp(30px, 6vw, 70px) clamp(16px, 4vw, 40px) clamp(70px, 10vw, 130px);
     text-align: center;
     position: relative;
-    overflow: hidden;
+    z-index: 10;
   }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 80px;
-    background: #fff9e6;
-    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
   }
-  .sun {
-    position: absolute;
-    top: 30px;
-    right: 60px;
-    width: 80px;
-    height: 80px;
-    background: radial-gradient(circle, #fff176, #ffb300);
-    border-radius: 50%;
-    box-shadow: 0 0 40px #ffd54f;
-    animation: pulse 3s infinite;
-  }
-  .cloud {
-    position: absolute;
-    background: white;
-    border-radius: 50px;
-    opacity: 0.9;
-  }
-  .cloud::before, .cloud::after {
-    content: '';
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-  }
-  .cloud1 {
-    top: 60px; left: 10%;
-    width: 100px; height: 35px;
-    animation: float 6s infinite ease-in-out;
-  }
-  .cloud1::before { width: 50px; height: 50px; top: -25px; left: 15px; }
-  .cloud1::after { width: 40px; height: 40px; top: -18px; left: 50px; }
-  .cloud2 {
-    top: 130px; left: 70%;
-    width: 80px; height: 28px;
-    animation: float 8s infinite ease-in-out reverse;
-  }
-  .cloud2::before { width: 40px; height: 40px; top: -20px; left: 10px; }
-  .cloud2::after { width: 32px; height: 32px; top: -14px; left: 40px; }
 
-  .hero-content { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
+  /* Rainbow ribbon */
   .hero-badge {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     background: #fff;
-    color: #f59e0b;
-    padding: 8px 22px;
+    color: #FF6B6B;
+    padding: clamp(8px, 1.8vw, 11px) clamp(18px, 3.5vw, 26px);
     border-radius: 30px;
     font-weight: 700;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 0 #fbbf24;
-    font-size: 0.95rem;
+    margin-bottom: clamp(15px, 3vw, 25px);
+    box-shadow: 0 5px 0 #FFB6D9, 0 8px 20px rgba(255,182,217,0.4);
+    font-size: clamp(0.78rem, 2.4vw, 0.95rem);
+    animation: badgeBounce 3s infinite;
+    border: 2px solid #FFE0EF;
   }
+  @keyframes badgeBounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  .hero-badge .badge-icon {
+    animation: wiggle 1.5s infinite;
+    display: inline-block;
+  }
+  @keyframes wiggle {
+    0%,100% { transform: rotate(0deg); }
+    25% { transform: rotate(-15deg); }
+    75% { transform: rotate(15deg); }
+  }
+
+  /* Title with premium gradient */
   .hero h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(1.8rem, 6.5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: clamp(15px, 3vw, 25px);
+    letter-spacing: -0.5px;
     color: #fff;
-    text-shadow: 4px 4px 0 #f59e0b, 6px 6px 15px rgba(0,0,0,0.15);
-    margin-bottom: 20px;
-    line-height: 1.2;
+    text-shadow:
+      3px 3px 0 #FF6B6B,
+      6px 6px 0 #FFD93D,
+      8px 8px 20px rgba(255,107,107,0.3);
+    animation: titleFloat 4s ease-in-out infinite;
+  }
+  @keyframes titleFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
   }
   .hero h1 .highlight {
-    color: #fff176;
     display: inline-block;
+    background: linear-gradient(135deg, #FFF176, #FFD93D, #FFB84D);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(3px 3px 0 #FF6B6B) drop-shadow(0 0 20px rgba(255,217,61,0.6));
     animation: wiggle 2s infinite;
   }
+
   .hero p {
-    font-size: 1.25rem;
-    color: #333;
-    margin-bottom: 35px;
+    font-size: clamp(0.95rem, 2.6vw, 1.25rem);
+    color: #555;
+    margin-bottom: clamp(25px, 4vw, 40px);
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
     font-weight: 500;
+    line-height: 1.6;
   }
+
+  /* CTA Button Premium */
   .btn-main {
-    display: inline-block;
-    background: #ff6b6b;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF9A3D 100%);
     color: white;
-    padding: 18px 45px;
+    padding: clamp(15px, 3vw, 20px) clamp(32px, 6vw, 50px);
     border-radius: 50px;
-    font-size: 1.3rem;
-    font-weight: 700;
+    font-size: clamp(1rem, 2.8vw, 1.3rem);
+    font-weight: 800;
+    font-family: 'Baloo 2', cursive;
     text-decoration: none;
-    box-shadow: 0 8px 0 #d64545, 0 12px 25px rgba(0,0,0,0.15);
-    transition: 0.15s;
+    box-shadow:
+      0 8px 0 #D64545,
+      0 15px 35px rgba(255,107,107,0.4),
+      inset 0 -3px 0 rgba(0,0,0,0.1);
+    transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
     border: none;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.15);
   }
+  .btn-main::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: 0.6s;
+  }
+  .btn-main:hover::before { left: 100%; }
   .btn-main:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 0 #D64545, 0 20px 40px rgba(255,107,107,0.5);
+  }
+  .btn-main:active {
     transform: translateY(4px);
-    box-shadow: 0 4px 0 #d64545, 0 8px 15px rgba(0,0,0,0.15);
-  }
-  .btn-main:active { transform: translateY(8px); box-shadow: 0 0 0 #d64545; }
-
-  .hero-emoji {
-    font-size: 3rem;
-    margin-top: 40px;
-    letter-spacing: 15px;
-    animation: bounce 2.5s infinite;
+    box-shadow: 0 4px 0 #D64545, 0 8px 15px rgba(255,107,107,0.3);
   }
 
-  /* ====== SECTION UMUM ====== */
-  section { padding: 70px 30px; }
+  /* Floating emoji row */
+  .hero-emoji-row {
+    margin-top: clamp(30px, 5vw, 50px);
+    display: flex;
+    justify-content: center;
+    gap: clamp(12px, 3vw, 25px);
+    flex-wrap: wrap;
+  }
+  .hero-emoji-row span {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    display: inline-block;
+    animation: bounceEmoji 2.5s infinite;
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.15));
+  }
+  .hero-emoji-row span:nth-child(1) { animation-delay: 0s; }
+  .hero-emoji-row span:nth-child(2) { animation-delay: 0.3s; }
+  .hero-emoji-row span:nth-child(3) { animation-delay: 0.6s; }
+  .hero-emoji-row span:nth-child(4) { animation-delay: 0.9s; }
+  .hero-emoji-row span:nth-child(5) { animation-delay: 1.2s; }
+  @keyframes bounceEmoji {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+  }
+
+  /* ====== SECTIONS ====== */
+  section {
+    padding: clamp(50px, 8vw, 90px) clamp(16px, 4vw, 40px);
+    position: relative;
+    z-index: 10;
+  }
+
   .section-title {
     text-align: center;
-    font-size: clamp(1.8rem, 4vw, 2.6rem);
-    color: #4a4a4a;
-    margin-bottom: 15px;
-  }
-  .section-subtitle {
-    text-align: center;
-    color: #777;
-    font-size: 1.1rem;
-    margin-bottom: 50px;
+    font-size: clamp(1.6rem, 5vw, 2.8rem);
+    font-weight: 800;
+    color: #444;
+    margin-bottom: clamp(8px, 1.5vw, 15px);
+    text-shadow: 2px 2px 0 rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
   }
   .section-title .emoji {
     display: inline-block;
     animation: wiggle 1.5s infinite;
+    font-size: 1.1em;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: #777;
+    font-size: clamp(0.9rem, 2.3vw, 1.1rem);
+    margin-bottom: clamp(30px, 5vw, 55px);
+    font-weight: 500;
   }
 
-  /* ====== PELAJARAN ====== */
-  .pelajaran { background: #fff9e6; }
+  /* Wave divider */
+  .wave-divider {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    position: relative;
+  }
+
+  /* ====== PELAJARAN CARDS ====== */
   .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
+    gap: clamp(15px, 3vw, 25px);
     max-width: 1100px;
     margin: 0 auto;
   }
   .card {
-    background: white;
-    border-radius: 25px;
-    padding: 30px 20px;
+    background: #fff;
+    border-radius: 28px;
+    padding: clamp(25px, 4vw, 38px) clamp(18px, 3vw, 25px);
     text-align: center;
-    box-shadow: 0 8px 0 #e5e5e5, 0 12px 25px rgba(0,0,0,0.08);
-    transition: 0.3s;
+    box-shadow:
+      0 10px 0 rgba(0,0,0,0.06),
+      0 15px 35px rgba(0,0,0,0.08);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     cursor: pointer;
-    border: 3px solid transparent;
+    border: 4px solid;
+    position: relative;
+    overflow: hidden;
   }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 60%);
+    opacity: 0;
+    transition: 0.5s;
+    pointer-events: none;
+  }
+  .card:hover::before { opacity: 1; }
   .card:hover {
-    transform: translateY(-8px) rotate(-1deg);
-    box-shadow: 0 12px 0 #e5e5e5, 0 18px 35px rgba(0,0,0,0.12);
+    transform: translateY(-10px) rotate(-1deg) scale(1.02);
+    box-shadow:
+      0 15px 0 rgba(0,0,0,0.08),
+      0 25px 45px rgba(0,0,0,0.12);
   }
   .card-icon {
-    font-size: 4rem;
-    margin-bottom: 15px;
+    font-size: clamp(2.8rem, 6vw, 4rem);
+    margin-bottom: clamp(10px, 2vw, 15px);
     display: inline-block;
-    transition: 0.3s;
+    transition: transform 0.35s;
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.15));
   }
   .card:hover .card-icon { transform: scale(1.2) rotate(10deg); }
   .card h3 {
-    font-size: 1.4rem;
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-weight: 800;
     color: #333;
-    margin-bottom: 8px;
+    margin-bottom: clamp(6px, 1.2vw, 10px);
   }
   .card p {
     color: #777;
-    font-size: 0.95rem;
+    font-size: clamp(0.82rem, 2.2vw, 0.98rem);
     line-height: 1.5;
   }
-  .card.math   { border-color: #60a5fa; background: #eff6ff; }
-  .card.bindo  { border-color: #f87171; background: #fef2f2; }
-  .card.sains  { border-color: #34d399; background: #ecfdf5; }
-  .card.seni   { border-color: #c084fc; background: #faf5ff; }
+  .card.math  { border-color: #60A5FA; background: linear-gradient(180deg, #FFFFFF, #EFF6FF); }
+  .card.bindo { border-color: #F87171; background: linear-gradient(180deg, #FFFFFF, #FEF2F2); }
+  .card.sains { border-color: #34D399; background: linear-gradient(180deg, #FFFFFF, #ECFDF5); }
+  .card.seni  { border-color: #C084FC; background: linear-gradient(180deg, #FFFFFF, #FAF5FF); }
 
-  /* ====== AKTIVITAS / GAME ====== */
-  .aktivitas { background: #e0f2fe; }
+  /* ====== GAME CARDS PREMIUM ====== */
   .game-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 25px;
-    max-width: 1000px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(20px, 3.5vw, 30px);
+    max-width: 1050px;
     margin: 0 auto;
   }
   .game-card {
-    border-radius: 25px;
-    padding: 35px 25px;
+    border-radius: 28px;
+    padding: clamp(28px, 4.5vw, 42px) clamp(20px, 3vw, 28px);
     text-align: center;
     color: white;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 8px 0 rgba(0,0,0,0.15), 0 12px 25px rgba(0,0,0,0.1);
-    transition: 0.3s;
+    box-shadow:
+      0 10px 0 rgba(0,0,0,0.15),
+      0 18px 40px rgba(0,0,0,0.12);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     cursor: pointer;
+    text-decoration: none;
+    display: block;
+    border: none;
   }
-  .game-card:hover { transform: translateY(-6px) scale(1.02); }
   .game-card::before {
     content: '';
     position: absolute;
     top: -50%; right: -50%;
     width: 200%; height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
     transition: 0.5s;
+    pointer-events: none;
   }
   .game-card:hover::before { top: -30%; right: -30%; }
-  .game1 { background: linear-gradient(135deg, #667eea, #764ba2); }
-  .game2 { background: linear-gradient(135deg, #f093fb, #f5576c); }
-  .game3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-  .game-icon { font-size: 4rem; margin-bottom: 15px; }
-  .game-card h3 { font-size: 1.4rem; margin-bottom: 8px; }
-  .game-card p { font-size: 0.95rem; opacity: 0.95; margin-bottom: 20px; }
+  .game-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow:
+      0 15px 0 rgba(0,0,0,0.2),
+      0 25px 50px rgba(0,0,0,0.18);
+  }
+  .game-card:active { transform: translateY(-3px) scale(1); }
+
+  .game1 { background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); }
+  .game2 { background: linear-gradient(135deg, #F093FB 0%, #F5576C 100%); }
+  .game3 { background: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%); }
+
+  .game-icon {
+    font-size: clamp(3rem, 7vw, 4.5rem);
+    margin-bottom: clamp(12px, 2.5vw, 18px);
+    display: inline-block;
+    animation: gameIconFloat 3s ease-in-out infinite;
+    filter: drop-shadow(0 8px 15px rgba(0,0,0,0.2));
+  }
+  @keyframes gameIconFloat {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-12px) rotate(5deg); }
+  }
+  .game-card h3 {
+    font-size: clamp(1.15rem, 3.2vw, 1.6rem);
+    font-weight: 800;
+    margin-bottom: clamp(6px, 1.2vw, 10px);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .game-card p {
+    font-size: clamp(0.85rem, 2.2vw, 1rem);
+    opacity: 0.95;
+    margin-bottom: clamp(16px, 3vw, 24px);
+    line-height: 1.5;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
   .btn-play {
     background: white;
     color: #333;
-    padding: 10px 30px;
+    padding: clamp(10px, 2vw, 14px) clamp(24px, 4.5vw, 34px);
     border-radius: 30px;
-    font-weight: 700;
-    font-size: 1rem;
+    font-weight: 800;
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(0.88rem, 2.4vw, 1.05rem);
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
-    transition: 0.15s;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.25), 0 10px 20px rgba(0,0,0,0.15);
+    transition: all 0.15s;
     position: relative;
     z-index: 2;
+    text-decoration: none;
+    display: inline-block;
+    letter-spacing: 0.3px;
   }
-  .btn-play:hover { transform: scale(1.08); }
-  .btn-play:active { transform: scale(0.98); box-shadow: 0 1px 0 rgba(0,0,0,0.2); }
+  .btn-play:hover { transform: translateY(-3px); box-shadow: 0 9px 0 rgba(0,0,0,0.25), 0 14px 25px rgba(0,0,0,0.2); }
+  .btn-play:active { transform: translateY(2px); box-shadow: 0 3px 0 rgba(0,0,0,0.25); }
 
-  /* ====== GALERI / INFO ====== */
-  .info { background: #fff9e6; }
+  /* Ribbon "BARU" */
+  .game-card.baru::after {
+    content: '✨ BARU';
+    position: absolute;
+    top: 18px;
+    right: -42px;
+    background: linear-gradient(135deg, #FFD93D, #FF6B6B);
+    color: white;
+    padding: 8px 50px;
+    font-size: clamp(0.65rem, 1.8vw, 0.8rem);
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    transform: rotate(45deg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    z-index: 3;
+    font-family: 'Baloo 2', cursive;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+
+  /* ====== INFO BOX PREMIUM ====== */
+  .info {
+    background: linear-gradient(180deg, transparent, rgba(255,255,255,0.4), transparent);
+  }
   .info-box {
-    max-width: 900px;
+    max-width: 950px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: clamp(15px, 3vw, 22px);
   }
   .info-item {
-    background: white;
-    border-radius: 20px;
-    padding: 25px;
+    background: #fff;
+    border-radius: 24px;
+    padding: clamp(22px, 3.5vw, 30px) clamp(15px, 2.5vw, 22px);
     text-align: center;
-    box-shadow: 0 6px 0 #ffe082;
+    box-shadow:
+      0 8px 0 #FFD93D,
+      0 15px 30px rgba(255,217,61,0.2);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: 3px solid #FFFBEB;
+    position: relative;
+  }
+  .info-item:hover {
+    transform: translateY(-8px) rotate(-2deg);
+    box-shadow:
+      0 14px 0 #FFD93D,
+      0 22px 40px rgba(255,217,61,0.3);
   }
   .info-item .num {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 5vw, 2.8rem);
     font-weight: 800;
-    color: #f59e0b;
     font-family: 'Baloo 2', cursive;
+    background: linear-gradient(135deg, #FF6B6B, #FF9A3D, #FFD93D);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(255,107,107,0.2));
   }
   .info-item .label {
     color: #666;
-    font-weight: 500;
-    margin-top: 5px;
+    font-weight: 600;
+    margin-top: 6px;
+    font-size: clamp(0.8rem, 2.2vw, 0.95rem);
   }
 
-  /* ====== CTA ====== */
+  /* ====== CTA SECTION PREMIUM ====== */
   .cta {
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    background: linear-gradient(135deg, #FFB6D9 0%, #FFD1E8 50%, #FFE4C4 100%);
     text-align: center;
-    padding: 80px 30px;
+    padding: clamp(55px, 8vw, 90px) clamp(20px, 4vw, 40px);
     position: relative;
+    overflow: hidden;
+    border-radius: clamp(30px, 6vw, 60px) clamp(30px, 6vw, 60px) 0 0;
+    margin-top: clamp(20px, 4vw, 40px);
+  }
+  .cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.4) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.3) 0%, transparent 40%);
+    pointer-events: none;
   }
   .cta h2 {
-    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-size: clamp(1.5rem, 4.5vw, 2.6rem);
+    font-weight: 800;
     color: white;
-    text-shadow: 3px 3px 0 #f5576c;
-    margin-bottom: 20px;
+    text-shadow: 3px 3px 0 #FF6B6B, 5px 5px 15px rgba(255,107,107,0.3);
+    margin-bottom: clamp(12px, 2.5vw, 20px);
+    position: relative;
+    z-index: 2;
+    line-height: 1.2;
   }
-  .cta p { color: #fff; font-size: 1.2rem; margin-bottom: 35px; }
+  .cta p {
+    color: white;
+    font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+    margin-bottom: clamp(25px, 4vw, 40px);
+    font-weight: 600;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta .btn-main {
+    background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+    box-shadow: 0 8px 0 #2E8B7E, 0 15px 35px rgba(78,205,196,0.5);
+    position: relative;
+    z-index: 2;
+  }
+  .cta .btn-main:hover {
+    box-shadow: 0 12px 0 #2E8B7E, 0 20px 40px rgba(78,205,196,0.6);
+  }
+  .cta .btn-main:active {
+    box-shadow: 0 4px 0 #2E8B7E;
+  }
 
-  /* ====== FOOTER ====== */
+  /* CTA floating balloons */
+  .cta-balloon {
+    position: absolute;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    animation: ctaFloat 4s ease-in-out infinite;
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.15));
+  }
+  .cta-balloon:nth-child(1) { top: 15%; left: 8%; }
+  .cta-balloon:nth-child(2) { top: 25%; right: 10%; animation-delay: 1.5s; }
+  .cta-balloon:nth-child(3) { bottom: 20%; left: 12%; animation-delay: 0.8s; }
+  @keyframes ctaFloat {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+  }
+
+  /* ====== FOOTER PREMIUM ====== */
   footer {
-    background: #4a4a4a;
+    background: linear-gradient(180deg, #FF9A9E 0%, #FECFEF 100%);
     color: white;
     text-align: center;
-    padding: 30px;
-    font-size: 0.95rem;
+    padding: clamp(25px, 4vw, 40px) clamp(15px, 3vw, 30px);
+    font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+    position: relative;
+    z-index: 10;
   }
-  footer .heart { color: #ff6b6b; animation: pulse 1.5s infinite; display: inline-block; }
+  footer .footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(8px, 2vw, 15px);
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  footer .heart {
+    color: #FF6B6B;
+    animation: heartBeat 1.2s infinite;
+    display: inline-block;
+    font-size: 1.2em;
+    filter: drop-shadow(0 0 6px rgba(255,107,107,0.5));
+  }
+  @keyframes heartBeat {
+    0%,100% { transform: scale(1); }
+    25% { transform: scale(1.3); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.2); }
+  }
+  footer .footer-brand {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  footer .footer-copy {
+    opacity: 0.85;
+    font-size: clamp(0.7rem, 2vw, 0.85rem);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
 
-  /* ====== ANIMASI ====== */
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+  /* ====== SCROLL REVEAL ====== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  @keyframes float {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(20px); }
-  }
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.08); opacity: 0.9; }
-  }
-  @keyframes wiggle {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-8deg); }
-    75% { transform: rotate(8deg); }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* ====== RESPONSIVE ====== */
   @media (max-width: 768px) {
-    nav ul { display: none; }
-    .hero { padding: 40px 20px 100px; }
-    .hero-emoji { font-size: 2rem; letter-spacing: 8px; }
-    section { padding: 50px 20px; }
-    .sun { width: 55px; height: 55px; top: 20px; right: 20px; }
+    nav ul { gap: 2px; }
+    nav a { font-size: 0.72rem; padding: 6px 8px; }
+  }
+  @media (max-width: 500px) {
+    nav ul li:nth-child(3),
+    nav ul li:nth-child(4) {
+      display: none;
+    }
+    .hero h1 {
+      text-shadow:
+        2px 2px 0 #FF6B6B,
+        4px 4px 0 #FFD93D,
+        6px 6px 15px rgba(255,107,107,0.3);
+    }
+  }
+  @media (max-width: 380px) {
+    nav { padding: 8px 12px; }
+    nav ul li:nth-child(2) { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
+<!-- ====== BACKGROUND DECORATION ====== -->
+<div class="bg-deco">
+  <!-- Sun -->
+  <div class="sun-deco">
+    <div class="sun-rays"></div>
+    <div class="sun-core"></div>
+  </div>
+
+  <!-- Clouds -->
+  <div class="cloud-deco cloud-1"></div>
+  <div class="cloud-deco cloud-2"></div>
+  <div class="cloud-deco cloud-3"></div>
+  <div class="cloud-deco cloud-4"></div>
+
+  <!-- Butterflies -->
+  <div class="butterfly butterfly-1">🦋</div>
+  <div class="butterfly butterfly-2">🦋</div>
+  <div class="butterfly butterfly-3">🦋</div>
+
+  <!-- Twinkles -->
+  <div class="twinkle" style="top: 8%; left: 20%;">✨</div>
+  <div class="twinkle" style="top: 12%; left: 45%;">⭐</div>
+  <div class="twinkle" style="top: 5%; right: 25%;">✨</div>
+  <div class="twinkle" style="top: 22%; left: 30%;">⭐</div>
+  <div class="twinkle" style="top: 18%; right: 15%;">✨</div>
+
+  <!-- Balloons -->
+  <div class="balloon" style="left: 5%; animation-duration: 24s; animation-delay: 2s;">🎈</div>
+  <div class="balloon" style="left: 25%; animation-duration: 28s; animation-delay: 8s;">🎈</div>
+  <div class="balloon" style="left: 55%; animation-duration: 30s; animation-delay: 14s;">🎈</div>
+  <div class="balloon" style="left: 80%; animation-duration: 26s; animation-delay: 5s;">🎈</div>
+
+  <!-- Hearts -->
+  <div class="heart-float" style="left: 12%; animation-duration: 22s; animation-delay: 3s;">💗</div>
+  <div class="heart-float" style="left: 45%; animation-duration: 26s; animation-delay: 10s;">💕</div>
+  <div class="heart-float" style="left: 70%; animation-duration: 20s; animation-delay: 6s;">💖</div>
+  <div class="heart-float" style="left: 88%; animation-duration: 24s; animation-delay: 16s;">💗</div>
+</div>
+
+<!-- Hills at bottom -->
+<div class="hills-deco">
+  <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="hillA" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#B5E8A0"/>
+        <stop offset="100%" stop-color="#7CCB73"/>
+      </linearGradient>
+      <linearGradient id="hillB" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#9ADD8E"/>
+        <stop offset="100%" stop-color="#5FB756"/>
+      </linearGradient>
+      <linearGradient id="hillC" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#7FCC72"/>
+        <stop offset="100%" stop-color="#4CA042"/>
+      </linearGradient>
+    </defs>
+    <path fill="url(#hillA)" d="M0,110 Q360,50 720,110 T1440,110 L1440,200 L0,200 Z"/>
+    <path fill="url(#hillB)" d="M0,140 Q360,90 720,140 T1440,140 L1440,200 L0,200 Z"/>
+    <path fill="url(#hillC)" d="M0,165 Q360,130 720,165 T1440,165 L1440,200 L0,200 Z"/>
+  </svg>
+</div>
+
+<!-- ====== NAVBAR ====== -->
 <nav>
-  <div class="logo"><span>🎒</span> Kelas 1 Ceria</div>
+  <div class="logo">
+    <span class="logo-icon">🎒</span>
+    <span>Kelas 1 Ceria</span>
+  </div>
   <ul>
     <li><a href="#pelajaran">📚 Pelajaran</a></li>
     <li><a href="#aktivitas">🎮 Permainan</a></li>
@@ -387,43 +857,61 @@
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- ====== HERO ====== -->
 <header class="hero">
-  <div class="sun"></div>
-  <div class="cloud cloud1"></div>
-  <div class="cloud cloud2"></div>
-
   <div class="hero-content">
-    <div class="hero-badge">✨ Selamat Datang di Kelas 1 ✨</div>
-    <h1>Belajar Sambil <span class="highlight">Bermain!</span> 🎉</h1>
-    <p>Hai teman-teman! Ayo belajar membaca, menulis, dan berhitung dengan cara yang menyenangkan!</p>
-    <a href="#pelajaran" class="btn-main">🚀 Ayo Mulai!</a>
-    <div class="hero-emoji">📚 ✏️ 🎨 🎵</div>
+    <div class="hero-badge">
+      <span class="badge-icon">✨</span>
+      Selamat Datang di Kelas 1
+      <span class="badge-icon">✨</span>
+    </div>
+    <h1>
+      Belajar Sambil<br>
+      <span class="highlight">Bermain!</span> 🎉
+    </h1>
+    <p>
+      Hai teman-teman hebat! Ayo belajar membaca, menulis, dan berhitung dengan cara yang paling menyenangkan! 🌈
+    </p>
+    <a href="#pelajaran" class="btn-main">
+      🚀 Ayo Mulai Petualangan!
+    </a>
+
+    <div class="hero-emoji-row">
+      <span>📚</span>
+      <span>✏️</span>
+      <span>🎨</span>
+      <span>🎵</span>
+      <span>🌈</span>
+    </div>
   </div>
 </header>
 
-<!-- PELAJARAN -->
+<!-- ====== PELAJARAN ====== -->
 <section class="pelajaran" id="pelajaran">
-  <h2 class="section-title"><span class="emoji">📖</span> Pelajaran Seru</h2>
-  <p class="section-subtitle">Pilih pelajaran favoritmu dan mulai belajar!</p>
+  <h2 class="section-title">
+    <span class="emoji">📖</span>
+    Pelajaran Seru
+    <span class="emoji">📖</span>
+  </h2>
+  <p class="section-subtitle">Pilih pelajaran favoritmu dan mulai belajar! 🌟</p>
 
   <div class="cards">
-    <div class="card math">
+    <div class="card math reveal">
       <div class="card-icon">🔢</div>
       <h3>Berhitung</h3>
       <p>Belajar angka 1 sampai 100 dengan lagu dan gambar lucu!</p>
     </div>
-    <div class="card bindo">
+    <div class="card bindo reveal">
       <div class="card-icon">🔤</div>
       <h3>Membaca</h3>
       <p>Kenali huruf A sampai Z dan belajar membaca kata sederhana.</p>
     </div>
-    <div class="card sains">
+    <div class="card sains reveal">
       <div class="card-icon">🌱</div>
       <h3>Alam Sekitar</h3>
       <p>Yuk kenali hewan, tumbuhan, dan tubuh kita sendiri!</p>
     </div>
-    <div class="card seni">
+    <div class="card seni reveal">
       <div class="card-icon">🎨</div>
       <h3>Menggambar</h3>
       <p>Warnai gambar dan buat karya seni yang indah!</p>
@@ -431,104 +919,155 @@
   </div>
 </section>
 
-<!-- AKTIVITAS -->
+<!-- ====== AKTIVITAS ====== -->
 <section class="aktivitas" id="aktivitas">
-  <h2 class="section-title"><span class="emoji">🎮</span> Permainan Seru</h2>
-  <p class="section-subtitle">Belajar sambil bermain itu paling asyik!</p>
+  <h2 class="section-title">
+    <span class="emoji">🎮</span>
+    Permainan Seru
+    <span class="emoji">🎮</span>
+  </h2>
+  <p class="section-subtitle">Belajar sambil bermain itu paling asyik! 🎉</p>
 
   <div class="game-grid">
-    <div class="game-card game1">
+    <div class="game-card game1 reveal">
       <div class="game-icon">🧩</div>
       <h3>Tebak Gambar</h3>
       <p>Tebak nama hewan dari gambarnya!</p>
-      <button class="btn-play" onclick="alert('🎉 Ayo main Tebak Gambar! (Demo)')">Main Yuk!</button>
+      <button class="btn-play" onclick="alert('🎉 Ayo main Tebak Gambar! (Demo)')">Main Yuk! 🎮</button>
     </div>
-    <div class="game-card game2">
+
+    <div class="game-card game2 reveal">
       <div class="game-icon">🎵</div>
       <h3>Nyanyi Bersama</h3>
       <p>Belajar angka dan huruf lewat lagu ceria!</p>
-      <button class="btn-play" onclick="alert('🎵 La la la... Ayo nyanyi! (Demo)')">Nyanyi Yuk!</button>
+      <button class="btn-play" onclick="alert('🎵 La la la... Ayo nyanyi! (Demo)')">Nyanyi Yuk! 🎤</button>
     </div>
-    <div class="game-card game3">
+
+    <a href="https://ruang-ips-sd.github.io/gamekelas1/gamehitung.html"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="game-card game3 baru reveal">
       <div class="game-icon">🎯</div>
       <h3>Hitung Cepat</h3>
       <p>Hitung jumlah benda dengan cepat dan tepat!</p>
-      <button class="btn-play" onclick="alert('🎯 Siap? 1... 2... 3... Mulai! (Demo)')">Main Yuk!</button>
-    </div>
+      <span class="btn-play">🚀 Main Yuk!</span>
+    </a>
   </div>
 </section>
 
-<!-- INFO -->
+<!-- ====== INFO ====== -->
 <section class="info" id="info">
-  <h2 class="section-title"><span class="emoji">🌟</span> Kelas Kami</h2>
-  <p class="section-subtitle">Kelas 1 yang penuh keceriaan dan semangat belajar!</p>
+  <h2 class="section-title">
+    <span class="emoji">🌟</span>
+    Kelas Kami
+    <span class="emoji">🌟</span>
+  </h2>
+  <p class="section-subtitle">Kelas 1 yang penuh keceriaan dan semangat belajar! 💖</p>
 
   <div class="info-box">
-    <div class="info-item">
+    <div class="info-item reveal">
       <div class="num">25</div>
       <div class="label">👧👦 Teman Sekelas</div>
     </div>
-    <div class="info-item">
+    <div class="info-item reveal">
       <div class="num">4</div>
       <div class="label">📚 Pelajaran Seru</div>
     </div>
-    <div class="info-item">
+    <div class="info-item reveal">
       <div class="num">100%</div>
       <div class="label">😊 Senang Belajar</div>
     </div>
-    <div class="info-item">
+    <div class="info-item reveal">
       <div class="num">∞</div>
       <div class="label">💡 Ide Kreatif</div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
+<!-- ====== CTA ====== -->
 <section class="cta" id="daftar">
+  <div class="cta-balloon">🎈</div>
+  <div class="cta-balloon">🎈</div>
+  <div class="cta-balloon">🎈</div>
+
   <h2>🎈 Siap Belajar Bersama? 🎈</h2>
   <p>Ayo bergabung dan jadilah anak hebat yang pintar dan ceria!</p>
-  <button class="btn-main" onclick="alert('📝 Terima kasih! Pendaftaran akan segera dibuka. (Demo)')">✏️ Daftar Sekarang</button>
+  <button class="btn-main" onclick="alert('📝 Terima kasih! Pendaftaran akan segera dibuka. (Demo)')">
+    ✏️ Daftar Sekarang!
+  </button>
 </section>
 
-<!-- FOOTER -->
+<!-- ====== FOOTER ====== -->
 <footer>
+  <div class="footer-top">
+    <span class="footer-brand">🌈 Kelas 1 Ceria</span>
+  </div>
   <p>Dibuat dengan <span class="heart">❤️</span> untuk anak-anak hebat Kelas 1 SD</p>
-  <p style="margin-top: 8px; opacity: 0.7;">© 2025 Kelas 1 Ceria — Belajar Sambil Bermain</p>
+  <p class="footer-copy" style="margin-top: 8px;">
+    © 2025 Kelas 1 Ceria — Belajar Sambil Bermain 🌟
+  </p>
 </footer>
 
 <script>
-  // Efek scroll halus untuk link navigasi
+  // Smooth scroll untuk link navigasi
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       e.preventDefault();
       const target = document.querySelector(a.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (target) {
+        const offset = 80;
+        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
     });
   });
 
-  // Animasi muncul saat di-scroll
+  // Scroll reveal animation
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
 
-  document.querySelectorAll('.card, .game-card, .info-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s, transform 0.6s';
-    observer.observe(el);
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Stagger animation untuk cards
+  document.querySelectorAll('.cards .card').forEach((card, i) => {
+    card.style.transitionDelay = (i * 0.08) + 's';
+  });
+  document.querySelectorAll('.game-grid .game-card').forEach((card, i) => {
+    card.style.transitionDelay = (i * 0.1) + 's';
+  });
+  document.querySelectorAll('.info-box .info-item').forEach((item, i) => {
+    item.style.transitionDelay = (i * 0.08) + 's';
   });
 
-  // Efek klik kartu pelajaran
+  // Klik kartu pelajaran
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', () => {
       const title = card.querySelector('h3').textContent;
       alert(`📚 Ayo belajar ${title}! (Demo)`);
     });
+  });
+
+  // Parallax ringan untuk hero saat scroll
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const scrolled = window.pageYOffset;
+        const hero = document.querySelector('.hero-content');
+        if (hero && scrolled < 600) {
+          hero.style.transform = `translateY(${scrolled * 0.15}px)`;
+          hero.style.opacity = Math.max(0, 1 - scrolled / 700);
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
   });
 </script>
 </body>
