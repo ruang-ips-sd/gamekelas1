@@ -20,67 +20,39 @@
     position: relative;
     padding-bottom: env(safe-area-inset-bottom, 0);
     background: linear-gradient(180deg,
-      #7EC8F5 0%,
-      #A7DBF5 12%,
-      #C7E9F5 25%,
-      #E4F4FA 40%,
-      #FFF6CC 58%,
-      #FFE4C4 75%,
-      #FFD9E8 90%,
-      #FFC7DC 100%);
+      #7EC8F5 0%, #A7DBF5 12%, #C7E9F5 25%, #E4F4FA 40%,
+      #FFF6CC 58%, #FFE4C4 75%, #FFD9E8 90%, #FFC7DC 100%);
     background-attachment: fixed;
     touch-action: manipulation;
   }
   h1, h2, h3, h4 { font-family: 'Baloo 2', cursive; }
 
-  /* ============================================================
-     BACKGROUND WORLD
-     ============================================================ */
-  .bg-world {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
+  /* ============================================================ BACKGROUND WORLD */
+  .bg-world { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
   .bg-sky {
     position: absolute; inset: 0;
     background: linear-gradient(180deg,
-      rgba(126,200,245,0.35) 0%,
-      rgba(231,180,241,0.15) 35%,
-      rgba(255,246,204,0.25) 65%,
-      rgba(255,217,232,0.35) 100%);
+      rgba(126,200,245,0.35) 0%, rgba(231,180,241,0.15) 35%,
+      rgba(255,246,204,0.25) 65%, rgba(255,217,232,0.35) 100%);
   }
-
-  /* Sun */
   .sun {
     position: absolute;
     top: max(20px, env(safe-area-inset-top, 0px));
     right: clamp(15px, 4vw, 70px);
-    width: clamp(70px, 14vw, 150px);
-    height: clamp(70px, 14vw, 150px);
+    width: clamp(70px, 14vw, 150px); height: clamp(70px, 14vw, 150px);
   }
   .sun-core {
     position: absolute; inset: 20%;
     background: radial-gradient(circle, #FFF59D 0%, #FFD93D 45%, #FFB300 85%, #FF9800 100%);
     border-radius: 50%;
-    box-shadow:
-      0 0 40px rgba(255,217,61,0.9),
-      0 0 80px rgba(255,217,61,0.6),
-      0 0 120px rgba(255,217,61,0.4);
+    box-shadow: 0 0 40px rgba(255,217,61,0.9), 0 0 80px rgba(255,217,61,0.6), 0 0 120px rgba(255,217,61,0.4);
     animation: sunPulse 3s ease-in-out infinite;
   }
-  .sun-rays {
-    position: absolute; inset: 0;
-    animation: raysSpin 40s linear infinite;
-  }
+  .sun-rays { position: absolute; inset: 0; animation: raysSpin 40s linear infinite; }
   .sun-rays span {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 60%; height: 5px;
+    position: absolute; top: 50%; left: 50%; width: 60%; height: 5px;
     background: linear-gradient(90deg, rgba(255,217,61,0.85), rgba(255,217,61,0));
-    border-radius: 3px;
-    transform-origin: left center;
+    border-radius: 3px; transform-origin: left center;
   }
   .sun-rays span:nth-child(1) { transform: translate(0,-50%) rotate(0deg); }
   .sun-rays span:nth-child(2) { transform: translate(0,-50%) rotate(45deg); }
@@ -90,22 +62,16 @@
   .sun-rays span:nth-child(6) { transform: translate(0,-50%) rotate(225deg); }
   .sun-rays span:nth-child(7) { transform: translate(0,-50%) rotate(270deg); }
   .sun-rays span:nth-child(8) { transform: translate(0,-50%) rotate(315deg); }
-  @keyframes sunPulse {
-    0%,100% { transform: scale(1); filter: brightness(1); }
-    50% { transform: scale(1.08); filter: brightness(1.15); }
-  }
+  @keyframes sunPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); filter: brightness(1.15); } }
   @keyframes raysSpin { to { transform: rotate(360deg); } }
 
-  /* Clouds */
   .bg-cloud {
     position: absolute;
     background: linear-gradient(180deg, #FFFFFF 0%, #F0F8FF 100%);
     border-radius: 80px;
     filter: drop-shadow(0 8px 16px rgba(135,180,220,0.3));
   }
-  .bg-cloud::before, .bg-cloud::after {
-    content: ''; position: absolute; background: inherit; border-radius: 50%;
-  }
+  .bg-cloud::before, .bg-cloud::after { content: ''; position: absolute; background: inherit; border-radius: 50%; }
   .bg-cloud::before { width: 55%; height: 140%; top: -70%; left: 12%; }
   .bg-cloud::after { width: 45%; height: 120%; top: -50%; left: 52%; }
   .bg-cloud.c1 { top: 4%; left: -220px; width: 150px; height: 48px; opacity: 0.95; animation: drift 55s linear infinite; }
@@ -115,13 +81,7 @@
   .bg-cloud.c5 { top: 33%; left: -220px; width: 130px; height: 42px; opacity: 0.65; animation: drift 78s linear infinite 45s; }
   @keyframes drift { to { transform: translateX(calc(100vw + 320px)); } }
 
-  /* Birds */
-  .bird {
-    position: absolute;
-    font-size: clamp(0.9rem, 2vw, 1.4rem);
-    animation: birdFly 40s linear infinite;
-    opacity: 0.85;
-  }
+  .bird { position: absolute; font-size: clamp(0.9rem, 2vw, 1.4rem); animation: birdFly 40s linear infinite; opacity: 0.85; }
   .bird.b1 { top: 12%; animation-delay: 0s; }
   .bird.b2 { top: 18%; animation-delay: 3s; font-size: clamp(0.7rem, 1.5vw, 1rem); }
   .bird.b3 { top: 8%; animation-delay: 15s; }
@@ -133,10 +93,8 @@
     100% { transform: translateX(calc(100vw + 60px)) translateY(0); opacity: 0; }
   }
 
-  /* Twinkles */
   .twinkle {
-    position: absolute;
-    color: white;
+    position: absolute; color: white;
     text-shadow: 0 0 8px #FFD93D, 0 0 15px #FFD93D, 0 0 25px #FFB6D9;
     animation: twinkleAnim 3s infinite;
     font-size: clamp(0.7rem, 1.6vw, 1.1rem);
@@ -146,7 +104,6 @@
     50% { opacity: 1; transform: scale(1.3) rotate(180deg); }
   }
 
-  /* Balloons */
   .balloon {
     position: absolute;
     font-size: clamp(1.5rem, 3.5vw, 2.3rem);
@@ -160,7 +117,6 @@
     100% { transform: translateY(-180px) rotate(8deg); opacity: 0; }
   }
 
-  /* Butterflies */
   .butterfly {
     position: absolute;
     font-size: clamp(1.1rem, 2.4vw, 1.7rem);
@@ -174,7 +130,6 @@
     75% { transform: translate(40px,60px) rotate(8deg); }
   }
 
-  /* Hills */
   .hills {
     position: absolute;
     bottom: 0; left: 0; right: 0;
@@ -183,7 +138,6 @@
   }
   .hills svg { display: block; width: 100%; height: 100%; }
 
-  /* Trees & ground */
   .ground-deco {
     position: absolute;
     bottom: clamp(30px, 8vh, 80px);
@@ -205,10 +159,7 @@
   .ground-deco .tree:nth-child(2) { animation-delay: 0.5s; font-size: clamp(1.8rem, 5vw, 3.2rem); }
   .ground-deco .tree:nth-child(3) { animation-delay: 1s; }
   .ground-deco .tree:nth-child(4) { animation-delay: 1.5s; font-size: clamp(1.6rem, 4.5vw, 3rem); }
-  @keyframes treeSway {
-    0%,100% { transform: rotate(-3deg); }
-    50% { transform: rotate(3deg); }
-  }
+  @keyframes treeSway { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
 
   .grass-row {
     position: absolute;
@@ -234,9 +185,7 @@
     50% { transform: rotate(5deg) translateY(-3px); }
   }
 
-  /* ============================================================
-     SCREEN CONTAINER
-     ============================================================ */
+  /* ============================================================ SCREEN */
   .screen {
     display: none;
     min-height: 100vh;
@@ -254,9 +203,7 @@
   }
   .screen.active { display: flex; }
 
-  /* ============================================================
-     START SCREEN
-     ============================================================ */
+  /* ============================================================ START */
   .start-wrap {
     flex: 1;
     display: flex;
@@ -276,22 +223,14 @@
     border-radius: 30px;
     font-weight: 700;
     margin-bottom: clamp(15px, 3vw, 25px);
-    box-shadow:
-      0 6px 0 #FCD34D,
-      0 12px 25px rgba(252,211,77,0.4),
-      inset 0 -3px 0 rgba(0,0,0,0.05);
+    box-shadow: 0 6px 0 #FCD34D, 0 12px 25px rgba(252,211,77,0.4), inset 0 -3px 0 rgba(0,0,0,0.05);
     font-size: clamp(0.75rem, 2.2vw, 1rem);
     border: 2px solid #FEF3C7;
     animation: badgeFloat 3s ease-in-out infinite;
   }
-  @keyframes badgeFloat {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-  }
-  .start-mascot-wrap {
-    position: relative;
-    margin-bottom: clamp(10px, 2vw, 20px);
-  }
+  @keyframes badgeFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+  .start-mascot-wrap { position: relative; margin-bottom: clamp(10px, 2vw, 20px); }
   .start-mascot {
     font-size: clamp(4.5rem, 18vw, 9rem);
     display: inline-block;
@@ -308,8 +247,7 @@
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: clamp(160px, 42vw, 280px);
-    height: clamp(160px, 42vw, 280px);
+    width: clamp(160px, 42vw, 280px); height: clamp(160px, 42vw, 280px);
     background: radial-gradient(circle, rgba(52,211,153,0.45) 0%, rgba(52,211,153,0.15) 40%, transparent 70%);
     border-radius: 50%;
     animation: glowPulse 2.5s ease-in-out infinite;
@@ -319,18 +257,8 @@
     0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.7; }
     50% { transform: translate(-50%,-50%) scale(1.2); opacity: 1; }
   }
-  .sparkle-ring {
-    position: absolute;
-    inset: -20px;
-    animation: ringRotate 8s linear infinite;
-    pointer-events: none;
-    z-index: 3;
-  }
-  .sparkle-ring span {
-    position: absolute;
-    font-size: clamp(1rem, 2.5vw, 1.4rem);
-    filter: drop-shadow(0 0 8px #FCD34D);
-  }
+  .sparkle-ring { position: absolute; inset: -20px; animation: ringRotate 8s linear infinite; pointer-events: none; z-index: 3; }
+  .sparkle-ring span { position: absolute; font-size: clamp(1rem, 2.5vw, 1.4rem); filter: drop-shadow(0 0 8px #FCD34D); }
   .sparkle-ring span:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
   .sparkle-ring span:nth-child(2) { top: 50%; right: 0; transform: translateY(-50%); }
   .sparkle-ring span:nth-child(3) { bottom: 0; left: 50%; transform: translateX(-50%); }
@@ -341,34 +269,22 @@
     font-size: clamp(1.8rem, 8vw, 4rem);
     font-weight: 800;
     color: #fff;
-    text-shadow:
-      3px 3px 0 #10B981,
-      6px 6px 0 #34D399,
-      9px 9px 0 rgba(16,185,129,0.4),
-      12px 12px 25px rgba(16,185,129,0.4);
+    text-shadow: 3px 3px 0 #10B981, 6px 6px 0 #34D399, 9px 9px 0 rgba(16,185,129,0.4), 12px 12px 25px rgba(16,185,129,0.4);
     margin-bottom: clamp(10px, 2vw, 16px);
     line-height: 1.05;
     letter-spacing: -0.5px;
     animation: titleFloat 4s ease-in-out infinite;
   }
-  @keyframes titleFloat {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
+  @keyframes titleFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
   .start-title .grad-text {
     background: linear-gradient(135deg, #FEF3C7, #FCD34D, #F59E0B, #EF4444);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
     filter: drop-shadow(3px 3px 0 #10B981) drop-shadow(6px 6px 20px rgba(245,158,11,0.6));
     display: inline-block;
     animation: gradientShift 4s ease infinite;
     background-size: 200% 200%;
   }
-  @keyframes gradientShift {
-    0%,100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
+  @keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
   .start-sub {
     font-size: clamp(0.9rem, 2.5vw, 1.2rem);
     color: #555;
@@ -391,12 +307,7 @@
     font-weight: 800;
     font-family: 'Baloo 2', cursive;
     text-decoration: none;
-    box-shadow:
-      0 10px 0 #047857,
-      0 20px 45px rgba(52,211,153,0.5),
-      0 8px 20px rgba(16,185,129,0.4),
-      inset 0 -4px 0 rgba(0,0,0,0.15),
-      inset 0 3px 0 rgba(255,255,255,0.3);
+    box-shadow: 0 10px 0 #047857, 0 20px 45px rgba(52,211,153,0.5), 0 8px 20px rgba(16,185,129,0.4), inset 0 -4px 0 rgba(0,0,0,0.15), inset 0 3px 0 rgba(255,255,255,0.3);
     transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
     border: none;
     cursor: pointer;
@@ -414,26 +325,9 @@
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
     animation: shineSweep 3s infinite;
   }
-  @keyframes shineSweep {
-    0% { left: -100%; }
-    50%, 100% { left: 100%; }
-  }
-  .btn-start:hover {
-    transform: translateY(-5px);
-    box-shadow:
-      0 15px 0 #047857,
-      0 28px 55px rgba(52,211,153,0.6),
-      0 12px 25px rgba(16,185,129,0.5),
-      inset 0 -4px 0 rgba(0,0,0,0.15),
-      inset 0 3px 0 rgba(255,255,255,0.3);
-  }
-  .btn-start:active {
-    transform: translateY(5px);
-    box-shadow:
-      0 4px 0 #047857,
-      0 8px 15px rgba(52,211,153,0.3),
-      inset 0 -2px 0 rgba(0,0,0,0.15);
-  }
+  @keyframes shineSweep { 0% { left: -100%; } 50%, 100% { left: 100%; } }
+  .btn-start:hover { transform: translateY(-5px); }
+  .btn-start:active { transform: translateY(5px); }
 
   .start-emoji-row {
     margin-top: clamp(25px, 4vw, 40px);
@@ -459,9 +353,191 @@
     50% { transform: translateY(-15px) rotate(5deg) scale(1.1); }
   }
 
-  /* ============================================================
-     LEVEL SCREEN
-     ============================================================ */
+  /* ============================================================ MENU UTAMA 8 GAME */
+  .menu-head {
+    text-align: center;
+    padding: clamp(15px, 3vw, 25px) 10px clamp(10px, 2vw, 18px);
+  }
+  .menu-head h2 {
+    font-size: clamp(1.4rem, 5vw, 2.6rem);
+    font-weight: 800;
+    color: white;
+    text-shadow: 3px 3px 0 #10B981, 5px 5px 0 #34D399, 8px 8px 20px rgba(16,185,129,0.4);
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .menu-head p {
+    color: #555;
+    font-size: clamp(0.85rem, 2.2vw, 1.05rem);
+    font-weight: 600;
+    background: rgba(255,255,255,0.75);
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 3px 0 rgba(255,255,255,0.5);
+  }
+
+  .game-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+    gap: clamp(10px, 2vw, 16px);
+    padding: clamp(8px, 2vw, 12px);
+  }
+
+  .game-menu-card {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFF9F0 100%);
+    border-radius: 22px;
+    padding: clamp(14px, 2.8vw, 22px) clamp(10px, 2vw, 16px);
+    text-align: center;
+    box-shadow: 0 10px 0 rgba(0,0,0,0.1), 0 20px 35px rgba(0,0,0,0.1), inset 0 -3px 0 rgba(0,0,0,0.05), inset 0 3px 0 rgba(255,255,255,0.8);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
+    border: 4px solid #D1FAE5;
+    position: relative;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+  }
+  .game-menu-card::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.7) 50%, transparent 70%);
+    transform: rotate(-45deg);
+    opacity: 0;
+    transition: 0.6s;
+    pointer-events: none;
+  }
+  .game-menu-card:hover::before { opacity: 1; animation: shineLoop 0.8s; }
+  @keyframes shineLoop {
+    from { transform: translateX(-100%) rotate(-45deg); }
+    to { transform: translateX(100%) rotate(-45deg); }
+  }
+  .game-menu-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 16px 0 rgba(0,0,0,0.12), 0 30px 50px rgba(0,0,0,0.15), inset 0 -3px 0 rgba(0,0,0,0.05), inset 0 3px 0 rgba(255,255,255,0.8);
+    border-color: #34D399;
+  }
+  .game-menu-card .num-badge {
+    position: absolute;
+    top: 10px; left: 10px;
+    background: linear-gradient(135deg, #34D399, #10B981);
+    color: white;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.8rem;
+    font-family: 'Baloo 2', cursive;
+    box-shadow: 0 3px 0 #047857, inset 0 2px 0 rgba(255,255,255,0.4);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    z-index: 2;
+  }
+  .game-menu-card .mode-icon {
+    font-size: clamp(2.2rem, 6.5vw, 3.2rem);
+    display: inline-block;
+    margin: 8px 0 6px;
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.18));
+    animation: iconBob 3s ease-in-out infinite;
+  }
+  @keyframes iconBob {
+    0%,100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-6px) rotate(3deg); }
+  }
+  .game-menu-card h3 {
+    font-size: clamp(0.88rem, 2.4vw, 1.08rem);
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+  .game-menu-card .mode-desc {
+    font-size: clamp(0.66rem, 1.75vw, 0.78rem);
+    color: #777;
+    line-height: 1.35;
+    margin-bottom: 8px;
+    min-height: 2.6em;
+    flex-grow: 1;
+  }
+  .game-menu-card .mode-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, #DBEAFE, #BFDBFE);
+    color: #1E40AF;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: clamp(0.6rem, 1.65vw, 0.72rem);
+    font-weight: 800;
+    border: 2px solid #93C5FD;
+    box-shadow: 0 3px 0 #60A5FA;
+    white-space: nowrap;
+  }
+  .game-menu-card.c-green { border-color: #D1FAE5; }
+  .game-menu-card.c-green .num-badge { background: linear-gradient(135deg, #34D399, #10B981); box-shadow: 0 3px 0 #047857; }
+  .game-menu-card.c-green .mode-tag { background: linear-gradient(135deg, #D1FAE5, #A7F3D0); color: #047857; border-color: #6EE7B7; box-shadow: 0 3px 0 #10B981; }
+
+  .game-menu-card.c-purple { border-color: #C7D2FE; }
+  .game-menu-card.c-purple .num-badge { background: linear-gradient(135deg, #818CF8, #6366F1); box-shadow: 0 3px 0 #4338CA; }
+  .game-menu-card.c-purple .mode-tag { background: linear-gradient(135deg, #EEF2FF, #C7D2FE); color: #3730A3; border-color: #818CF8; box-shadow: 0 3px 0 #6366F1; }
+
+  .game-menu-card.c-pink { border-color: #FBCFE8; }
+  .game-menu-card.c-pink .num-badge { background: linear-gradient(135deg, #F472B6, #EC4899); box-shadow: 0 3px 0 #BE185D; }
+  .game-menu-card.c-pink .mode-tag { background: linear-gradient(135deg, #FDF2F8, #FBCFE8); color: #9D174D; border-color: #F472B6; box-shadow: 0 3px 0 #EC4899; }
+
+  .game-menu-card.c-orange { border-color: #FDE68A; }
+  .game-menu-card.c-orange .num-badge { background: linear-gradient(135deg, #FBBF24, #F59E0B); box-shadow: 0 3px 0 #B45309; }
+  .game-menu-card.c-orange .mode-tag { background: linear-gradient(135deg, #FEF3C7, #FDE68A); color: #92400E; border-color: #FBBF24; box-shadow: 0 3px 0 #F59E0B; }
+
+  .game-menu-card.c-blue { border-color: #BFDBFE; }
+  .game-menu-card.c-blue .num-badge { background: linear-gradient(135deg, #60A5FA, #3B82F6); box-shadow: 0 3px 0 #1D4ED8; }
+  .game-menu-card.c-blue .mode-tag { background: linear-gradient(135deg, #DBEAFE, #BFDBFE); color: #1E40AF; border-color: #60A5FA; box-shadow: 0 3px 0 #3B82F6; }
+
+  .menu-footer {
+    text-align: center;
+    padding: clamp(20px, 4vw, 30px) 10px 40px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-reset {
+    background: #fff;
+    border: 3px solid #FCA5A5;
+    color: #DC2626;
+    padding: 12px 26px;
+    border-radius: 30px;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 5px 0 #FCA5A5, 0 8px 15px rgba(220,38,38,0.15);
+  }
+  .btn-reset:hover { background: #FEF2F2; transform: translateY(-3px); }
+  .btn-reset:active { transform: translateY(2px); box-shadow: 0 2px 0 #FCA5A5; }
+  .btn-menu-nav {
+    background: #fff;
+    border: 3px solid #93C5FD;
+    color: #1E40AF;
+    padding: 12px 26px;
+    border-radius: 30px;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 5px 0 #93C5FD, 0 8px 15px rgba(30,64,175,0.15);
+  }
+  .btn-menu-nav:hover { background: #EFF6FF; transform: translateY(-3px); }
+  .btn-menu-nav:active { transform: translateY(2px); box-shadow: 0 2px 0 #93C5FD; }
+
+  /* ============================================================ LEVEL SCREEN (KUIS) */
   .level-head {
     text-align: center;
     padding: clamp(15px, 3vw, 25px) 10px clamp(18px, 3vw, 28px);
@@ -470,10 +546,7 @@
     font-size: clamp(1.4rem, 5vw, 2.8rem);
     font-weight: 800;
     color: white;
-    text-shadow:
-      3px 3px 0 #10B981,
-      5px 5px 0 #34D399,
-      8px 8px 20px rgba(16,185,129,0.4);
+    text-shadow: 3px 3px 0 #10B981, 5px 5px 0 #34D399, 8px 8px 20px rgba(16,185,129,0.4);
     margin-bottom: 8px;
     letter-spacing: -0.5px;
   }
@@ -542,11 +615,7 @@
     border-radius: 24px;
     padding: clamp(16px, 3vw, 26px) clamp(14px, 2.5vw, 22px);
     text-align: center;
-    box-shadow:
-      0 10px 0 rgba(0,0,0,0.1),
-      0 20px 35px rgba(0,0,0,0.1),
-      inset 0 -3px 0 rgba(0,0,0,0.05),
-      inset 0 3px 0 rgba(255,255,255,0.8);
+    box-shadow: 0 10px 0 rgba(0,0,0,0.1), 0 20px 35px rgba(0,0,0,0.1), inset 0 -3px 0 rgba(0,0,0,0.05), inset 0 3px 0 rgba(255,255,255,0.8);
     transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     cursor: pointer;
     border: 4px solid #D1FAE5;
@@ -566,17 +635,9 @@
     pointer-events: none;
   }
   .level-card:hover:not(.locked)::before { opacity: 1; animation: shineLoop 0.8s; }
-  @keyframes shineLoop {
-    from { transform: translateX(-100%) rotate(-45deg); }
-    to { transform: translateX(100%) rotate(-45deg); }
-  }
   .level-card:hover:not(.locked) {
     transform: translateY(-10px) scale(1.03);
-    box-shadow:
-      0 16px 0 rgba(0,0,0,0.12),
-      0 30px 50px rgba(0,0,0,0.15),
-      inset 0 -3px 0 rgba(0,0,0,0.05),
-      inset 0 3px 0 rgba(255,255,255,0.8);
+    box-shadow: 0 16px 0 rgba(0,0,0,0.12), 0 30px 50px rgba(0,0,0,0.15), inset 0 -3px 0 rgba(0,0,0,0.05), inset 0 3px 0 rgba(255,255,255,0.8);
     border-color: #34D399;
   }
   .level-card.locked {
@@ -588,11 +649,7 @@
   .level-card.done {
     border-color: #FCD34D;
     background: linear-gradient(180deg, #FFFFFF 0%, #FFFBEB 100%);
-    box-shadow:
-      0 10px 0 #F59E0B,
-      0 20px 35px rgba(245,158,11,0.25),
-      inset 0 -3px 0 rgba(0,0,0,0.05),
-      inset 0 3px 0 rgba(255,255,255,0.8);
+    box-shadow: 0 10px 0 #F59E0B, 0 20px 35px rgba(245,158,11,0.25), inset 0 -3px 0 rgba(0,0,0,0.05), inset 0 3px 0 rgba(255,255,255,0.8);
   }
   .level-card .num-badge {
     position: absolute;
@@ -618,18 +675,6 @@
     margin: 6px 0 8px;
     filter: drop-shadow(0 8px 12px rgba(0,0,0,0.18));
     animation: iconBob 3s ease-in-out infinite;
-  }
-  .level-card:hover:not(.locked) .level-icon {
-    animation: iconSpin 0.7s ease;
-  }
-  @keyframes iconBob {
-    0%,100% { transform: translateY(0) rotate(-3deg); }
-    50% { transform: translateY(-6px) rotate(3deg); }
-  }
-  @keyframes iconSpin {
-    0% { transform: rotate(0) scale(1); }
-    50% { transform: rotate(15deg) scale(1.15); }
-    100% { transform: rotate(0) scale(1.1); }
   }
   .level-card h3 {
     font-size: clamp(0.95rem, 2.6vw, 1.25rem);
@@ -663,19 +708,13 @@
     font-size: clamp(1rem, 2.8vw, 1.2rem);
     min-height: 1.3em;
   }
-  .level-stars .star {
-    opacity: 0.25;
-    transition: all 0.3s;
-  }
+  .level-stars .star { opacity: 0.25; transition: all 0.3s; }
   .level-stars .star.filled {
     opacity: 1;
     filter: drop-shadow(0 0 6px rgba(255,193,7,0.8));
     animation: starTwinkle 2s infinite;
   }
-  @keyframes starTwinkle {
-    0%,100% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-  }
+  @keyframes starTwinkle { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
   .lock-icon {
     position: absolute;
     top: 50%; left: 50%;
@@ -697,26 +736,13 @@
   .level-footer {
     text-align: center;
     padding: clamp(20px, 4vw, 30px) 10px 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
   }
-  .btn-reset {
-    background: #fff;
-    border: 3px solid #FCA5A5;
-    color: #DC2626;
-    padding: 12px 26px;
-    border-radius: 30px;
-    font-family: 'Baloo 2', cursive;
-    font-weight: 800;
-    font-size: clamp(0.8rem, 2.2vw, 0.9rem);
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 5px 0 #FCA5A5, 0 8px 15px rgba(220,38,38,0.15);
-  }
-  .btn-reset:hover { background: #FEF2F2; transform: translateY(-3px); box-shadow: 0 8px 0 #FCA5A5, 0 12px 22px rgba(220,38,38,0.2); }
-  .btn-reset:active { transform: translateY(2px); box-shadow: 0 2px 0 #FCA5A5; }
 
-  /* ============================================================
-     GAME SCREEN
-     ============================================================ */
+  /* ============================================================ GAME SCREEN */
   .game-top {
     display: flex;
     align-items: center;
@@ -742,7 +768,7 @@
     flex-shrink: 0;
     font-weight: 800;
   }
-  .btn-back:hover { background: #F9FAFB; transform: translateY(-3px); box-shadow: 0 8px 0 #D1D5DB, 0 12px 22px rgba(0,0,0,0.1); }
+  .btn-back:hover { background: #F9FAFB; transform: translateY(-3px); }
   .btn-back:active { transform: translateY(3px); box-shadow: 0 2px 0 #D1D5DB; }
 
   .game-info {
@@ -810,9 +836,7 @@
     transition: transform 0.3s;
     flex-shrink: 0;
   }
-  .game-info .score-display.bump {
-    animation: scoreBump 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
+  .game-info .score-display.bump { animation: scoreBump 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
   @keyframes scoreBump {
     0% { transform: scale(1); }
     40% { transform: scale(1.4) rotate(-5deg); color: #10B981; }
@@ -824,11 +848,7 @@
     border-radius: clamp(22px, 4vw, 32px);
     padding: clamp(18px, 4vw, 40px) clamp(14px, 3vw, 30px);
     text-align: center;
-    box-shadow:
-      0 12px 0 rgba(0,0,0,0.08),
-      0 25px 50px rgba(0,0,0,0.12),
-      inset 0 -4px 0 rgba(0,0,0,0.03),
-      inset 0 4px 0 rgba(255,255,255,1);
+    box-shadow: 0 12px 0 rgba(0,0,0,0.08), 0 25px 50px rgba(0,0,0,0.12), inset 0 -4px 0 rgba(0,0,0,0.03), inset 0 4px 0 rgba(255,255,255,1);
     margin-bottom: clamp(12px, 2.5vw, 18px);
     border: clamp(3px, 0.8vw, 5px) solid #D1FAE5;
     animation: slideIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -903,11 +923,7 @@
     color: #333;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow:
-      0 8px 0 #D1D5DB,
-      0 12px 22px rgba(0,0,0,0.08),
-      inset 0 -2px 0 rgba(0,0,0,0.05),
-      inset 0 2px 0 rgba(255,255,255,1);
+    box-shadow: 0 8px 0 #D1D5DB, 0 12px 22px rgba(0,0,0,0.08), inset 0 -2px 0 rgba(0,0,0,0.05), inset 0 2px 0 rgba(255,255,255,1);
     position: relative;
     display: flex;
     align-items: center;
@@ -932,11 +948,7 @@
     border-color: #34D399;
     background: linear-gradient(180deg, #ECFDF5 0%, #D1FAE5 100%);
     transform: translateY(-5px);
-    box-shadow:
-      0 13px 0 #10B981,
-      0 20px 35px rgba(52,211,153,0.35),
-      inset 0 -2px 0 rgba(0,0,0,0.05),
-      inset 0 2px 0 rgba(255,255,255,1);
+    box-shadow: 0 13px 0 #10B981, 0 20px 35px rgba(52,211,153,0.35), inset 0 -2px 0 rgba(0,0,0,0.05), inset 0 2px 0 rgba(255,255,255,1);
   }
   .option-btn:active:not(:disabled) {
     transform: translateY(3px);
@@ -946,11 +958,7 @@
   .option-btn.correct {
     background: linear-gradient(180deg, #D1FAE5 0%, #A7F3D0 100%);
     border-color: #10B981;
-    box-shadow:
-      0 8px 0 #047857,
-      0 15px 30px rgba(16,185,129,0.4),
-      inset 0 -2px 0 rgba(0,0,0,0.05),
-      inset 0 2px 0 rgba(255,255,255,1);
+    box-shadow: 0 8px 0 #047857, 0 15px 30px rgba(16,185,129,0.4), inset 0 -2px 0 rgba(0,0,0,0.05), inset 0 2px 0 rgba(255,255,255,1);
     animation: correctPulse 0.7s ease;
     color: #047857;
   }
@@ -963,11 +971,7 @@
   .option-btn.wrong {
     background: linear-gradient(180deg, #FEE2E2 0%, #FECACA 100%);
     border-color: #EF4444;
-    box-shadow:
-      0 8px 0 #B91C1C,
-      0 15px 30px rgba(239,68,68,0.35),
-      inset 0 -2px 0 rgba(0,0,0,0.05),
-      inset 0 2px 0 rgba(255,255,255,1);
+    box-shadow: 0 8px 0 #B91C1C, 0 15px 30px rgba(239,68,68,0.35), inset 0 -2px 0 rgba(0,0,0,0.05), inset 0 2px 0 rgba(255,255,255,1);
     animation: wrongShake 0.55s ease;
     color: #991B1B;
   }
@@ -987,9 +991,7 @@
     filter: drop-shadow(0 3px 5px rgba(0,0,0,0.15));
   }
 
-  /* ============================================================
-     FEEDBACK OVERLAY
-     ============================================================ */
+  /* ============================================================ FEEDBACK */
   .feedback-overlay {
     position: fixed;
     inset: 0;
@@ -1010,9 +1012,7 @@
     text-align: center;
     max-width: 420px;
     width: 100%;
-    box-shadow:
-      0 20px 0 rgba(0,0,0,0.1),
-      0 30px 60px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 0 rgba(0,0,0,0.1), 0 30px 60px rgba(0,0,0,0.3);
     animation: feedbackPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
     border: clamp(4px, 1vw, 6px) solid;
     position: relative;
@@ -1027,21 +1027,9 @@
     animation: rotateGlow 3s linear infinite;
     pointer-events: none;
   }
-  @keyframes rotateGlow {
-    to { transform: rotate(360deg); }
-  }
-  .feedback-card.good {
-    border-color: #10B981;
-    box-shadow:
-      0 20px 0 #047857,
-      0 30px 60px rgba(16,185,129,0.4);
-  }
-  .feedback-card.bad {
-    border-color: #EF4444;
-    box-shadow:
-      0 20px 0 #B91C1C,
-      0 30px 60px rgba(239,68,68,0.35);
-  }
+  @keyframes rotateGlow { to { transform: rotate(360deg); } }
+  .feedback-card.good { border-color: #10B981; box-shadow: 0 20px 0 #047857, 0 30px 60px rgba(16,185,129,0.4); }
+  .feedback-card.bad { border-color: #EF4444; box-shadow: 0 20px 0 #B91C1C, 0 30px 60px rgba(239,68,68,0.35); }
   @keyframes feedbackPop {
     from { transform: scale(0.6) rotate(-10deg); opacity: 0; }
     to { transform: scale(1) rotate(0); opacity: 1; }
@@ -1089,23 +1077,17 @@
     font-size: clamp(0.95rem, 2.6vw, 1.1rem);
     border: none;
     cursor: pointer;
-    box-shadow:
-      0 8px 0 #047857,
-      0 12px 25px rgba(16,185,129,0.4),
-      inset 0 -3px 0 rgba(0,0,0,0.15),
-      inset 0 3px 0 rgba(255,255,255,0.3);
+    box-shadow: 0 8px 0 #047857, 0 12px 25px rgba(16,185,129,0.4), inset 0 -3px 0 rgba(0,0,0,0.15), inset 0 3px 0 rgba(255,255,255,0.3);
     transition: all 0.15s;
     letter-spacing: 0.4px;
     position: relative;
     z-index: 2;
     text-shadow: 0 1px 2px rgba(0,0,0,0.15);
   }
-  .btn-feedback:hover { transform: translateY(-3px); box-shadow: 0 12px 0 #047857, 0 18px 32px rgba(16,185,129,0.5), inset 0 -3px 0 rgba(0,0,0,0.15), inset 0 3px 0 rgba(255,255,255,0.3); }
-  .btn-feedback:active { transform: translateY(3px); box-shadow: 0 3px 0 #047857, inset 0 -1px 0 rgba(0,0,0,0.15); }
+  .btn-feedback:hover { transform: translateY(-3px); }
+  .btn-feedback:active { transform: translateY(3px); box-shadow: 0 3px 0 #047857; }
 
-  /* ============================================================
-     RESULT SCREEN
-     ============================================================ */
+  /* ============================================================ RESULT */
   .result-wrap {
     flex: 1;
     display: flex;
@@ -1119,9 +1101,7 @@
     background: linear-gradient(180deg, #FFFFFF 0%, #FFFEF9 100%);
     border-radius: clamp(24px, 5vw, 36px);
     padding: clamp(24px, 5.5vw, 55px) clamp(18px, 4vw, 45px);
-    box-shadow:
-      0 18px 0 #FCD34D,
-      0 30px 60px rgba(252,211,77,0.35);
+    box-shadow: 0 18px 0 #FCD34D, 0 30px 60px rgba(252,211,77,0.35);
     border: clamp(4px, 1vw, 6px) solid #FCD34D;
     max-width: 500px;
     width: 100%;
@@ -1247,14 +1227,10 @@
   .btn-result.primary {
     background: linear-gradient(135deg, #34D399, #10B981);
     color: white;
-    box-shadow:
-      0 8px 0 #047857,
-      0 12px 25px rgba(16,185,129,0.4),
-      inset 0 -3px 0 rgba(0,0,0,0.15),
-      inset 0 3px 0 rgba(255,255,255,0.3);
+    box-shadow: 0 8px 0 #047857, 0 12px 25px rgba(16,185,129,0.4), inset 0 -3px 0 rgba(0,0,0,0.15), inset 0 3px 0 rgba(255,255,255,0.3);
     text-shadow: 0 1px 2px rgba(0,0,0,0.15);
   }
-  .btn-result.primary:hover { transform: translateY(-4px); box-shadow: 0 12px 0 #047857, 0 18px 32px rgba(16,185,129,0.5), inset 0 -3px 0 rgba(0,0,0,0.15), inset 0 3px 0 rgba(255,255,255,0.3); }
+  .btn-result.primary:hover { transform: translateY(-4px); }
   .btn-result.primary:active { transform: translateY(3px); box-shadow: 0 3px 0 #047857; }
   .btn-result.secondary {
     background: linear-gradient(180deg, #fff, #F3F4F6);
@@ -1262,12 +1238,10 @@
     border: 3px solid #D1D5DB;
     box-shadow: 0 8px 0 #D1D5DB, 0 12px 25px rgba(0,0,0,0.08);
   }
-  .btn-result.secondary:hover { background: #F9FAFB; transform: translateY(-4px); box-shadow: 0 12px 0 #D1D5DB, 0 18px 30px rgba(0,0,0,0.1); }
+  .btn-result.secondary:hover { background: #F9FAFB; transform: translateY(-4px); }
   .btn-result.secondary:active { transform: translateY(3px); box-shadow: 0 3px 0 #D1D5DB; }
 
-  /* ============================================================
-     FINAL SCREEN
-     ============================================================ */
+  /* ============================================================ FINAL */
   .final-wrap {
     flex: 1;
     display: flex;
@@ -1297,9 +1271,7 @@
     background: linear-gradient(180deg, #FFFFFF 0%, #FFFEF9 100%);
     border-radius: clamp(24px, 5vw, 36px);
     padding: clamp(24px, 5.5vw, 55px) clamp(18px, 4vw, 45px);
-    box-shadow:
-      0 20px 0 #FCD34D,
-      0 35px 70px rgba(252,211,77,0.4);
+    box-shadow: 0 20px 0 #FCD34D, 0 35px 70px rgba(252,211,77,0.4);
     border: clamp(5px, 1.2vw, 7px) solid #FCD34D;
     max-width: 540px;
     width: 100%;
@@ -1388,9 +1360,363 @@
     margin-top: 2px;
   }
 
-  /* ============================================================
-     PARTICLES
-     ============================================================ */
+  /* ============================================================ PUZZLE */
+  .puzzle-area {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFEF9 100%);
+    border-radius: clamp(22px, 4vw, 32px);
+    padding: clamp(18px, 4vw, 36px) clamp(14px, 3vw, 28px);
+    text-align: center;
+    box-shadow: 0 12px 0 rgba(0,0,0,0.08), 0 25px 50px rgba(0,0,0,0.12), inset 0 -4px 0 rgba(0,0,0,0.03), inset 0 4px 0 rgba(255,255,255,1);
+    margin-bottom: clamp(12px, 2.5vw, 18px);
+    border: clamp(3px, 0.8vw, 5px) solid #C7D2FE;
+    animation: slideIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .puzzle-prompt {
+    display: inline-block;
+    background: linear-gradient(135deg, #EEF2FF, #C7D2FE);
+    color: #3730A3;
+    padding: clamp(8px, 2vw, 12px) clamp(16px, 3.5vw, 24px);
+    border-radius: 24px;
+    font-size: clamp(0.85rem, 2.3vw, 1.05rem);
+    font-weight: 800;
+    margin-bottom: clamp(12px, 2.5vw, 18px);
+    border: 2px dashed #818CF8;
+    box-shadow: 0 4px 0 rgba(129,140,248,0.4);
+    font-family: 'Baloo 2', cursive;
+  }
+  .puzzle-visual {
+    font-size: clamp(3rem, 14vw, 6.5rem);
+    line-height: 1;
+    margin-bottom: clamp(8px, 2vw, 14px);
+    display: inline-block;
+    animation: visualFloat 3s ease-in-out infinite;
+    filter: drop-shadow(0 15px 20px rgba(0,0,0,0.18));
+  }
+  .puzzle-slots {
+    display: flex;
+    justify-content: center;
+    gap: clamp(6px, 1.8vw, 12px);
+    margin-bottom: clamp(14px, 3vw, 22px);
+    flex-wrap: wrap;
+  }
+  .puzzle-slot {
+    width: clamp(42px, 11vw, 64px);
+    height: clamp(48px, 12vw, 72px);
+    border-radius: 14px;
+    border: 3px dashed #A5B4FC;
+    background: #F5F3FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(1.3rem, 4.5vw, 2rem);
+    font-weight: 800;
+    color: #3730A3;
+    text-transform: uppercase;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,0.05);
+    position: relative;
+  }
+  .puzzle-slot.filled {
+    border-style: solid;
+    border-color: #6366F1;
+    background: linear-gradient(180deg, #EEF2FF, #C7D2FE);
+    box-shadow: 0 4px 0 #4338CA, 0 6px 12px rgba(67,56,202,0.25), inset 0 2px 0 rgba(255,255,255,0.8);
+    animation: slotPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .puzzle-slot.correct-slot {
+    border-color: #10B981;
+    background: linear-gradient(180deg, #D1FAE5, #A7F3D0);
+    color: #047857;
+    box-shadow: 0 4px 0 #047857, 0 6px 12px rgba(16,185,129,0.3), inset 0 2px 0 rgba(255,255,255,0.8);
+  }
+  .puzzle-slot.wrong-slot {
+    border-color: #EF4444;
+    background: linear-gradient(180deg, #FEE2E2, #FECACA);
+    color: #991B1B;
+    box-shadow: 0 4px 0 #B91C1C;
+    animation: wrongShake 0.5s ease;
+  }
+  @keyframes slotPop {
+    0% { transform: scale(0.7); }
+    70% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+  }
+  .puzzle-letters {
+    display: flex;
+    justify-content: center;
+    gap: clamp(6px, 1.8vw, 12px);
+    flex-wrap: wrap;
+    min-height: clamp(48px, 12vw, 72px);
+  }
+  .puzzle-letter {
+    width: clamp(42px, 11vw, 64px);
+    height: clamp(48px, 12vw, 72px);
+    border-radius: 14px;
+    border: 3px solid #A5B4FC;
+    background: linear-gradient(180deg, #FFFFFF, #EEF2FF);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(1.3rem, 4.5vw, 2rem);
+    font-weight: 800;
+    color: #4338CA;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 5px 0 #818CF8, 0 8px 15px rgba(99,102,241,0.2), inset 0 2px 0 rgba(255,255,255,0.9);
+    user-select: none;
+  }
+  .puzzle-letter:hover:not(.used) {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 9px 0 #818CF8, 0 14px 22px rgba(99,102,241,0.3), inset 0 2px 0 rgba(255,255,255,0.9);
+  }
+  .puzzle-letter:active:not(.used) { transform: translateY(3px); box-shadow: 0 2px 0 #818CF8; }
+  .puzzle-letter.used { opacity: 0.3; pointer-events: none; transform: scale(0.9); box-shadow: none; }
+  .puzzle-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: clamp(16px, 3vw, 24px);
+    flex-wrap: wrap;
+  }
+  .btn-puzzle {
+    background: linear-gradient(135deg, #818CF8, #6366F1);
+    color: white;
+    padding: clamp(12px, 2.8vw, 16px) clamp(24px, 5vw, 36px);
+    border-radius: 45px;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: clamp(0.9rem, 2.4vw, 1.05rem);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 0 #4338CA, 0 12px 25px rgba(99,102,241,0.4), inset 0 -3px 0 rgba(0,0,0,0.15), inset 0 3px 0 rgba(255,255,255,0.3);
+    transition: all 0.15s;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  }
+  .btn-puzzle:hover { transform: translateY(-3px); }
+  .btn-puzzle:active { transform: translateY(3px); box-shadow: 0 3px 0 #4338CA; }
+  .btn-puzzle.secondary {
+    background: linear-gradient(180deg, #fff, #F3F4F6);
+    color: #4B5563;
+    border: 3px solid #D1D5DB;
+    box-shadow: 0 8px 0 #D1D5DB, 0 12px 25px rgba(0,0,0,0.08);
+    text-shadow: none;
+  }
+  .btn-puzzle.secondary:hover { background: #F9FAFB; transform: translateY(-3px); }
+  .btn-puzzle.secondary:active { transform: translateY(3px); box-shadow: 0 3px 0 #D1D5DB; }
+
+  /* ============================================================ MATCH */
+  .match-area {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFEF9 100%);
+    border-radius: clamp(22px, 4vw, 32px);
+    padding: clamp(16px, 3.5vw, 30px) clamp(12px, 2.5vw, 24px);
+    text-align: center;
+    box-shadow: 0 12px 0 rgba(0,0,0,0.08), 0 25px 50px rgba(0,0,0,0.12), inset 0 -4px 0 rgba(0,0,0,0.03), inset 0 4px 0 rgba(255,255,255,1);
+    margin-bottom: clamp(12px, 2.5vw, 18px);
+    border: clamp(3px, 0.8vw, 5px) solid #FBCFE8;
+    animation: slideIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .match-prompt {
+    display: inline-block;
+    background: linear-gradient(135deg, #FDF2F8, #FBCFE8);
+    color: #9D174D;
+    padding: clamp(8px, 2vw, 12px) clamp(16px, 3.5vw, 24px);
+    border-radius: 24px;
+    font-size: clamp(0.85rem, 2.3vw, 1.05rem);
+    font-weight: 800;
+    margin-bottom: clamp(12px, 2.5vw, 18px);
+    border: 2px dashed #F472B6;
+    box-shadow: 0 4px 0 rgba(244,114,182,0.4);
+    font-family: 'Baloo 2', cursive;
+  }
+  .match-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(8px, 2vw, 14px);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .match-card {
+    aspect-ratio: 1 / 1;
+    border-radius: clamp(14px, 3vw, 20px);
+    border: clamp(3px, 0.7vw, 4px) solid #F9A8D4;
+    background: linear-gradient(180deg, #FFFFFF, #FDF2F8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1.6rem, 6vw, 2.8rem);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 6px 0 #EC4899, 0 10px 20px rgba(236,72,153,0.2), inset 0 2px 0 rgba(255,255,255,0.9);
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+  }
+  .match-card:hover:not(.matched):not(.flipped) {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 10px 0 #EC4899, 0 16px 28px rgba(236,72,153,0.3), inset 0 2px 0 rgba(255,255,255,0.9);
+  }
+  .match-card:active:not(.matched):not(.flipped) { transform: translateY(3px); box-shadow: 0 2px 0 #EC4899; }
+  .match-card .card-back { font-size: clamp(1.4rem, 5vw, 2.4rem); opacity: 0.6; transition: all 0.2s; }
+  .match-card .card-front { display: none; font-size: clamp(1.6rem, 6vw, 2.8rem); }
+  .match-card.flipped .card-back { display: none; }
+  .match-card.flipped .card-front { display: block; animation: cardFlip 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes cardFlip {
+    0% { transform: rotateY(90deg) scale(0.8); }
+    100% { transform: rotateY(0) scale(1); }
+  }
+  .match-card.matched {
+    border-color: #10B981;
+    background: linear-gradient(180deg, #D1FAE5, #A7F3D0);
+    box-shadow: 0 6px 0 #047857, 0 10px 20px rgba(16,185,129,0.3), inset 0 2px 0 rgba(255,255,255,0.9);
+    pointer-events: none;
+    animation: matchedPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes matchedPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15) rotate(5deg); }
+    100% { transform: scale(1); }
+  }
+  .match-card.wrong-flip {
+    border-color: #EF4444;
+    background: linear-gradient(180deg, #FEE2E2, #FECACA);
+    animation: wrongShake 0.5s ease;
+  }
+  .match-status {
+    margin-top: clamp(14px, 3vw, 20px);
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    color: #9D174D;
+    font-size: clamp(0.9rem, 2.4vw, 1.1rem);
+    background: #FDF2F8;
+    display: inline-block;
+    padding: 8px 22px;
+    border-radius: 20px;
+    border: 2px dashed #F472B6;
+  }
+
+  /* ============================================================ QUICK */
+  .quick-area {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFEF9 100%);
+    border-radius: clamp(22px, 4vw, 32px);
+    padding: clamp(18px, 4vw, 36px) clamp(14px, 3vw, 28px);
+    text-align: center;
+    box-shadow: 0 12px 0 rgba(0,0,0,0.08), 0 25px 50px rgba(0,0,0,0.12), inset 0 -4px 0 rgba(0,0,0,0.03), inset 0 4px 0 rgba(255,255,255,1);
+    margin-bottom: clamp(12px, 2.5vw, 18px);
+    border: clamp(3px, 0.8vw, 5px) solid #FDE68A;
+    animation: slideIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .quick-timer-wrap {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto clamp(12px, 2.5vw, 18px);
+    background: #FEF3C7;
+    border-radius: 18px;
+    padding: 6px;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .quick-timer-bar {
+    height: clamp(14px, 3.5vw, 20px);
+    border-radius: 14px;
+    background: linear-gradient(90deg, #34D399, #FCD34D, #F59E0B, #EF4444);
+    background-size: 300% 100%;
+    transition: width 1s linear;
+    box-shadow: 0 0 10px rgba(245,158,11,0.6);
+    background-position: 0% 50%;
+  }
+  .quick-timer-bar.warning { animation: timerWarning 0.5s ease infinite alternate; }
+  @keyframes timerWarning { from { filter: brightness(1); } to { filter: brightness(1.5); } }
+  .quick-visual {
+    font-size: clamp(3rem, 14vw, 6.5rem);
+    line-height: 1;
+    margin-bottom: clamp(8px, 2vw, 14px);
+    display: inline-block;
+    animation: visualFloat 3s ease-in-out infinite;
+    filter: drop-shadow(0 15px 20px rgba(0,0,0,0.18));
+  }
+  .quick-text {
+    font-size: clamp(0.98rem, 3vw, 1.5rem);
+    font-weight: 800;
+    color: #333;
+    font-family: 'Baloo 2', cursive;
+    line-height: 1.3;
+    margin-bottom: clamp(14px, 3vw, 20px);
+    position: relative;
+    z-index: 1;
+  }
+  .quick-options {
+    display: flex;
+    justify-content: center;
+    gap: clamp(12px, 3vw, 24px);
+    flex-wrap: wrap;
+  }
+  .quick-btn {
+    flex: 1 1 140px;
+    max-width: 220px;
+    min-height: clamp(60px, 14vw, 84px);
+    border-radius: clamp(18px, 3.5vw, 24px);
+    border: clamp(3px, 0.7vw, 4px) solid #D1D5DB;
+    background: linear-gradient(180deg, #FFFFFF, #F9FAFB);
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(1rem, 2.8vw, 1.3rem);
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 8px 0 #D1D5DB, 0 12px 22px rgba(0,0,0,0.08), inset 0 2px 0 rgba(255,255,255,1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #333;
+    padding: 10px 16px;
+  }
+  .quick-btn.benar {
+    background: linear-gradient(180deg, #D1FAE5, #A7F3D0);
+    border-color: #10B981;
+    color: #047857;
+    box-shadow: 0 8px 0 #047857, 0 12px 22px rgba(16,185,129,0.3);
+  }
+  .quick-btn.salah {
+    background: linear-gradient(180deg, #FEE2E2, #FECACA);
+    border-color: #EF4444;
+    color: #991B1B;
+    box-shadow: 0 8px 0 #B91C1C, 0 12px 22px rgba(239,68,68,0.3);
+  }
+  .quick-btn:hover:not(:disabled) { transform: translateY(-4px) scale(1.03); }
+  .quick-btn:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 3px 0 #D1D5DB; }
+  .quick-btn:disabled { cursor: default; }
+  .quick-btn.picked-correct {
+    background: linear-gradient(180deg, #D1FAE5, #A7F3D0);
+    border-color: #10B981;
+    color: #047857;
+    box-shadow: 0 8px 0 #047857;
+    animation: correctPulse 0.6s ease;
+  }
+  .quick-btn.picked-wrong {
+    background: linear-gradient(180deg, #FEE2E2, #FECACA);
+    border-color: #EF4444;
+    color: #991B1B;
+    box-shadow: 0 8px 0 #B91C1C;
+    animation: wrongShake 0.5s ease;
+  }
+  .quick-feedback {
+    margin-top: clamp(14px, 3vw, 20px);
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: clamp(1rem, 2.8vw, 1.3rem);
+    min-height: 2em;
+  }
+  .quick-feedback.good { color: #10B981; }
+  .quick-feedback.bad { color: #EF4444; }
+
+  /* ============================================================ PARTICLES */
   .particle-burst {
     position: fixed;
     pointer-events: none;
@@ -1403,14 +1729,10 @@
     100% { transform: translate(var(--tx), var(--ty)) scale(1.3) rotate(var(--tr)); opacity: 0; }
   }
 
-  /* ============================================================
-     BRANDING FOOTER - RAISA
-     ============================================================ */
+  /* ============================================================ FOOTER */
   .brand-footer {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 0; left: 0; right: 0;
     z-index: 90;
     padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
     text-align: center;
@@ -1437,9 +1759,7 @@
     animation: brandSpin 3s linear infinite;
     display: inline-block;
   }
-  @keyframes brandSpin {
-    to { transform: rotate(360deg); }
-  }
+  @keyframes brandSpin { to { transform: rotate(360deg); } }
   .brand-footer .brand-text {
     font-family: 'Baloo 2', cursive;
     font-weight: 800;
@@ -1455,32 +1775,26 @@
     text-align: center;
   }
 
-  /* ============================================================
-     RESPONSIVE BREAKPOINTS
-     ============================================================ */
-
-  /* Tablet Portrait (600px - 900px) */
+  /* ============================================================ RESPONSIVE */
   @media (min-width: 600px) and (max-width: 900px) and (orientation: portrait) {
     .screen { max-width: 760px; }
+    .game-menu-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .level-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .options-grid { gap: 14px; }
     .question-visual { font-size: clamp(5rem, 12vw, 7rem); }
   }
-
-  /* Tablet Landscape & Small Desktop (900px+) */
   @media (min-width: 900px) {
     .screen { max-width: 1000px; padding: clamp(20px, 2.5vw, 30px); }
+    .game-menu-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
     .level-grid { grid-template-columns: repeat(3, 1fr); }
     .question-area { padding: clamp(30px, 3.5vw, 45px) clamp(24px, 3vw, 36px); }
+    .match-board { grid-template-columns: repeat(4, 1fr); max-width: 640px; }
   }
-
-  /* Large Desktop (1200px+) */
   @media (min-width: 1200px) {
-    .screen { max-width: 1100px; }
+    .screen { max-width: 1180px; }
+    .game-menu-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
     .level-grid { grid-template-columns: repeat(3, 1fr); gap: 22px; }
   }
-
-  /* Landscape HP - short height */
   @media (max-height: 520px) and (orientation: landscape) {
     .start-wrap { padding: 10px 15px 80px; }
     .start-mascot { font-size: clamp(3rem, 10vw, 5rem); }
@@ -1506,9 +1820,16 @@
     .brand-footer { padding: 4px 8px calc(4px + env(safe-area-inset-bottom, 0px)); }
     .brand-footer .brand-inner { padding: 4px 12px; }
     .brand-footer .brand-text { font-size: 0.6rem; letter-spacing: 0.8px; }
+    .game-menu-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .game-menu-card { padding: 8px 8px; min-height: 130px; }
+    .game-menu-card .mode-icon { font-size: 1.6rem; margin: 4px 0; }
+    .game-menu-card h3 { font-size: 0.72rem; }
+    .game-menu-card .mode-desc { display: none; }
+    .game-menu-card .mode-tag { font-size: 0.55rem; padding: 2px 6px; }
+    .game-menu-card .num-badge { width: 20px; height: 20px; font-size: 0.65rem; top: 6px; left: 6px; }
+    .puzzle-slot, .puzzle-letter { width: 36px; height: 42px; font-size: 1.1rem; }
+    .match-card { font-size: 1.2rem; }
   }
-
-  /* Small HP (320px - 374px) */
   @media (max-width: 374px) {
     .screen { padding: 10px; }
     .start-title { text-shadow: 2px 2px 0 #10B981, 4px 4px 0 #34D399, 6px 6px 15px rgba(16,185,129,0.4); }
@@ -1521,28 +1842,29 @@
     .btn-result { min-width: 100px; font-size: 0.82rem; padding: 10px 16px; }
     .result-buttons { flex-direction: column; align-items: stretch; }
     .btn-result { max-width: 100%; }
+    .puzzle-slot, .puzzle-letter { width: 38px; height: 44px; font-size: 1.1rem; }
+    .match-board { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    .match-card { font-size: 1.3rem; }
+    .quick-btn { flex: 1 1 100%; max-width: 100%; min-height: 54px; }
+    .game-menu-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .game-menu-card { min-height: 170px; padding: 12px 8px; }
   }
-
-  /* Standard HP (375px - 480px) */
   @media (min-width: 375px) and (max-width: 480px) {
     .screen { padding: 14px; }
   }
-
-  /* Very small HP (max 340px) - prevent overflow */
   @media (max-width: 340px) {
     .game-info .q-counter { display: none; }
     .options-grid { gap: 8px; }
     .option-btn { padding: 10px 8px; font-size: 0.8rem; min-height: 58px; }
     .option-btn .opt-emoji { font-size: 1.2rem; }
     .start-emoji-row span { font-size: 1.3rem; }
+    .puzzle-slot, .puzzle-letter { width: 34px; height: 40px; font-size: 1rem; }
+    .match-board { grid-template-columns: repeat(4, 1fr); gap: 5px; }
+    .match-card { font-size: 1.1rem; }
   }
-
-  /* HP sangat kecil / portrait sempit, satu kolom pilihan */
   @media (max-width: 340px) and (orientation: portrait) {
     .options-grid { grid-template-columns: 1fr; }
   }
-
-  /* Prefers reduced motion */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
@@ -1550,8 +1872,6 @@
       transition-duration: 0.01ms !important;
     }
   }
-
-  /* Print safety */
   @media print {
     .bg-world, .brand-footer, .confetti { display: none !important; }
   }
@@ -1559,12 +1879,9 @@
 </head>
 <body>
 
-<!-- ============================================================
-     BACKGROUND WORLD
-     ============================================================ -->
+<!-- BACKGROUND WORLD -->
 <div class="bg-world">
   <div class="bg-sky"></div>
-
   <div class="sun">
     <div class="sun-rays">
       <span></span><span></span><span></span><span></span>
@@ -1572,33 +1889,27 @@
     </div>
     <div class="sun-core"></div>
   </div>
-
   <div class="bg-cloud c1"></div>
   <div class="bg-cloud c2"></div>
   <div class="bg-cloud c3"></div>
   <div class="bg-cloud c4"></div>
   <div class="bg-cloud c5"></div>
-
   <div class="bird b1">🕊️</div>
   <div class="bird b2">🕊️</div>
   <div class="bird b3">🕊️</div>
-
   <div class="twinkle" style="top: 8%; left: 18%;">✨</div>
   <div class="twinkle" style="top: 14%; left: 42%; animation-delay: 0.5s;">⭐</div>
   <div class="twinkle" style="top: 6%; right: 30%; animation-delay: 1s;">✨</div>
   <div class="twinkle" style="top: 22%; left: 28%; animation-delay: 1.5s;">💫</div>
   <div class="twinkle" style="top: 18%; right: 22%; animation-delay: 2s;">✨</div>
   <div class="twinkle" style="top: 28%; left: 55%; animation-delay: 2.5s;">⭐</div>
-
   <div class="balloon" style="left: 5%; animation-duration: 28s; animation-delay: 2s;">🎈</div>
   <div class="balloon" style="left: 28%; animation-duration: 32s; animation-delay: 10s;">🎈</div>
   <div class="balloon" style="left: 55%; animation-duration: 34s; animation-delay: 18s;">🎈</div>
   <div class="balloon" style="left: 82%; animation-duration: 30s; animation-delay: 6s;">🎈</div>
-
   <div class="butterfly" style="top: 25%; left: 8%; animation-delay: 0s;">🦋</div>
   <div class="butterfly" style="top: 45%; right: 12%; animation-delay: 5s;">🦋</div>
   <div class="butterfly" style="top: 60%; left: 15%; animation-delay: 10s;">🦋</div>
-
   <div class="hills">
     <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
       <defs>
@@ -1620,14 +1931,12 @@
       <path fill="url(#hillC)" d="M0,165 Q360,130 720,165 T1440,165 L1440,200 L0,200 Z"/>
     </svg>
   </div>
-
   <div class="ground-deco">
     <span class="tree">🌳</span>
     <span class="tree">🌲</span>
     <span class="tree">🌴</span>
     <span class="tree">🌳</span>
   </div>
-
   <div class="grass-row">
     <span>🌷</span><span>🌿</span><span>🌻</span><span>🌱</span><span>🌸</span>
     <span>🌿</span><span>🌼</span><span>🌱</span><span>🌺</span><span>🌿</span>
@@ -1635,13 +1944,10 @@
   </div>
 </div>
 
-<!-- ============================================================
-     START SCREEN
-     ============================================================ -->
+<!-- START SCREEN -->
 <div id="startScreen" class="screen active">
   <div class="start-wrap">
     <div class="start-badge">🌱 Pelajaran Alam Sekitar</div>
-
     <div class="start-mascot-wrap">
       <div class="mascot-glow"></div>
       <div class="sparkle-ring">
@@ -1649,7 +1955,6 @@
       </div>
       <div class="start-mascot">🌿</div>
     </div>
-
     <h1 class="start-title">
       Petualangan<br>
       <span class="grad-text">Alam Sekitar</span>
@@ -1657,10 +1962,9 @@
     <p class="start-sub">
       Ayo jadi penjelajah cilik! Kenali hewan, tumbuhan, dan tubuh kita sendiri sambil bermain! 🌈
     </p>
-    <button class="btn-start" onclick="goToLevels()">
+    <button class="btn-start" onclick="showScreen('menuScreen')">
       🚀 Mulai Petualangan!
     </button>
-
     <div class="start-emoji-row">
       <span>🐘</span>
       <span>🌳</span>
@@ -1673,11 +1977,90 @@
 </div>
 
 <!-- ============================================================
-     LEVEL SCREEN
+     MENU UTAMA - 8 GAME BERJEJER
      ============================================================ -->
+<div id="menuScreen" class="screen">
+  <div class="menu-head">
+    <h2>🎮 Pilih Permainan 🎮</h2>
+    <p>Ada 8 permainan seru menantimu! 🌟</p>
+  </div>
+  <div class="game-menu-grid">
+
+    <div class="game-menu-card c-green" onclick="goToLevels()">
+      <div class="num-badge">1</div>
+      <div class="mode-icon">🐾</div>
+      <h3>Kenali Hewan</h3>
+      <div class="mode-desc">Tebak nama hewan dari gambar dan ciri-cirinya.</div>
+      <div class="mode-tag">Level 1</div>
+    </div>
+
+    <div class="game-menu-card c-green" onclick="goToLevels()">
+      <div class="num-badge">2</div>
+      <div class="mode-icon">🍽️</div>
+      <h3>Hewan & Makanan</h3>
+      <div class="mode-desc">Tebak makanan kesukaan hewan-hewan lucu.</div>
+      <div class="mode-tag">Level 2</div>
+    </div>
+
+    <div class="game-menu-card c-green" onclick="goToLevels()">
+      <div class="num-badge">3</div>
+      <div class="mode-icon">🌱</div>
+      <h3>Bagian Tumbuhan</h3>
+      <div class="mode-desc">Kenali akar, batang, daun, bunga, dan buah.</div>
+      <div class="mode-tag">Level 3</div>
+    </div>
+
+    <div class="game-menu-card c-green" onclick="goToLevels()">
+      <div class="num-badge">4</div>
+      <div class="mode-icon">👁️</div>
+      <h3>Anggota Tubuh</h3>
+      <div class="mode-desc">Kenali fungsi mata, telinga, hidung, dan lainnya.</div>
+      <div class="mode-tag">Level 4</div>
+    </div>
+
+    <div class="game-menu-card c-green" onclick="goToLevels()">
+      <div class="num-badge">5</div>
+      <div class="mode-icon">🏞️</div>
+      <h3>Tempat Hidup</h3>
+      <div class="mode-desc">Di mana hewan-hewan ini tinggal? Ayo cari tahu!</div>
+      <div class="mode-tag">Level 5</div>
+    </div>
+
+    <div class="game-menu-card c-purple" onclick="startPuzzleGame()">
+      <div class="num-badge">6</div>
+      <div class="mode-icon">🧩</div>
+      <h3>Susun Kata</h3>
+      <div class="mode-desc">Susun huruf jadi nama hewan, tumbuhan, atau tubuh.</div>
+      <div class="mode-tag">10 Soal Seru</div>
+    </div>
+
+    <div class="game-menu-card c-pink" onclick="startMatchGame()">
+      <div class="num-badge">7</div>
+      <div class="mode-icon">🎯</div>
+      <h3>Cocokkan Pasangan</h3>
+      <div class="mode-desc">Jodohkan gambar hewan dengan pasangannya.</div>
+      <div class="mode-tag">4 Level Memori</div>
+    </div>
+
+    <div class="game-menu-card c-orange" onclick="startQuickGame()">
+      <div class="num-badge">8</div>
+      <div class="mode-icon">⚡</div>
+      <h3>Kuis Kilat</h3>
+      <div class="mode-desc">Jawab Benar atau Salah sebelum waktu habis!</div>
+      <div class="mode-tag">10 Soal • Timer</div>
+    </div>
+
+  </div>
+  <div class="menu-footer">
+    <button class="btn-menu-nav" onclick="showScreen('startScreen')">🏠 Menu Utama</button>
+    <button class="btn-reset" onclick="resetProgress()">🔄 Reset Progress</button>
+  </div>
+</div>
+
+<!-- LEVEL SCREEN (untuk 5 kuis) -->
 <div id="levelScreen" class="screen">
   <div class="level-head">
-    <h2>🌟 Pilih Level 🌟</h2>
+    <h2>🌟 Pilih Level Kuis 🌟</h2>
     <p>Setiap bermain, soalnya berbeda-beda! 🎲</p>
     <div class="level-progress-wrap">
       <div class="level-progress">
@@ -1688,13 +2071,12 @@
   </div>
   <div class="level-grid" id="levelGrid"></div>
   <div class="level-footer">
-    <button class="btn-reset" onclick="resetProgress()">🔄 Reset Semua Progress</button>
+    <button class="btn-menu-nav" onclick="showScreen('menuScreen')">← Menu Permainan</button>
+    <button class="btn-reset" onclick="resetProgress()">🔄 Reset Progress</button>
   </div>
 </div>
 
-<!-- ============================================================
-     GAME SCREEN
-     ============================================================ -->
+<!-- GAME SCREEN (KUIS PILIHAN) -->
 <div id="gameScreen" class="screen">
   <div class="game-top">
     <button class="btn-back" onclick="backToLevels()" aria-label="Kembali">←</button>
@@ -1707,19 +2089,87 @@
       <span class="score-display" id="gameScore">⭐ 0</span>
     </div>
   </div>
-
   <div class="question-area" id="questionArea">
     <div class="question-visual" id="qVisual">🐘</div>
     <div class="visual-caption" id="qCaption" style="display: none;">Caption</div>
     <div class="question-text" id="qText">Pertanyaan?</div>
   </div>
-
   <div class="options-grid" id="optionsGrid"></div>
 </div>
 
-<!-- ============================================================
-     FEEDBACK OVERLAY
-     ============================================================ -->
+<!-- PUZZLE SCREEN -->
+<div id="puzzleScreen" class="screen">
+  <div class="game-top">
+    <button class="btn-back" onclick="showScreen('menuScreen')" aria-label="Kembali">←</button>
+    <div class="game-info">
+      <span class="level-tag" style="background: linear-gradient(135deg, #818CF8, #6366F1); box-shadow: 0 3px 0 #4338CA;">🧩 Susun Kata</span>
+      <span class="q-counter" id="puzzleCounter">Soal 1/10</span>
+      <div class="progress-mini">
+        <div class="progress-mini-fill" id="puzzleProgress" style="width: 10%"></div>
+      </div>
+      <span class="score-display" id="puzzleScore">⭐ 0</span>
+    </div>
+  </div>
+  <div class="puzzle-area">
+    <div class="puzzle-prompt" id="puzzlePrompt">Susun nama ini!</div>
+    <div class="puzzle-visual" id="puzzleVisual">🐘</div>
+    <div class="puzzle-slots" id="puzzleSlots"></div>
+    <div class="puzzle-letters" id="puzzleLetters"></div>
+    <div class="puzzle-actions">
+      <button class="btn-puzzle secondary" onclick="clearPuzzleAnswer()">🔄 Hapus</button>
+      <button class="btn-puzzle" onclick="checkPuzzleAnswer()" id="puzzleCheckBtn">✅ Periksa</button>
+    </div>
+  </div>
+</div>
+
+<!-- MATCH SCREEN -->
+<div id="matchScreen" class="screen">
+  <div class="game-top">
+    <button class="btn-back" onclick="showScreen('menuScreen')" aria-label="Kembali">←</button>
+    <div class="game-info">
+      <span class="level-tag" style="background: linear-gradient(135deg, #F472B6, #EC4899); box-shadow: 0 3px 0 #BE185D;">🎯 Cocokkan</span>
+      <span class="q-counter" id="matchCounter">Level 1/4</span>
+      <div class="progress-mini">
+        <div class="progress-mini-fill" id="matchProgress" style="width: 25%"></div>
+      </div>
+      <span class="score-display" id="matchScore">⭐ 0</span>
+    </div>
+  </div>
+  <div class="match-area">
+    <div class="match-prompt" id="matchPrompt">Cocokkan gambar dengan pasangannya!</div>
+    <div class="match-board" id="matchBoard"></div>
+    <div class="match-status" id="matchStatus">🔄 0 pasangan ditemukan</div>
+  </div>
+</div>
+
+<!-- QUICK SCREEN -->
+<div id="quickScreen" class="screen">
+  <div class="game-top">
+    <button class="btn-back" onclick="showScreen('menuScreen')" aria-label="Kembali">←</button>
+    <div class="game-info">
+      <span class="level-tag" style="background: linear-gradient(135deg, #F59E0B, #EF4444); box-shadow: 0 3px 0 #B45309;">⚡ Kuis Kilat</span>
+      <span class="q-counter" id="quickCounter">Soal 1/10</span>
+      <div class="progress-mini">
+        <div class="progress-mini-fill" id="quickProgress" style="width: 10%"></div>
+      </div>
+      <span class="score-display" id="quickScore">⭐ 0</span>
+    </div>
+  </div>
+  <div class="quick-area">
+    <div class="quick-timer-wrap">
+      <div class="quick-timer-bar" id="quickTimerBar" style="width: 100%"></div>
+    </div>
+    <div class="quick-visual" id="quickVisual">🐘</div>
+    <div class="quick-text" id="quickText">Pertanyaan?</div>
+    <div class="quick-options">
+      <button class="quick-btn benar" id="quickBtnBenar" onclick="answerQuick(true)">✅ BENAR</button>
+      <button class="quick-btn salah" id="quickBtnSalah" onclick="answerQuick(false)">❌ SALAH</button>
+    </div>
+    <div class="quick-feedback" id="quickFeedback"></div>
+  </div>
+</div>
+
+<!-- FEEDBACK OVERLAY -->
 <div class="feedback-overlay" id="feedbackOverlay">
   <div class="feedback-card good" id="feedbackCard">
     <div class="feedback-emoji" id="feedbackEmoji">🎉</div>
@@ -1729,15 +2179,13 @@
   </div>
 </div>
 
-<!-- ============================================================
-     RESULT SCREEN
-     ============================================================ -->
+<!-- RESULT SCREEN -->
 <div id="resultScreen" class="screen">
   <div class="result-wrap">
     <div class="result-card">
       <div class="result-emoji" id="resultEmoji">🌟</div>
-      <div class="result-title" id="resultTitle">Level Selesai!</div>
-      <div class="result-sub" id="resultSub">Kamu berhasil menyelesaikan level ini</div>
+      <div class="result-title" id="resultTitle">Selesai!</div>
+      <div class="result-sub" id="resultSub">Kamu berhasil menyelesaikan permainan ini</div>
       <div class="result-stars">
         <span class="star" id="star1">⭐</span>
         <span class="star" id="star2">⭐</span>
@@ -1745,16 +2193,14 @@
       </div>
       <div class="result-score" id="resultScore">Skor: 100</div>
       <div class="result-buttons">
-        <button class="btn-result secondary" onclick="retryLevel()">🔄 Coba Lagi</button>
+        <button class="btn-result secondary" id="retryBtn" onclick="retryLevel()">🔄 Coba Lagi</button>
         <button class="btn-result primary" id="nextLevelBtn" onclick="nextLevel()">➡️ Lanjut</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ============================================================
-     FINAL SCREEN
-     ============================================================ -->
+<!-- FINAL SCREEN -->
 <div id="finalScreen" class="screen">
   <div class="final-wrap">
     <div class="final-card">
@@ -1775,16 +2221,14 @@
         </div>
       </div>
       <div class="result-buttons">
-        <button class="btn-result secondary" onclick="backToLevels()">🏠 Menu Level</button>
+        <button class="btn-result secondary" onclick="showScreen('menuScreen')">🏠 Menu Permainan</button>
         <button class="btn-result primary" onclick="restartGame()">🔄 Main Lagi</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ============================================================
-     BRANDING FOOTER
-     ============================================================ -->
+<!-- BRANDING FOOTER -->
 <div class="brand-footer">
   <div class="brand-inner">
     <span class="brand-star">⭐</span>
@@ -1794,14 +2238,12 @@
 </div>
 
 <script>
-/* ============================================================
-   KONFIGURASI
-   ============================================================ */
+/* ============================================================ KONFIGURASI */
 const QUESTIONS_PER_SESSION = 5;
+const PUZZLE_QUESTIONS = 10;
+const QUICK_QUESTIONS = 10;
 
-/* ============================================================
-   BANK SOAL
-   ============================================================ */
+/* ============================================================ BANK SOAL KUIS PILIHAN */
 const LEVELS = [
   {
     id: 1, title: "Kenali Hewan", icon: "🐾", desc: "Tebak nama hewan dari gambarnya",
@@ -1972,10 +2414,101 @@ const LEVELS = [
   }
 ];
 
-/* ============================================================
-   STATE
-   ============================================================ */
-const STORAGE_KEY = 'alamSekitarProgress_v4';
+/* ============================================================ BANK PUZZLE */
+const PUZZLE_BANK = [
+  { word: "GAJAH", visual: "🐘", hint: "Hewan besar berbelalai" },
+  { word: "SINGA", visual: "🦁", hint: "Raja hutan" },
+  { word: "KUCING", visual: "🐱", hint: "Hewan peliharaan yang mengeong" },
+  { word: "AYAM", visual: "🐔", hint: "Hewan yang berkokok" },
+  { word: "IKAN", visual: "🐟", hint: "Hewan yang hidup di air" },
+  { word: "KUPU", visual: "🦋", hint: "Serangga bersayap indah" },
+  { word: "SAPI", visual: "🐄", hint: "Hewan penghasil susu" },
+  { word: "BUNGA", visual: "🌸", hint: "Bagian tumbuhan yang indah" },
+  { word: "AKAR", visual: "🌱", hint: "Bagian tumbuhan di dalam tanah" },
+  { word: "DAUN", visual: "🍃", hint: "Bagian tumbuhan untuk fotosintesis" },
+  { word: "MATA", visual: "👁️", hint: "Indera untuk melihat" },
+  { word: "TELINGA", visual: "👂", hint: "Indera untuk mendengar" },
+  { word: "HIDUNG", visual: "👃", hint: "Indera untuk mencium bau" },
+  { word: "MULUT", visual: "👄", hint: "Untuk makan dan bicara" },
+  { word: "KAKI", visual: "🦶", hint: "Untuk berjalan" },
+  { word: "TANGAN", visual: "✋", hint: "Untuk memegang" },
+  { word: "PISANG", visual: "🍌", hint: "Makanan kesukaan monyet" },
+  { word: "WORTEL", visual: "🥕", hint: "Makanan kesukaan kelinci" },
+  { word: "MADU", visual: "🍯", hint: "Hasil dari lebah" },
+  { word: "PANDA", visual: "🐼", hint: "Hewan hitam putih pemakan bambu" }
+];
+
+/* ============================================================ BANK MATCH */
+const MATCH_LEVELS = [
+  {
+    title: "Hewan & Makanan",
+    pairs: [
+      { a: "🐰", b: "🥕", label: "Kelinci-Wortel" },
+      { a: "🐵", b: "🍌", label: "Monyet-Pisang" },
+      { a: "🐼", b: "🎋", label: "Panda-Bambu" },
+      { a: "🐝", b: "🍯", label: "Lebah-Madu" }
+    ]
+  },
+  {
+    title: "Hewan & Tempat Hidup",
+    pairs: [
+      { a: "🐟", b: "💧", label: "Ikan-Air" },
+      { a: "🦅", b: "☁️", label: "Elang-Udara" },
+      { a: "🐪", b: "🏜️", label: "Unta-Gurun" },
+      { a: "🐧", b: "❄️", label: "Penguin-Salju" }
+    ]
+  },
+  {
+    title: "Tumbuhan & Bagiannya",
+    pairs: [
+      { a: "🌱", b: "🪵", label: "Tumbuhan-Akar" },
+      { a: "🍃", b: "☀️", label: "Daun-Matahari" },
+      { a: "🌸", b: "🐝", label: "Bunga-Lebah" },
+      { a: "🍎", b: "🌰", label: "Buah-Biji" }
+    ]
+  },
+  {
+    title: "Tubuh & Fungsinya",
+    pairs: [
+      { a: "👁️", b: "🌈", label: "Mata-Melihat" },
+      { a: "👂", b: "🎵", label: "Telinga-Mendengar" },
+      { a: "👃", b: "🌸", label: "Hidung-Mencium" },
+      { a: "👅", b: "🍭", label: "Lidah-Mengecap" }
+    ]
+  }
+];
+
+/* ============================================================ BANK QUICK */
+const QUICK_BANK = [
+  { visual: "🐘", text: "Gajah adalah hewan terbesar di darat.", answer: true },
+  { visual: "🐟", text: "Ikan bernafas dengan paru-paru.", answer: false },
+  { visual: "🐰", text: "Kelinci suka makan wortel.", answer: true },
+  { visual: "🦁", text: "Singa adalah raja hutan.", answer: true },
+  { visual: "🐝", text: "Lebah menghasilkan madu.", answer: true },
+  { visual: "🦋", text: "Kupu-kupu suka makan daging.", answer: false },
+  { visual: "🌱", text: "Akar menyerap air dari dalam tanah.", answer: true },
+  { visual: "🍃", text: "Daun berwarna biru.", answer: false },
+  { visual: "🌸", text: "Bunga adalah bagian tumbuhan yang indah.", answer: true },
+  { visual: "👁️", text: "Mata digunakan untuk mendengar.", answer: false },
+  { visual: "👂", text: "Telinga digunakan untuk mendengar.", answer: true },
+  { visual: "🦶", text: "Kaki digunakan untuk berjalan.", answer: true },
+  { visual: "👅", text: "Lidah digunakan untuk mencium bau.", answer: false },
+  { visual: "🐼", text: "Panda suka makan bambu.", answer: true },
+  { visual: "🐧", text: "Penguin hidup di gurun panas.", answer: false },
+  { visual: "🐟", text: "Ikan hiu hidup di laut.", answer: true },
+  { visual: "🐒", text: "Monyet suka makan pisang.", answer: true },
+  { visual: "🌻", text: "Bunga matahari berwarna kuning cerah.", answer: true },
+  { visual: "🪵", text: "Batang tumbuhan ada di dalam tanah.", answer: false },
+  { visual: "🧠", text: "Otak digunakan untuk berpikir.", answer: true },
+  { visual: "🐪", text: "Unta hidup di daerah bersalju.", answer: false },
+  { visual: "🐄", text: "Sapi menghasilkan susu.", answer: true },
+  { visual: "🥕", text: "Wortel adalah bagian daun tumbuhan.", answer: false },
+  { visual: "🦷", text: "Gigi digunakan untuk mengunyah makanan.", answer: true },
+  { visual: "🌳", text: "Pohon membutuhkan air dan matahari untuk tumbuh.", answer: true }
+];
+
+/* ============================================================ STATE */
+const STORAGE_KEY = 'alamSekitarProgress_v5';
 let state = {
   currentLevelIndex: 0,
   currentQuestionIndex: 0,
@@ -1985,9 +2518,12 @@ let state = {
   progress: {}
 };
 
-/* ============================================================
-   UTIL
-   ============================================================ */
+let puzzleState = { questions: [], index: 0, score: 0, slots: [], availableLetters: [], checked: false, fromMenu: true };
+let matchState = { levelIndex: 0, cards: [], flipped: [], matched: 0, score: 0, lock: false, totalPairs: 4 };
+let quickState = { questions: [], index: 0, score: 0, mistakes: 0, timer: null, timeLeft: 10, maxTime: 10, answered: false };
+let currentMode = 'quiz'; // quiz | puzzle | match | quick
+
+/* ============================================================ UTIL */
 function shuffleArray(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -2001,9 +2537,7 @@ function prepareSessionQuestions(level, count) {
   const pool = level.questions;
   const picked = shuffleArray(pool).slice(0, Math.min(count, pool.length));
   return picked.map(q => {
-    const opts = q.options.map((o, i) => ({
-      emoji: o.emoji, label: o.label, _isCorrect: i === q.correct
-    }));
+    const opts = q.options.map((o, i) => ({ emoji: o.emoji, label: o.label, _isCorrect: i === q.correct }));
     const shuffled = shuffleArray(opts);
     const newCorrectIndex = shuffled.findIndex(o => o._isCorrect);
     return {
@@ -2014,9 +2548,7 @@ function prepareSessionQuestions(level, count) {
   });
 }
 
-/* ============================================================
-   PERSISTENCE
-   ============================================================ */
+/* ============================================================ PERSISTENCE */
 function loadProgress() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -2033,9 +2565,7 @@ function resetProgress() {
   renderLevels();
 }
 
-/* ============================================================
-   NAVIGATION
-   ============================================================ */
+/* ============================================================ NAVIGATION */
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -2044,13 +2574,10 @@ function showScreen(id) {
 function goToLevels() { renderLevels(); showScreen('levelScreen'); }
 function backToLevels() { showScreen('levelScreen'); renderLevels(); }
 
-/* ============================================================
-   LEVEL SELECT
-   ============================================================ */
+/* ============================================================ LEVEL SELECT */
 function renderLevels() {
   const grid = document.getElementById('levelGrid');
   grid.innerHTML = '';
-
   const completedCount = Object.keys(state.progress).length;
   const totalLevels = LEVELS.length;
   const percent = Math.round((completedCount / totalLevels) * 100);
@@ -2062,17 +2589,14 @@ function renderLevels() {
     const isUnlocked = idx === 0 || state.progress[LEVELS[idx - 1].id] !== undefined;
     const stars = state.progress[level.id] || 0;
     const isDone = stars > 0;
-
     const card = document.createElement('div');
     card.className = 'level-card';
     if (!isUnlocked) card.classList.add('locked');
     if (isDone) card.classList.add('done');
-
     let starsHtml = '';
     for (let i = 1; i <= 3; i++) {
       starsHtml += `<span class="star ${i <= stars ? 'filled' : ''}">⭐</span>`;
     }
-
     card.innerHTML = `
       <div class="num-badge">${level.id}</div>
       ${!isUnlocked ? '<div class="lock-icon">🔒</div>' : ''}
@@ -2082,23 +2606,19 @@ function renderLevels() {
       <div class="bank-info">📚 Bank: ${level.questions.length} soal</div>
       <div class="level-stars">${isDone ? starsHtml : ''}</div>
     `;
-
     if (isUnlocked) card.addEventListener('click', () => startLevel(idx));
     grid.appendChild(card);
   });
 }
 
-/* ============================================================
-   GAME FLOW
-   ============================================================ */
+/* ============================================================ KUIS PILIHAN */
 function startLevel(levelIndex) {
+  currentMode = 'quiz';
   state.currentLevelIndex = levelIndex;
   state.currentQuestionIndex = 0;
   state.score = 0;
   state.mistakes = 0;
-  state.sessionQuestions = prepareSessionQuestions(
-    LEVELS[levelIndex], QUESTIONS_PER_SESSION
-  );
+  state.sessionQuestions = prepareSessionQuestions(LEVELS[levelIndex], QUESTIONS_PER_SESSION);
   showScreen('gameScreen');
   renderQuestion();
 }
@@ -2107,31 +2627,17 @@ function renderQuestion() {
   const level = LEVELS[state.currentLevelIndex];
   const q = state.sessionQuestions[state.currentQuestionIndex];
   const totalQ = state.sessionQuestions.length;
-
   document.getElementById('gameLevelTag').textContent = `Level ${level.id}`;
-  document.getElementById('gameQCounter').textContent =
-    `Soal ${state.currentQuestionIndex + 1}/${totalQ}`;
-  document.getElementById('gameProgress').style.width =
-    ((state.currentQuestionIndex / totalQ) * 100) + '%';
+  document.getElementById('gameQCounter').textContent = `Soal ${state.currentQuestionIndex + 1}/${totalQ}`;
+  document.getElementById('gameProgress').style.width = ((state.currentQuestionIndex / totalQ) * 100) + '%';
   document.getElementById('gameScore').textContent = `⭐ ${state.score}`;
-
   const qArea = document.getElementById('questionArea');
-  qArea.style.animation = 'none';
-  void qArea.offsetWidth;
-  qArea.style.animation = '';
-
+  qArea.style.animation = 'none'; void qArea.offsetWidth; qArea.style.animation = '';
   document.getElementById('qVisual').textContent = q.visual;
-
   const captionEl = document.getElementById('qCaption');
-  if (q.caption) {
-    captionEl.textContent = q.caption;
-    captionEl.style.display = 'inline-block';
-  } else {
-    captionEl.style.display = 'none';
-  }
-
+  if (q.caption) { captionEl.textContent = q.caption; captionEl.style.display = 'inline-block'; }
+  else { captionEl.style.display = 'none'; }
   document.getElementById('qText').textContent = q.text;
-
   const grid = document.getElementById('optionsGrid');
   grid.innerHTML = '';
   q.options.forEach((opt, i) => {
@@ -2146,24 +2652,18 @@ function renderQuestion() {
 function selectAnswer(index, btn) {
   const q = state.sessionQuestions[state.currentQuestionIndex];
   const isCorrect = index === q.correct;
-
   document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
-
   if (isCorrect) {
     btn.classList.add('correct');
     state.score += 20;
     document.getElementById('gameScore').textContent = `⭐ ${state.score}`;
     const scoreEl = document.getElementById('gameScore');
-    scoreEl.classList.remove('bump');
-    void scoreEl.offsetWidth;
-    scoreEl.classList.add('bump');
+    scoreEl.classList.remove('bump'); void scoreEl.offsetWidth; scoreEl.classList.add('bump');
     spawnParticles(btn);
     showFeedback(true);
   } else {
     btn.classList.add('wrong');
-    document.querySelectorAll('.option-btn').forEach((b, i) => {
-      if (i === q.correct) b.classList.add('correct');
-    });
+    document.querySelectorAll('.option-btn').forEach((b, i) => { if (i === q.correct) b.classList.add('correct'); });
     state.mistakes++;
     showFeedback(false);
   }
@@ -2178,8 +2678,7 @@ function spawnParticles(el) {
     const p = document.createElement('div');
     p.className = 'particle-burst';
     p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    p.style.left = cx + 'px';
-    p.style.top = cy + 'px';
+    p.style.left = cx + 'px'; p.style.top = cy + 'px';
     const angle = (Math.PI * 2 * i) / 8 + Math.random() * 0.5;
     const dist = 100 + Math.random() * 80;
     p.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
@@ -2197,10 +2696,8 @@ function showFeedback(isCorrect) {
   const title = document.getElementById('feedbackTitle');
   const text = document.getElementById('feedbackText');
   const btn = document.getElementById('feedbackBtn');
-
   const goodEmojis = ['🎉', '🌟', '👏', '💚', '🏆', '✨'];
   const badEmojis = ['💪', '🌈', '🌱', '🤗'];
-
   if (isCorrect) {
     card.className = 'feedback-card good';
     emoji.textContent = goodEmojis[Math.floor(Math.random() * goodEmojis.length)];
@@ -2224,56 +2721,41 @@ function nextQuestion() {
   else renderQuestion();
 }
 
-/* ============================================================
-   FINISH LEVEL
-   ============================================================ */
 function finishLevel() {
   const level = LEVELS[state.currentLevelIndex];
   let stars = 3;
   if (state.mistakes === 1) stars = 2;
   else if (state.mistakes >= 2) stars = 1;
-
   const prevStars = state.progress[level.id] || 0;
-  if (stars > prevStars) {
-    state.progress[level.id] = stars;
-    saveProgress();
-  }
-
+  if (stars > prevStars) { state.progress[level.id] = stars; saveProgress(); }
   const emojiEl = document.getElementById('resultEmoji');
   const titleEl = document.getElementById('resultTitle');
   const subEl = document.getElementById('resultSub');
-
-  if (stars === 3) {
-    emojiEl.textContent = '🏆';
-    titleEl.textContent = 'Sempurna!';
-    subEl.textContent = 'Kamu menjawab semua soal dengan benar! Luar biasa! 🌟';
-  } else if (stars === 2) {
-    emojiEl.textContent = '🎉';
-    titleEl.textContent = 'Bagus Sekali!';
-    subEl.textContent = 'Hampir sempurna! Coba lagi untuk dapat 3 bintang! ⭐';
-  } else {
-    emojiEl.textContent = '💪';
-    titleEl.textContent = 'Kerja Bagus!';
-    subEl.textContent = 'Kamu sudah menyelesaikan level ini. Ayo coba lagi! 🌈';
-  }
-
-  document.getElementById('resultScore').textContent =
-    `Skor: ${state.score} • Kesalahan: ${state.mistakes}`;
-
+  if (stars === 3) { emojiEl.textContent = '🏆'; titleEl.textContent = 'Sempurna!'; subEl.textContent = 'Kamu menjawab semua soal dengan benar! Luar biasa! 🌟'; }
+  else if (stars === 2) { emojiEl.textContent = '🎉'; titleEl.textContent = 'Bagus Sekali!'; subEl.textContent = 'Hampir sempurna! Coba lagi untuk dapat 3 bintang! ⭐'; }
+  else { emojiEl.textContent = '💪'; titleEl.textContent = 'Kerja Bagus!'; subEl.textContent = 'Kamu sudah menyelesaikan level ini. Ayo coba lagi! 🌈'; }
+  document.getElementById('resultScore').textContent = `Skor: ${state.score} • Kesalahan: ${state.mistakes}`;
   ['star1','star2','star3'].forEach((id, i) => {
     const el = document.getElementById(id);
     el.classList.remove('show');
     setTimeout(() => { if (i < stars) el.classList.add('show'); }, 300 + i * 250);
   });
-
   const nextBtn = document.getElementById('nextLevelBtn');
   const isLastLevel = state.currentLevelIndex === LEVELS.length - 1;
   nextBtn.textContent = isLastLevel ? '🏆 Lihat Hadiah' : '➡️ Level Berikutnya';
-
+  nextBtn.onclick = nextLevel;
+  const retryBtn = document.getElementById('retryBtn');
+  retryBtn.onclick = retryLevel;
+  currentMode = 'quiz';
   showScreen('resultScreen');
 }
 
-function retryLevel() { startLevel(state.currentLevelIndex); }
+function retryLevel() {
+  if (currentMode === 'quiz') startLevel(state.currentLevelIndex);
+  else if (currentMode === 'puzzle') startPuzzleGame();
+  else if (currentMode === 'match') startMatchGame();
+  else if (currentMode === 'quick') startQuickGame();
+}
 
 function nextLevel() {
   const isLastLevel = state.currentLevelIndex === LEVELS.length - 1;
@@ -2281,9 +2763,7 @@ function nextLevel() {
   else startLevel(state.currentLevelIndex + 1);
 }
 
-/* ============================================================
-   FINAL + CONFETTI
-   ============================================================ */
+/* ============================================================ FINAL */
 function showFinalScreen() {
   let totalStars = 0;
   Object.values(state.progress).forEach(s => totalStars += s);
@@ -2311,15 +2791,365 @@ function restartGame() {
   if (!confirm('Mulai ulang dari awal? Bintang yang dikumpulkan akan direset.')) return;
   state.progress = {};
   saveProgress();
-  goToLevels();
+  showScreen('menuScreen');
 }
 
-/* ============================================================
-   KEYBOARD
-   ============================================================ */
+/* ============================================================ PUZZLE */
+function startPuzzleGame() {
+  currentMode = 'puzzle';
+  const picked = shuffleArray(PUZZLE_BANK).slice(0, PUZZLE_QUESTIONS);
+  puzzleState.questions = picked;
+  puzzleState.index = 0;
+  puzzleState.score = 0;
+  showScreen('puzzleScreen');
+  renderPuzzleQuestion();
+}
+
+function renderPuzzleQuestion() {
+  const q = puzzleState.questions[puzzleState.index];
+  const total = puzzleState.questions.length;
+  document.getElementById('puzzleCounter').textContent = `Soal ${puzzleState.index + 1}/${total}`;
+  document.getElementById('puzzleProgress').style.width = ((puzzleState.index / total) * 100) + '%';
+  document.getElementById('puzzleScore').textContent = `⭐ ${puzzleState.score}`;
+  document.getElementById('puzzlePrompt').textContent = `Susun: ${q.hint}`;
+  document.getElementById('puzzleVisual').textContent = q.visual;
+  puzzleState.slots = new Array(q.word.length).fill(null);
+  puzzleState.availableLetters = shuffleArray(q.word.split(''));
+  puzzleState.checked = false;
+  renderPuzzleSlots();
+  renderPuzzleLetters();
+  document.getElementById('puzzleCheckBtn').textContent = '✅ Periksa';
+}
+
+function renderPuzzleSlots() {
+  const slotsEl = document.getElementById('puzzleSlots');
+  slotsEl.innerHTML = '';
+  puzzleState.slots.forEach((letter, i) => {
+    const slot = document.createElement('div');
+    slot.className = 'puzzle-slot' + (letter ? ' filled' : '');
+    slot.textContent = letter || '';
+    slot.addEventListener('click', () => {
+      if (puzzleState.checked) return;
+      if (puzzleState.slots[i]) {
+        const removed = puzzleState.slots[i];
+        puzzleState.slots[i] = null;
+        puzzleState.availableLetters.push(removed);
+        renderPuzzleSlots();
+        renderPuzzleLetters();
+      }
+    });
+    slotsEl.appendChild(slot);
+  });
+}
+
+function renderPuzzleLetters() {
+  const lettersEl = document.getElementById('puzzleLetters');
+  lettersEl.innerHTML = '';
+  puzzleState.availableLetters.forEach((letter, i) => {
+    const el = document.createElement('div');
+    el.className = 'puzzle-letter';
+    el.textContent = letter;
+    el.addEventListener('click', () => {
+      if (puzzleState.checked) return;
+      const emptySlot = puzzleState.slots.indexOf(null);
+      if (emptySlot === -1) return;
+      puzzleState.slots[emptySlot] = letter;
+      puzzleState.availableLetters.splice(i, 1);
+      renderPuzzleSlots();
+      renderPuzzleLetters();
+    });
+    lettersEl.appendChild(el);
+  });
+}
+
+function clearPuzzleAnswer() {
+  if (puzzleState.checked) return;
+  const filled = puzzleState.slots.filter(Boolean);
+  puzzleState.availableLetters.push(...filled);
+  puzzleState.slots = puzzleState.slots.map(() => null);
+  renderPuzzleSlots();
+  renderPuzzleLetters();
+}
+
+function checkPuzzleAnswer() {
+  if (puzzleState.checked) {
+    puzzleState.index++;
+    if (puzzleState.index >= puzzleState.questions.length) finishPuzzle();
+    else renderPuzzleQuestion();
+    return;
+  }
+  const q = puzzleState.questions[puzzleState.index];
+  const answer = puzzleState.slots.join('');
+  if (answer.length < q.word.length) {
+    alert('Susun semua huruf dulu ya! 😊');
+    return;
+  }
+  puzzleState.checked = true;
+  const slotsEl = document.getElementById('puzzleSlots').children;
+  let allCorrect = true;
+  for (let i = 0; i < q.word.length; i++) {
+    if (puzzleState.slots[i] === q.word[i]) slotsEl[i].classList.add('correct-slot');
+    else { slotsEl[i].classList.add('wrong-slot'); allCorrect = false; }
+  }
+  if (allCorrect) {
+    puzzleState.score += 10;
+    document.getElementById('puzzleScore').textContent = `⭐ ${puzzleState.score}`;
+    const scoreEl = document.getElementById('puzzleScore');
+    scoreEl.classList.remove('bump'); void scoreEl.offsetWidth; scoreEl.classList.add('bump');
+    spawnParticles(slotsEl[0]);
+    document.getElementById('puzzlePrompt').textContent = `🎉 Benar! Kata: ${q.word}`;
+  } else {
+    document.getElementById('puzzlePrompt').textContent = `Jawaban yang benar: ${q.word}`;
+  }
+  document.getElementById('puzzleCheckBtn').textContent =
+    puzzleState.index >= puzzleState.questions.length - 1 ? '🏆 Selesai' : '➡️ Lanjut';
+}
+
+function finishPuzzle() {
+  const maxScore = puzzleState.questions.length * 10;
+  const percent = Math.round((puzzleState.score / maxScore) * 100);
+  let stars = 1;
+  if (percent >= 90) stars = 3;
+  else if (percent >= 70) stars = 2;
+  document.getElementById('resultEmoji').textContent = stars === 3 ? '🏆' : stars === 2 ? '🎉' : '💪';
+  document.getElementById('resultTitle').textContent = stars === 3 ? 'Sempurna!' : stars === 2 ? 'Bagus Sekali!' : 'Kerja Bagus!';
+  document.getElementById('resultSub').textContent = 'Permainan Susun Kata selesai!';
+  document.getElementById('resultScore').textContent = `Skor: ${puzzleState.score}/${maxScore}`;
+  ['star1','star2','star3'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.remove('show');
+    setTimeout(() => { if (i < stars) el.classList.add('show'); }, 300 + i * 250);
+  });
+  const nextBtn = document.getElementById('nextLevelBtn');
+  nextBtn.textContent = '🏠 Menu Permainan';
+  nextBtn.onclick = () => { nextBtn.onclick = nextLevel; showScreen('menuScreen'); };
+  const retryBtn = document.getElementById('retryBtn');
+  retryBtn.onclick = retryLevel;
+  currentMode = 'puzzle';
+  showScreen('resultScreen');
+}
+
+/* ============================================================ MATCH */
+function startMatchGame() {
+  currentMode = 'match';
+  matchState.levelIndex = 0;
+  matchState.score = 0;
+  showScreen('matchScreen');
+  initMatchLevel();
+}
+
+function initMatchLevel() {
+  const level = MATCH_LEVELS[matchState.levelIndex];
+  document.getElementById('matchCounter').textContent = `Level ${matchState.levelIndex + 1}/${MATCH_LEVELS.length}`;
+  document.getElementById('matchProgress').style.width = ((matchState.levelIndex / MATCH_LEVELS.length) * 100) + '%';
+  document.getElementById('matchPrompt').textContent = `Cocokkan: ${level.title}`;
+  document.getElementById('matchStatus').textContent = '🔄 0 pasangan ditemukan';
+  matchState.cards = [];
+  matchState.flipped = [];
+  matchState.matched = 0;
+  matchState.lock = false;
+  level.pairs.forEach((pair, i) => {
+    matchState.cards.push({ id: i, type: 'a', content: pair.a, pairId: i, label: pair.label });
+    matchState.cards.push({ id: i, type: 'b', content: pair.b, pairId: i, label: pair.label });
+  });
+  matchState.cards = shuffleArray(matchState.cards);
+  matchState.totalPairs = level.pairs.length;
+  renderMatchBoard();
+}
+
+function renderMatchBoard() {
+  const board = document.getElementById('matchBoard');
+  board.innerHTML = '';
+  matchState.cards.forEach((card, i) => {
+    const el = document.createElement('div');
+    el.className = 'match-card';
+    if (card.matched) el.classList.add('matched');
+    if (card.flipped) el.classList.add('flipped');
+    el.innerHTML = `<span class="card-back">❓</span><span class="card-front">${card.content}</span>`;
+    el.addEventListener('click', () => flipMatchCard(i));
+    board.appendChild(el);
+  });
+}
+
+function flipMatchCard(index) {
+  if (matchState.lock) return;
+  const card = matchState.cards[index];
+  if (card.flipped || card.matched) return;
+  card.flipped = true;
+  matchState.flipped.push(index);
+  renderMatchBoard();
+  if (matchState.flipped.length === 2) {
+    matchState.lock = true;
+    const [i1, i2] = matchState.flipped;
+    const c1 = matchState.cards[i1];
+    const c2 = matchState.cards[i2];
+    if (c1.pairId === c2.pairId && c1.type !== c2.type) {
+      setTimeout(() => {
+        c1.matched = true;
+        c2.matched = true;
+        matchState.matched++;
+        matchState.score += 10;
+        document.getElementById('matchScore').textContent = `⭐ ${matchState.score}`;
+        const scoreEl = document.getElementById('matchScore');
+        scoreEl.classList.remove('bump'); void scoreEl.offsetWidth; scoreEl.classList.add('bump');
+        document.getElementById('matchStatus').textContent = `🔄 ${matchState.matched} pasangan ditemukan`;
+        matchState.flipped = [];
+        matchState.lock = false;
+        renderMatchBoard();
+        if (matchState.matched === matchState.totalPairs) setTimeout(nextMatchLevel, 600);
+      }, 500);
+    } else {
+      const cards = document.querySelectorAll('.match-card');
+      cards[i1].classList.add('wrong-flip');
+      cards[i2].classList.add('wrong-flip');
+      setTimeout(() => {
+        c1.flipped = false;
+        c2.flipped = false;
+        matchState.flipped = [];
+        matchState.lock = false;
+        renderMatchBoard();
+      }, 800);
+    }
+  }
+}
+
+function nextMatchLevel() {
+  matchState.levelIndex++;
+  if (matchState.levelIndex >= MATCH_LEVELS.length) finishMatchGame();
+  else initMatchLevel();
+}
+
+function finishMatchGame() {
+  document.getElementById('resultEmoji').textContent = '🏆';
+  document.getElementById('resultTitle').textContent = 'Semua Pasangan Ditemukan!';
+  document.getElementById('resultSub').textContent = 'Kamu berhasil mencocokkan semua pasangan!';
+  document.getElementById('resultScore').textContent = `Skor: ${matchState.score}`;
+  ['star1','star2','star3'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.remove('show');
+    setTimeout(() => el.classList.add('show'), 300 + i * 250);
+  });
+  const nextBtn = document.getElementById('nextLevelBtn');
+  nextBtn.textContent = '🏠 Menu Permainan';
+  nextBtn.onclick = () => { nextBtn.onclick = nextLevel; showScreen('menuScreen'); };
+  const retryBtn = document.getElementById('retryBtn');
+  retryBtn.onclick = retryLevel;
+  currentMode = 'match';
+  showScreen('resultScreen');
+}
+
+/* ============================================================ QUICK */
+function startQuickGame() {
+  currentMode = 'quick';
+  quickState.questions = shuffleArray(QUICK_BANK).slice(0, QUICK_QUESTIONS);
+  quickState.index = 0;
+  quickState.score = 0;
+  quickState.mistakes = 0;
+  showScreen('quickScreen');
+  renderQuickQuestion();
+}
+
+function renderQuickQuestion() {
+  const q = quickState.questions[quickState.index];
+  const total = quickState.questions.length;
+  document.getElementById('quickCounter').textContent = `Soal ${quickState.index + 1}/${total}`;
+  document.getElementById('quickProgress').style.width = ((quickState.index / total) * 100) + '%';
+  document.getElementById('quickScore').textContent = `⭐ ${quickState.score}`;
+  document.getElementById('quickVisual').textContent = q.visual;
+  document.getElementById('quickText').textContent = q.text;
+  document.getElementById('quickFeedback').textContent = '';
+  document.getElementById('quickFeedback').className = 'quick-feedback';
+  document.getElementById('quickBtnBenar').disabled = false;
+  document.getElementById('quickBtnSalah').disabled = false;
+  document.getElementById('quickBtnBenar').className = 'quick-btn benar';
+  document.getElementById('quickBtnSalah').className = 'quick-btn salah';
+  quickState.answered = false;
+  quickState.timeLeft = quickState.maxTime;
+  updateQuickTimer();
+  if (quickState.timer) clearInterval(quickState.timer);
+  quickState.timer = setInterval(() => {
+    quickState.timeLeft -= 0.1;
+    updateQuickTimer();
+    if (quickState.timeLeft <= 0) {
+      clearInterval(quickState.timer);
+      if (!quickState.answered) answerQuick(null);
+    }
+  }, 100);
+}
+
+function updateQuickTimer() {
+  const percent = Math.max(0, (quickState.timeLeft / quickState.maxTime) * 100);
+  const bar = document.getElementById('quickTimerBar');
+  bar.style.width = percent + '%';
+  bar.classList.toggle('warning', quickState.timeLeft <= 3);
+}
+
+function answerQuick(userAnswer) {
+  if (quickState.answered) return;
+  quickState.answered = true;
+  if (quickState.timer) clearInterval(quickState.timer);
+  const q = quickState.questions[quickState.index];
+  const isCorrect = userAnswer === q.answer;
+  const btnBenar = document.getElementById('quickBtnBenar');
+  const btnSalah = document.getElementById('quickBtnSalah');
+  btnBenar.disabled = true;
+  btnSalah.disabled = true;
+  if (isCorrect) {
+    quickState.score += 10;
+    document.getElementById('quickScore').textContent = `⭐ ${quickState.score}`;
+    const scoreEl = document.getElementById('quickScore');
+    scoreEl.classList.remove('bump'); void scoreEl.offsetWidth; scoreEl.classList.add('bump');
+    document.getElementById('quickFeedback').textContent = '✅ Benar! Hebat!';
+    document.getElementById('quickFeedback').className = 'quick-feedback good';
+    if (userAnswer === true) btnBenar.classList.add('picked-correct');
+    else btnSalah.classList.add('picked-correct');
+    spawnParticles(userAnswer === true ? btnBenar : btnSalah);
+  } else {
+    quickState.mistakes++;
+    document.getElementById('quickFeedback').textContent = userAnswer === null ? '⏰ Waktu habis!' : '❌ Belum tepat!';
+    document.getElementById('quickFeedback').className = 'quick-feedback bad';
+    if (userAnswer === true) btnBenar.classList.add('picked-wrong');
+    else if (userAnswer === false) btnSalah.classList.add('picked-wrong');
+  }
+  setTimeout(() => {
+    quickState.index++;
+    if (quickState.index >= quickState.questions.length) finishQuickGame();
+    else renderQuickQuestion();
+  }, 1200);
+}
+
+function finishQuickGame() {
+  const maxScore = quickState.questions.length * 10;
+  const percent = Math.round((quickState.score / maxScore) * 100);
+  let stars = 1;
+  if (percent >= 90) stars = 3;
+  else if (percent >= 70) stars = 2;
+  document.getElementById('resultEmoji').textContent = stars === 3 ? '🏆' : stars === 2 ? '🎉' : '💪';
+  document.getElementById('resultTitle').textContent = stars === 3 ? 'Kilat Sekali!' : stars === 2 ? 'Bagus!' : 'Kerja Bagus!';
+  document.getElementById('resultSub').textContent = 'Kuis Kilat selesai!';
+  document.getElementById('resultScore').textContent = `Skor: ${quickState.score}/${maxScore} • Kesalahan: ${quickState.mistakes}`;
+  ['star1','star2','star3'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.remove('show');
+    setTimeout(() => { if (i < stars) el.classList.add('show'); }, 300 + i * 250);
+  });
+  const nextBtn = document.getElementById('nextLevelBtn');
+  nextBtn.textContent = '🏠 Menu Permainan';
+  nextBtn.onclick = () => { nextBtn.onclick = nextLevel; showScreen('menuScreen'); };
+  const retryBtn = document.getElementById('retryBtn');
+  retryBtn.onclick = retryLevel;
+  currentMode = 'quick';
+  showScreen('resultScreen');
+}
+
+/* ============================================================ KEYBOARD */
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
-    if (document.getElementById('gameScreen').classList.contains('active')) backToLevels();
+    const active = document.querySelector('.screen.active');
+    if (!active) return;
+    if (active.id === 'gameScreen') backToLevels();
+    else if (active.id === 'levelScreen') showScreen('menuScreen');
+    else if (active.id === 'puzzleScreen' || active.id === 'matchScreen' || active.id === 'quickScreen') showScreen('menuScreen');
   }
   if (document.getElementById('gameScreen').classList.contains('active')) {
     const overlay = document.getElementById('feedbackOverlay');
@@ -2333,25 +3163,13 @@ document.addEventListener('keydown', (e) => {
       if (btns[n - 1] && !btns[n - 1].disabled) btns[n - 1].click();
     }
   }
+  if (document.getElementById('quickScreen').classList.contains('active')) {
+    if (e.key === '1' || e.key.toLowerCase() === 'b') answerQuick(true);
+    if (e.key === '2' || e.key.toLowerCase() === 's') answerQuick(false);
+  }
 });
 
-/* ============================================================
-   ORIENTATION CHANGE HANDLER
-   ============================================================ */
-let resizeTimeout;
-window.addEventListener('resize', () => {
-  clearTimeout(resizeTimeout);
-  resizeTimeout = setTimeout(() => {
-    // Force reflow saat orientasi berubah
-    document.body.style.display = 'none';
-    void document.body.offsetHeight;
-    document.body.style.display = '';
-  }, 150);
-});
-
-/* ============================================================
-   INIT
-   ============================================================ */
+/* ============================================================ INIT */
 loadProgress();
 renderLevels();
 </script>
