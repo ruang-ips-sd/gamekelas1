@@ -523,6 +523,18 @@
     box-shadow: 0 3px 0 #047857;
   }
 
+  /* ✅ Warna khusus tombol pada kartu Menggambar (ungu) */
+  .card.seni .card-play {
+    background: linear-gradient(135deg, #C084FC, #A855F7);
+    box-shadow: 0 5px 0 #7E22CE, 0 8px 18px rgba(168,85,247,0.35);
+  }
+  .card.seni:hover .card-play {
+    box-shadow: 0 8px 0 #7E22CE, 0 12px 24px rgba(168,85,247,0.45);
+  }
+  .card.seni:active .card-play {
+    box-shadow: 0 3px 0 #7E22CE;
+  }
+
   /* ====== GAME CARDS PREMIUM ====== */
   .game-grid {
     display: grid;
@@ -981,11 +993,16 @@
       <span class="card-play">🌿 Main Yuk!</span>
     </a>
 
-    <div class="card seni reveal">
+    <!-- ✅ KARTU MENGGAMBAR SUDAH DITAMBAHKAN LINK -->
+    <a href="https://ruang-ips-sd.github.io/gamekelas1/gamegambar.html"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="card seni reveal">
       <div class="card-icon">🎨</div>
       <h3>Menggambar</h3>
       <p>Warnai gambar dan buat karya seni yang indah!</p>
-    </div>
+      <span class="card-play">🎨 Main Yuk!</span>
+    </a>
   </div>
 </section>
 
