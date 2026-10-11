@@ -7,7 +7,7 @@
 <title>📖 Petualangan Membaca - Kelas 1 Ceria</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* ====== PREMIUM COLOR SYSTEM (sama dengan landing page) ====== */
+  /* ====== PREMIUM COLOR SYSTEM ====== */
   :root {
     --bg-1: #FFD3E0;
     --bg-2: #FFE8CC;
@@ -77,212 +77,204 @@
     letter-spacing: -0.3px;
   }
 
-  /* ===== LOADING SCREEN ===== */
-  .loading-screen {
+  /* ====== LOADING SCREEN (RKS - Raisa Kids Studio) ====== */
+  #loadingScreen {
     position: fixed;
     inset: 0;
-    background: linear-gradient(180deg,
-      var(--bg-1) 0%,
-      var(--bg-2) 20%,
-      var(--bg-3) 40%,
-      var(--bg-4) 65%,
-      var(--bg-5) 100%);
+    z-index: 9999;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
+    background: linear-gradient(160deg,
+      #FFD3E0 0%,
+      #FFE8CC 30%,
+      #FFF4D6 55%,
+      #E8F4FF 80%,
+      #D6F0FF 100%);
     transition: opacity 0.6s ease, visibility 0.6s ease;
     overflow: hidden;
   }
-  .loading-screen.hide {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-  .loading-screen::before {
+  #loadingScreen::before {
     content: '';
     position: absolute;
     inset: 0;
     background-image:
-      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.5) 0%, transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.4) 0%, transparent 40%);
+      radial-gradient(circle at 15% 20%, rgba(255,255,255,0.7) 0%, transparent 30%),
+      radial-gradient(circle at 85% 75%, rgba(255,255,255,0.5) 0%, transparent 35%),
+      radial-gradient(circle at 50% 50%, rgba(255,255,255,0.3) 0%, transparent 50%);
     pointer-events: none;
   }
-
-  .load-float {
-    position: absolute;
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    opacity: 0.75;
-    pointer-events: none;
-    filter: drop-shadow(0 6px 12px rgba(255,107,157,0.3));
+  #loadingScreen.hide {
+    opacity: 0;
+    visibility: hidden;
   }
-  .load-float.f1 { top: 10%; left: 10%; animation: floaty 6s ease-in-out infinite; }
-  .load-float.f2 { top: 20%; right: 15%; animation: floaty 8s ease-in-out infinite 0.5s; }
-  .load-float.f3 { bottom: 15%; left: 15%; animation: floaty 7s ease-in-out infinite 1s; }
-  .load-float.f4 { bottom: 25%; right: 12%; animation: floaty 9s ease-in-out infinite 1.5s; }
-  .load-float.f5 { top: 45%; left: 5%; animation: floaty 8s ease-in-out infinite 2s; }
-  .load-float.f6 { top: 55%; right: 6%; animation: floaty 10s ease-in-out infinite 0.8s; }
 
-  .load-content {
+  .loader-wrap {
+    text-align: center;
     position: relative;
     z-index: 2;
-    text-align: center;
-    padding: 20px;
+    animation: loaderPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes loaderPop {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
   }
 
-  .load-mascot-wrap {
-    display: inline-block;
+  .loader-circle {
     position: relative;
-    margin-bottom: 8px;
-  }
-  .load-mascot {
-    font-size: clamp(4.5rem, 18vw, 6.5rem);
-    display: inline-block;
-    animation: flowerSpin 2.5s ease-in-out infinite;
-    filter: drop-shadow(0 12px 25px rgba(255,107,157,0.5));
-    margin-bottom: 12px;
-  }
-  @keyframes flowerSpin {
-    0%,100% { transform: rotate(-12deg) scale(1); }
-    50% { transform: rotate(12deg) scale(1.1); }
-  }
-
-  .load-title {
-    font-family: 'Baloo 2', cursive;
-    font-weight: 800;
-    font-size: clamp(1.6rem, 6vw, 2.4rem);
-    color: #fff;
-    text-shadow:
-      3px 3px 0 var(--rose),
-      5px 5px 0 var(--gold),
-      7px 7px 24px rgba(255,107,157,0.4);
-    margin-bottom: 6px;
-    animation: titleGlow 2s ease-in-out infinite;
-    letter-spacing: -0.5px;
-  }
-  @keyframes titleGlow {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
-  }
-  .load-subtitle {
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 600;
-    color: var(--text-soft);
-    font-size: clamp(0.85rem, 2.6vw, 1rem);
-    margin-bottom: 28px;
-    opacity: 0.9;
-  }
-
-  .load-bar-wrap {
-    width: min(280px, 80vw);
-    height: 20px;
-    background: rgba(255,255,255,0.85);
-    border-radius: 20px;
-    border: 3px solid #fff;
-    overflow: hidden;
-    box-shadow:
-      0 6px 0 rgba(255,107,157,0.15),
-      0 12px 30px rgba(255,107,157,0.25),
-      inset 0 2px 5px rgba(180,120,180,0.1);
-    position: relative;
-    margin-bottom: 16px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .load-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--rose) 0%, var(--orange) 50%, var(--gold) 100%);
-    border-radius: 20px;
-    width: 0%;
-    transition: width 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 0 15px rgba(255,179,71,0.6);
-  }
-  .load-bar-fill::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
-    animation: shimmer 1.2s infinite;
-  }
-  @keyframes shimmer {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(100%); }
-  }
-
-  .load-text {
-    font-family: 'Baloo 2', cursive;
-    font-weight: 700;
-    color: var(--rose);
-    font-size: clamp(0.9rem, 2.8vw, 1.05rem);
-    letter-spacing: 0.5px;
-    min-height: 1.3em;
+    width: clamp(130px, 30vw, 180px);
+    height: clamp(130px, 30vw, 180px);
+    margin: 0 auto clamp(20px, 4vw, 32px);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-  }
-  .load-text .dots span {
-    display: inline-block;
-    animation: dotBounce 1.2s infinite;
-  }
-  .load-text .dots span:nth-child(1) { animation-delay: 0s; }
-  .load-text .dots span:nth-child(2) { animation-delay: 0.2s; }
-  .load-text .dots span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes dotBounce {
-    0%,60%,100% { transform: translateY(0); opacity: 0.4; }
-    30% { transform: translateY(-6px); opacity: 1; }
   }
 
-  .load-ring {
+  .loader-ring {
     position: absolute;
-    top: 50%; left: 50%;
-    width: clamp(180px, 55vw, 260px);
-    height: clamp(180px, 55vw, 260px);
-    margin-left: calc(-1 * clamp(180px, 55vw, 260px) / 2);
-    margin-top: calc(-1 * clamp(180px, 55vw, 260px) / 2 - 60px);
-    border: 4px dashed rgba(255,107,157,0.35);
+    inset: 0;
     border-radius: 50%;
-    animation: ringSpin 8s linear infinite;
-    pointer-events: none;
+    border: 4px solid transparent;
+    border-top-color: #FF6B9D;
+    border-right-color: #FFB347;
+    animation: ringSpin 1.4s linear infinite;
+    filter: drop-shadow(0 4px 12px rgba(255,107,157,0.4));
   }
-  .load-ring::before {
-    content: '';
-    position: absolute;
-    inset: 20px;
-    border: 3px dotted rgba(245,197,66,0.4);
-    border-radius: 50%;
-    animation: ringSpin 6s linear infinite reverse;
+  .loader-ring-2 {
+    inset: 12px;
+    border-top-color: #7DD3FC;
+    border-right-color: #5EC4C4;
+    animation: ringSpin 1.8s linear infinite reverse;
+    filter: drop-shadow(0 4px 12px rgba(125,211,252,0.4));
   }
-  @keyframes ringSpin { to { transform: rotate(360deg); } }
+  .loader-ring-3 {
+    inset: 24px;
+    border-top-color: #F5C542;
+    border-right-color: #E8952E;
+    animation: ringSpin 2.2s linear infinite;
+    filter: drop-shadow(0 4px 12px rgba(245,197,66,0.4));
+  }
+  @keyframes ringSpin {
+    to { transform: rotate(360deg); }
+  }
 
-  .load-percent {
+  .loader-core {
+    position: relative;
+    width: 62%;
+    height: 62%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%,
+      #FFFFFF 0%,
+      #FFF4D6 40%,
+      #FFD3E0 75%,
+      #FFB6D5 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 8px 24px rgba(255,107,157,0.35),
+      0 0 0 4px rgba(255,255,255,0.85),
+      inset 0 -6px 12px rgba(232,74,127,0.15),
+      inset 0 4px 8px rgba(255,255,255,0.9);
+    animation: corePulse 1.6s ease-in-out infinite;
+  }
+  @keyframes corePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  .loader-rks {
     font-family: 'Baloo 2', cursive;
     font-weight: 800;
-    color: var(--rose);
-    font-size: clamp(1.1rem, 3.5vw, 1.4rem);
-    margin-top: 8px;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
     letter-spacing: 1px;
-    min-height: 1.3em;
-    opacity: 0;
-    transition: opacity 0.3s;
+    background: linear-gradient(135deg, #E84A7F 0%, #E8952E 50%, #D4A017 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 2px rgba(255,107,157,0.4));
   }
-  .load-percent.show { opacity: 1; }
 
-  .load-sparkle {
-    position: absolute;
-    font-size: clamp(1.2rem, 3vw, 1.6rem);
-    animation: sparkleAnim 1.5s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px rgba(245,197,66,0.8));
+  /* Tulisan Raisa Kids Studio berkedip warna-warni — JELAS & TAJAM */
+  .loader-brand {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: clamp(1.05rem, 3.4vw, 1.6rem);
+    letter-spacing: 1px;
+    margin-bottom: clamp(14px, 3vw, 22px);
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    flex-wrap: wrap;
+    filter: none;
   }
-  .load-sparkle.s1 { top: -10px; left: -30px; animation-delay: 0s; }
-  .load-sparkle.s2 { top: 10px; right: -35px; animation-delay: 0.5s; }
-  .load-sparkle.s3 { bottom: -5px; left: -25px; animation-delay: 1s; }
-  @keyframes sparkleAnim {
-    0%,100% { opacity: 0.3; transform: scale(0.85) rotate(0); }
-    50% { opacity: 1; transform: scale(1.2) rotate(20deg); }
+
+  .loader-brand span {
+    display: inline-block;
+    -webkit-text-stroke: 0.6px rgba(255,255,255,0.9);
+    text-shadow:
+      0 1px 0 rgba(255,255,255,0.9),
+      0 2px 3px rgba(0,0,0,0.12);
+    animation: colorBlink 1.4s ease-in-out infinite;
+    will-change: color, transform;
+  }
+  .loader-brand span.space { animation: none; }
+
+  .loader-brand span:nth-child(1)  { color: #E84A7F; animation-delay: 0.0s; }
+  .loader-brand span:nth-child(2)  { color: #F0722B; animation-delay: 0.1s; }
+  .loader-brand span:nth-child(3)  { color: #E8952E; animation-delay: 0.2s; }
+  .loader-brand span:nth-child(4)  { color: #D4A017; animation-delay: 0.3s; }
+  .loader-brand span:nth-child(5)  { color: #38BDF8; animation-delay: 0.4s; }
+  .loader-brand span:nth-child(6)  { animation-delay: 0.5s; }
+  .loader-brand span:nth-child(7)  { color: #2E8B7E; animation-delay: 0.6s; }
+  .loader-brand span:nth-child(8)  { color: #0284C7; animation-delay: 0.7s; }
+  .loader-brand span:nth-child(9)  { color: #7C3AED; animation-delay: 0.8s; }
+  .loader-brand span:nth-child(10) { color: #E84A7F; animation-delay: 0.9s; }
+  .loader-brand span:nth-child(11) { animation-delay: 1.0s; }
+  .loader-brand span:nth-child(12) { color: #F0722B; animation-delay: 1.1s; }
+  .loader-brand span:nth-child(13) { color: #D4A017; animation-delay: 1.2s; }
+  .loader-brand span:nth-child(14) { color: #38BDF8; animation-delay: 1.3s; }
+  .loader-brand span:nth-child(15) { color: #2E8B7E; animation-delay: 1.4s; }
+  .loader-brand span:nth-child(16) { color: #E84A7F; animation-delay: 1.5s; }
+
+  @keyframes colorBlink {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+      filter: brightness(1);
+    }
+    50% {
+      transform: translateY(-3px) scale(1.08);
+      filter: brightness(1.25) saturate(1.4);
+    }
+  }
+
+  .loader-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  .loader-dots span {
+    width: clamp(10px, 2vw, 14px);
+    height: clamp(10px, 2vw, 14px);
+    border-radius: 50%;
+    animation: dotBounce 1.2s ease-in-out infinite;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  .loader-dots span:nth-child(1) {
+    background: linear-gradient(135deg, #FF6B9D, #E84A7F);
+    animation-delay: 0s;
+  }
+  .loader-dots span:nth-child(2) {
+    background: linear-gradient(135deg, #FFB347, #E8952E);
+    animation-delay: 0.2s;
+  }
+  .loader-dots span:nth-child(3) {
+    background: linear-gradient(135deg, #7DD3FC, #38BDF8);
+    animation-delay: 0.4s;
+  }
+  @keyframes dotBounce {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+    50% { transform: translateY(-10px) scale(1.2); opacity: 1; }
   }
 
   /* ===== FLOATING DECOR ===== */
@@ -307,7 +299,7 @@
     75% { transform: translate(20px,10px) rotate(4deg); }
   }
 
-  /* ===== TOPBAR (glassmorphism premium) ===== */
+  /* ===== TOPBAR ===== */
   .topbar {
     background: rgba(255,255,255,0.65);
     backdrop-filter: blur(24px) saturate(180%);
@@ -428,6 +420,10 @@
     margin: 10px 0 8px;
     letter-spacing: -0.8px;
     animation: titleGlow 3s ease-in-out infinite;
+  }
+  @keyframes titleGlow {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
   }
   .home-hero p {
     color: var(--text-soft);
@@ -622,6 +618,10 @@
     inset: 0;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
     animation: shimmer 2s infinite;
+  }
+  @keyframes shimmer {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
   }
   .score-pill {
     background: linear-gradient(135deg, #FFF8D6, var(--gold));
@@ -1241,35 +1241,29 @@
 </head>
 <body>
 
-<!-- ===== LOADING SCREEN ===== -->
-<div class="loading-screen" id="loadingScreen">
-  <span class="load-float f1">🌸</span>
-  <span class="load-float f2">🌺</span>
-  <span class="load-float f3">🌼</span>
-  <span class="load-float f4">🌷</span>
-  <span class="load-float f5">🌻</span>
-  <span class="load-float f6">💐</span>
-
-  <div class="load-content">
-    <div class="load-mascot-wrap">
-      <div class="load-ring"></div>
-      <span class="load-sparkle s1">✨</span>
-      <span class="load-sparkle s2">⭐</span>
-      <span class="load-sparkle s3">💫</span>
-      <span class="load-mascot">🌸</span>
-    </div>
-    <div class="load-title">Petualangan Membaca</div>
-    <div class="load-subtitle">Kelas 1 Ceria • Belajar Sambil Bermain 🌈</div>
-
-    <div class="load-bar-wrap">
-      <div class="load-bar-fill" id="loadBarFill"></div>
+<!-- ====== LOADING SCREEN (RKS - Raisa Kids Studio) ====== -->
+<div id="loadingScreen">
+  <div class="loader-wrap">
+    <div class="loader-circle">
+      <div class="loader-ring"></div>
+      <div class="loader-ring loader-ring-2"></div>
+      <div class="loader-ring loader-ring-3"></div>
+      <div class="loader-core">
+        <span class="loader-rks">RKS</span>
+      </div>
     </div>
 
-    <div class="load-text">
-      <span id="loadText">Menyiapkan petualangan</span>
-      <span class="dots"><span>.</span><span>.</span><span>.</span></span>
+    <div class="loader-brand">
+      <span>R</span><span>a</span><span>i</span><span>s</span><span>a</span>
+      <span class="space">&nbsp;</span>
+      <span>K</span><span>i</span><span>d</span><span>s</span>
+      <span class="space">&nbsp;</span>
+      <span>S</span><span>t</span><span>u</span><span>d</span><span>i</span><span>o</span>
     </div>
-    <div class="load-percent" id="loadPercent">0%</div>
+
+    <div class="loader-dots">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </div>
 
@@ -1284,657 +1278,608 @@
 <div id="app"></div>
 
 <script>
-// ===== FORCE HIDE LOADING (fallback) =====
-window.addEventListener('load', function() {
-  setTimeout(function() {
-    var ls = document.getElementById('loadingScreen');
-    if (ls && !ls.classList.contains('hide')) {
-      ls.classList.add('hide');
-      setTimeout(function() { ls.style.display = 'none'; }, 700);
-    }
-  }, 6000);
-});
-
-// ===== SOUND =====
-let audioCtx = null;
-function beep(freq, dur, type) {
-  type = type || 'sine';
-  try {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    const o = audioCtx.createOscillator();
-    const g = audioCtx.createGain();
-    o.type = type;
-    o.frequency.value = freq;
-    g.gain.setValueAtTime(0.1, audioCtx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
-    o.connect(g); g.connect(audioCtx.destination);
-    o.start(); o.stop(audioCtx.currentTime + dur);
-  } catch(e) {}
-}
-const S = {
-  click:   () => beep(700, 0.06, 'sine'),
-  correct: () => { beep(523,0.1); setTimeout(()=>beep(659,0.1),90); setTimeout(()=>beep(784,0.22),180); },
-  wrong:   () => { beep(240,0.15,'triangle'); setTimeout(()=>beep(180,0.22,'triangle'),140); },
-  win:     () => { [523,659,784,1046,1318].forEach((f,i)=>setTimeout(()=>beep(f,0.18),i*110)); }
-};
-
-// ===== DATA LEVEL (8 LEVEL) =====
-const levels = [
-  {
-    name: "Kenali Huruf",
-    icon: "🔤",
-    desc: "Pilih huruf awal yang benar",
-    questions: [
-      { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🍎", options: ["A","B","C","D"], answer: 0 },
-      { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🐘", options: ["G","J","K","H"], answer: 0 },
-      { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🐟", options: ["E","I","U","O"], answer: 1 },
-      { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🍌", options: ["B","P","M","Q"], answer: 1 },
-      { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🌙", options: ["D","P","B","T"], answer: 2 },
-      { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🥚", options: ["D","T","P","K"], answer: 1 },
-      { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🐱", options: ["G","T","K","C"], answer: 2 },
-      { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🌞", options: ["N","M","W","B"], answer: 1 }
-    ]
-  },
-  {
-    name: "Suku Kata",
-    icon: "🎵",
-    desc: "Lengkapi suku kata yang hilang",
-    questions: [
-      { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🐱", options: ["KU - cing","KU - cang","KU - cong"], answer: 0 },
-      { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🍎", options: ["A - pal","A - pel","A - pil"], answer: 1 },
-      { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🐘", options: ["GA - juh","GA - jah","GA - joh"], answer: 1 },
-      { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🍌", options: ["PI - sing","PI - sang","PI - sung"], answer: 1 },
-      { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🌙", options: ["BU - lan","BU - lin","BU - lun"], answer: 0 },
-      { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🥚", options: ["TE - lur","TE - lar","TE - lor"], answer: 0 },
-      { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🐟", options: ["I - kin","I - kan","I - kun"], answer: 1 },
-      { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🐦", options: ["BU - rang","BU - ring","BU - rung"], answer: 0 }
-    ]
-  },
-  {
-    name: "Kata 2 Suku Kata",
-    icon: "📝",
-    desc: "Pilih nama yang benar",
-    questions: [
-      { type: "choice", prompt: "Gambar apa ini?", emoji: "🐱", options: ["Kucing","Anjing","Tikus"], answer: 0 },
-      { type: "choice", prompt: "Gambar apa ini?", emoji: "🐶", options: ["Kucing","Anjing","Sapi"], answer: 1 },
-      { type: "choice", prompt: "Gambar apa ini?", emoji: "🐟", options: ["Ikan","Burung","Kucing"], answer: 0 },
-      { type: "choice", prompt: "Gambar apa ini?", emoji: "🌙", options: ["Bintang","Bulan","Matahari"], answer: 1 },
-      { type: "choice", prompt: "Gambar apa ini?", emoji: "🍎", options: ["Jeruk","Mangga","Apel"], answer: 2 },
-      { type: "choice", prompt: "Gambar apa ini?", emoji: "🥚", options: ["Telur","Susu","Roti"], answer: 0 },
-      { type: "choice", prompt: "Gambar apa ini?", emoji: "🌻", options: ["Mawar","Bunga","Daun"], answer: 1 },
-      { type: "choice", prompt: "Gambar apa ini?", emoji: "🚗", options: ["Motor","Mobil","Sepeda"], answer: 1 }
-    ]
-  },
-  {
-    name: "Kata 3 Suku Kata",
-    icon: "📚",
-    desc: "Kata yang lebih panjang",
-    questions: [
-      { type: "choice", prompt: "Gambar apa ini?", emoji: "🐰", options: ["Kucing","Kelinci","Tikus"], answer: 1 },
-      { type: "choice", prompt: "Gambar apa ini?", emoji: "🏫", options: ["Sekolah","Rumah","Pasar"], answer: 0 },
-      { type: "choice", prompt: "Gambar apa ini?", emoji: "👟", options: ["Sandal","Sepatu","Kaus"], answer: 1 },
-      { type: "choice", prompt: "Gambar apa ini?", emoji: "🍉", options: ["Semangka","Pisang","Apel"], answer: 0 },
-      { type: "choice", prompt: "Gambar apa ini?", emoji: "🐊", options: ["Buaya","Badak","Ular"], answer: 0 },
-      { type: "choice", prompt: "Gambar apa ini?", emoji: "🦒", options: ["Kucing","Jerapah","Kuda"], answer: 1 },
-      { type: "choice", prompt: "Gambar apa ini?", emoji: "🌂", options: ["Payung","Topi","Tas"], answer: 0 }
-    ]
-  },
-  {
-    name: "Susun Kalimat",
-    icon: "🧩",
-    desc: "Susun kata jadi kalimat",
-    questions: [
-      { type: "arrange", prompt: "Susun kata menjadi kalimat yang benar:", words: ["Ibu","memasak","nasi"] },
-      { type: "arrange", prompt: "Susun kata menjadi kalimat yang benar:", words: ["Ayah","membaca","koran"] },
-      { type: "arrange", prompt: "Susun kata menjadi kalimat yang benar:", words: ["Adik","minum","susu"] },
-      { type: "arrange", prompt: "Susun kata menjadi kalimat yang benar:", words: ["Kakak","bermain","bola"] },
-      { type: "arrange", prompt: "Susun kata menjadi kalimat yang benar:", words: ["Aku","suka","membaca"] }
-    ]
-  },
-  {
-    name: "Baca Cerita",
-    icon: "📖",
-    desc: "Baca cerita lalu jawab",
-    questions: [
-      { type: "story", story: "Budi pergi ke sekolah. Ia membawa tas berwarna biru. Di sekolah, Budi belajar membaca.", prompt: "Apa warna tas Budi?", options: ["Biru","Merah","Hijau"], answer: 0 },
-      { type: "story", story: "Siti memiliki kucing kecil. Kucing itu bernama Mimi. Mimi suka makan ikan.", prompt: "Siapa nama kucing Siti?", options: ["Siti","Mimi","Budi"], answer: 1 },
-      { type: "story", story: "Hari ini hujan. Andi membawa payung ke sekolah. Ia tidak basah.", prompt: "Apa yang dibawa Andi?", options: ["Tas","Buku","Payung"], answer: 2 },
-      { type: "story", story: "Rina suka sekali buah. Setiap pagi ia makan apel. Apel itu manis dan segar.", prompt: "Buah apa yang dimakan Rina?", options: ["Mangga","Apel","Jeruk"], answer: 1 },
-      { type: "story", story: "Pak Tani pergi ke sawah. Ia membawa cangkul. Pak Tani menanam padi.", prompt: "Apa yang ditanam Pak Tani?", options: ["Jagung","Padi","Sayur"], answer: 1 }
-    ]
-  },
-  {
-    name: "Baca & Tebak",
-    icon: "🔊",
-    desc: "Baca kata, pilih gambarnya",
-    questions: [
-      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "APEL", options: [{e:"🍎",t:"Apel"},{e:"🍌",t:"Pisang"},{e:"🍇",t:"Anggur"}], answer: 0 },
-      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "KUCING", options: [{e:"🐶",t:"Anjing"},{e:"🐱",t:"Kucing"},{e:"🐭",t:"Tikus"}], answer: 1 },
-      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "BUNGA", options: [{e:"🌳",t:"Pohon"},{e:"🍃",t:"Daun"},{e:"🌸",t:"Bunga"}], answer: 2 },
-      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "MOBIL", options: [{e:"🚗",t:"Mobil"},{e:"✈️",t:"Pesawat"},{e:"🚢",t:"Kapal"}], answer: 0 },
-      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "MATAHARI", options: [{e:"🌙",t:"Bulan"},{e:"⭐",t:"Bintang"},{e:"☀️",t:"Matahari"}], answer: 2 },
-      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "IKAN", options: [{e:"🐟",t:"Ikan"},{e:"🐦",t:"Burung"},{e:"🐢",t:"Kura-kura"}], answer: 0 },
-      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "PAYUNG", options: [{e:"👒",t:"Topi"},{e:"☂️",t:"Payung"},{e:"👟",t:"Sepatu"}], answer: 1 },
-      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "BUKU", options: [{e:"✏️",t:"Pensil"},{e:"📕",t:"Buku"},{e:"🎒",t:"Tas"}], answer: 1 }
-    ]
-  },
-  {
-    name: "Pilih Kata Benar",
-    icon: "🎯",
-    desc: "Pilih ejaan kata yang benar",
-    questions: [
-      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🐱", options: ["Kucing","Kuceng","Kucingg"], answer: 0 },
-      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🐘", options: ["Gaja","Gajah","Gajjah"], answer: 1 },
-      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🏫", options: ["Sekolah","Sekola","Sekolahh"], answer: 0 },
-      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🐰", options: ["Kelinci","Kelincih","Klinci"], answer: 0 },
-      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🥚", options: ["Telor","Telur","Telir"], answer: 1 },
-      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🌙", options: ["Bulan","Bulin","Bualan"], answer: 0 },
-      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🐟", options: ["Ikan","Ikin","Ikann"], answer: 0 },
-      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🍌", options: ["Pisang","Pisangg","Piseng"], answer: 0 }
-    ]
-  }
-];
-
-// ===== STATE =====
-const state = {
-  screen: 'home',
-  level: 0,
-  question: 0,
-  score: 0,
-  correctCount: 0,
-  stars: JSON.parse(localStorage.getItem('membaca_stars_v3') || '{}'),
-  arranged: [],
-  pool: [],
-  answered: false,
-  checking: false,
-  lastStars: 0,
-  lastCorrect: 0,
-  lastTotal: 0
-};
-
-// ===== HELPERS =====
-function shuffle(arr) {
-  const a = arr.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-function saveStars() {
-  try { localStorage.setItem('membaca_stars_v3', JSON.stringify(state.stars)); } catch(e) {}
-}
-function isLevelUnlocked(idx) {
-  if (idx === 0) return true;
-  return (state.stars[idx - 1] || 0) >= 1;
-}
-function totalStars() {
-  let t = 0;
-  levels.forEach((_, i) => { t += (state.stars[i] || 0); });
-  return t;
-}
-function maxStars() { return levels.length * 3; }
-
-function spawnConfetti() {
-  const emojis = ['🎉','⭐','✨','🌟','💖','🎊','🌈','💫','🌸'];
-  for (let i = 0; i < 25; i++) {
-    const el = document.createElement('div');
-    el.className = 'confetti';
-    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    el.style.left = Math.random() * 100 + 'vw';
-    el.style.animationDuration = (2.5 + Math.random() * 2) + 's';
-    el.style.animationDelay = (Math.random() * 0.8) + 's';
-    el.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 5000);
-  }
-}
-
-// ===== RENDER =====
-function render() {
-  const app = document.getElementById('app');
-  if (state.screen === 'home') renderHome(app);
-  else if (state.screen === 'game') renderGame(app);
-  else if (state.screen === 'complete') renderComplete(app);
-}
-
-function renderHome(app) {
-  const tStars = totalStars();
-  const mStars = maxStars();
-
-  app.innerHTML = `
-    <div class="topbar">
-      <div style="width:42px"></div>
-      <div class="topbar-title">📖 Petualangan Membaca</div>
-      <div class="star-pill">⭐ ${tStars}/${mStars}</div>
-    </div>
-    <div class="screen screen-enter">
-      <div class="home-hero">
-        <span class="mascot">📚</span>
-        <h1>Petualangan Membaca</h1>
-        <p>Kelas 1 SD • 8 permainan seru untuk belajar membaca! 🌈</p>
-      </div>
-      <div class="section-label">🎯 Pilih Permainanmu (8 Game)</div>
-      <div class="level-grid">
-        ${levels.map((lv, i) => {
-          const s = state.stars[i] || 0;
-          const unlocked = isLevelUnlocked(i);
-          const starsHtml = [0,1,2].map(k =>
-            `<span class="${k < s ? 'on' : 'off'}">★</span>`
-          ).join('');
-          return `
-            <div class="level-card ${unlocked ? '' : 'locked'}" data-level="${i}">
-              <div class="level-num">GAME ${i+1}</div>
-              <span class="level-emoji">${lv.icon}</span>
-              <div class="level-name">${lv.name}</div>
-              <div class="level-desc">${unlocked ? lv.desc : '🔒 Selesaikan game sebelumnya'}</div>
-              <div class="level-stars">${starsHtml}</div>
-              ${unlocked ? '' : '<span class="lock-badge">🔒</span>'}
-            </div>
-          `;
-        }).join('')}
-      </div>
-    </div>
-  `;
-
-  app.querySelectorAll('.level-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const idx = parseInt(card.dataset.level);
-      if (!isLevelUnlocked(idx)) {
-        S.wrong();
-        card.style.animation = 'shake 0.5s';
-        setTimeout(() => card.style.animation = '', 500);
-        return;
-      }
-      S.click();
-      startLevel(idx);
+  // ====== LOADING SCREEN ======
+  (function() {
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loader = document.getElementById('loadingScreen');
+        if (loader) {
+          loader.classList.add('hide');
+          document.body.style.overflow = '';
+          setTimeout(() => loader.remove(), 700);
+        }
+      }, 2200);
     });
-  });
-}
 
-function startLevel(levelIdx) {
-  state.level = levelIdx;
-  state.question = 0;
-  state.score = 0;
-  state.correctCount = 0;
-  state.arranged = [];
-  state.pool = [];
-  state.answered = false;
-  state.checking = false;
-  state.screen = 'game';
-  render();
-}
+    // Fallback: hide loading screen after 5 seconds no matter what
+    setTimeout(() => {
+      const loader = document.getElementById('loadingScreen');
+      if (loader && !loader.classList.contains('hide')) {
+        loader.classList.add('hide');
+        document.body.style.overflow = '';
+        setTimeout(() => loader.remove(), 700);
+      }
+    }, 5000);
+  })();
 
-function renderGame(app) {
-  const lv = levels[state.level];
-  const q = lv.questions[state.question];
-  const total = lv.questions.length;
-  const progress = (state.question / total) * 100;
+  // ===== SOUND =====
+  let audioCtx = null;
+  function beep(freq, dur, type) {
+    type = type || 'sine';
+    try {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type = type;
+      o.frequency.value = freq;
+      g.gain.setValueAtTime(0.1, audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(); o.stop(audioCtx.currentTime + dur);
+    } catch(e) {}
+  }
+  const S = {
+    click:   () => beep(700, 0.06, 'sine'),
+    correct: () => { beep(523,0.1); setTimeout(()=>beep(659,0.1),90); setTimeout(()=>beep(784,0.22),180); },
+    wrong:   () => { beep(240,0.15,'triangle'); setTimeout(()=>beep(180,0.22,'triangle'),140); },
+    win:     () => { [523,659,784,1046,1318].forEach((f,i)=>setTimeout(()=>beep(f,0.18),i*110)); }
+  };
 
-  if (q.type === 'arrange' && state.pool.length === 0) {
-    state.pool = shuffle(q.words.map((w, i) => ({ text: w, idx: i })));
+  // ===== DATA LEVEL (8 LEVEL) =====
+  const levels = [
+    {
+      name: "Kenali Huruf",
+      icon: "🔤",
+      desc: "Pilih huruf awal yang benar",
+      questions: [
+        { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🍎", options: ["A","B","C","D"], answer: 0 },
+        { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🐘", options: ["G","J","K","H"], answer: 0 },
+        { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🐟", options: ["E","I","U","O"], answer: 1 },
+        { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🍌", options: ["B","P","M","Q"], answer: 1 },
+        { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🌙", options: ["D","P","B","T"], answer: 2 },
+        { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🥚", options: ["D","T","P","K"], answer: 1 },
+        { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🐱", options: ["G","T","K","C"], answer: 2 },
+        { type: "choice", prompt: "Huruf awal dari gambar ini adalah...", emoji: "🌞", options: ["N","M","W","B"], answer: 1 }
+      ]
+    },
+    {
+      name: "Suku Kata",
+      icon: "🎵",
+      desc: "Lengkapi suku kata yang hilang",
+      questions: [
+        { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🐱", options: ["KU - cing","KU - cang","KU - cong"], answer: 0 },
+        { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🍎", options: ["A - pal","A - pel","A - pil"], answer: 1 },
+        { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🐘", options: ["GA - juh","GA - jah","GA - joh"], answer: 1 },
+        { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🍌", options: ["PI - sing","PI - sang","PI - sung"], answer: 1 },
+        { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🌙", options: ["BU - lan","BU - lin","BU - lun"], answer: 0 },
+        { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🥚", options: ["TE - lur","TE - lar","TE - lor"], answer: 0 },
+        { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🐟", options: ["I - kin","I - kan","I - kun"], answer: 1 },
+        { type: "choice", prompt: "Lengkapi suku kata ini:", emoji: "🐦", options: ["BU - rang","BU - ring","BU - rung"], answer: 0 }
+      ]
+    },
+    {
+      name: "Kata 2 Suku Kata",
+      icon: "📝",
+      desc: "Pilih nama yang benar",
+      questions: [
+        { type: "choice", prompt: "Gambar apa ini?", emoji: "🐱", options: ["Kucing","Anjing","Tikus"], answer: 0 },
+        { type: "choice", prompt: "Gambar apa ini?", emoji: "🐶", options: ["Kucing","Anjing","Sapi"], answer: 1 },
+        { type: "choice", prompt: "Gambar apa ini?", emoji: "🐟", options: ["Ikan","Burung","Kucing"], answer: 0 },
+        { type: "choice", prompt: "Gambar apa ini?", emoji: "🌙", options: ["Bintang","Bulan","Matahari"], answer: 1 },
+        { type: "choice", prompt: "Gambar apa ini?", emoji: "🍎", options: ["Jeruk","Mangga","Apel"], answer: 2 },
+        { type: "choice", prompt: "Gambar apa ini?", emoji: "🥚", options: ["Telur","Susu","Roti"], answer: 0 },
+        { type: "choice", prompt: "Gambar apa ini?", emoji: "🌻", options: ["Mawar","Bunga","Daun"], answer: 1 },
+        { type: "choice", prompt: "Gambar apa ini?", emoji: "🚗", options: ["Motor","Mobil","Sepeda"], answer: 1 }
+      ]
+    },
+    {
+      name: "Kata 3 Suku Kata",
+      icon: "📚",
+      desc: "Kata yang lebih panjang",
+      questions: [
+        { type: "choice", prompt: "Gambar apa ini?", emoji: "🐰", options: ["Kucing","Kelinci","Tikus"], answer: 1 },
+        { type: "choice", prompt: "Gambar apa ini?", emoji: "🏫", options: ["Sekolah","Rumah","Pasar"], answer: 0 },
+        { type: "choice", prompt: "Gambar apa ini?", emoji: "👟", options: ["Sandal","Sepatu","Kaus"], answer: 1 },
+        { type: "choice", prompt: "Gambar apa ini?", emoji: "🍉", options: ["Semangka","Pisang","Apel"], answer: 0 },
+        { type: "choice", prompt: "Gambar apa ini?", emoji: "🐊", options: ["Buaya","Badak","Ular"], answer: 0 },
+        { type: "choice", prompt: "Gambar apa ini?", emoji: "🦒", options: ["Kucing","Jerapah","Kuda"], answer: 1 },
+        { type: "choice", prompt: "Gambar apa ini?", emoji: "🌂", options: ["Payung","Topi","Tas"], answer: 0 }
+      ]
+    },
+    {
+      name: "Susun Kalimat",
+      icon: "🧩",
+      desc: "Susun kata jadi kalimat",
+      questions: [
+        { type: "arrange", prompt: "Susun kata menjadi kalimat yang benar:", words: ["Ibu","memasak","nasi"] },
+        { type: "arrange", prompt: "Susun kata menjadi kalimat yang benar:", words: ["Ayah","membaca","koran"] },
+        { type: "arrange", prompt: "Susun kata menjadi kalimat yang benar:", words: ["Adik","minum","susu"] },
+        { type: "arrange", prompt: "Susun kata menjadi kalimat yang benar:", words: ["Kakak","bermain","bola"] },
+        { type: "arrange", prompt: "Susun kata menjadi kalimat yang benar:", words: ["Aku","suka","membaca"] }
+      ]
+    },
+    {
+      name: "Baca Cerita",
+      icon: "📖",
+      desc: "Baca cerita lalu jawab",
+      questions: [
+        { type: "story", story: "Budi pergi ke sekolah. Ia membawa tas berwarna biru. Di sekolah, Budi belajar membaca.", prompt: "Apa warna tas Budi?", options: ["Biru","Merah","Hijau"], answer: 0 },
+        { type: "story", story: "Siti memiliki kucing kecil. Kucing itu bernama Mimi. Mimi suka makan ikan.", prompt: "Siapa nama kucing Siti?", options: ["Siti","Mimi","Budi"], answer: 1 },
+        { type: "story", story: "Hari ini hujan. Andi membawa payung ke sekolah. Ia tidak basah.", prompt: "Apa yang dibawa Andi?", options: ["Tas","Buku","Payung"], answer: 2 },
+        { type: "story", story: "Rina suka sekali buah. Setiap pagi ia makan apel. Apel itu manis dan segar.", prompt: "Buah apa yang dimakan Rina?", options: ["Mangga","Apel","Jeruk"], answer: 1 },
+        { type: "story", story: "Pak Tani pergi ke sawah. Ia membawa cangkul. Pak Tani menanam padi.", prompt: "Apa yang ditanam Pak Tani?", options: ["Jagung","Padi","Sayur"], answer: 1 }
+      ]
+    },
+    {
+      name: "Baca & Tebak",
+      icon: "🔊",
+      desc: "Baca kata, pilih gambarnya",
+      questions: [
+        { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "APEL", options: [{e:"🍎",t:"Apel"},{e:"🍌",t:"Pisang"},{e:"🍇",t:"Anggur"}], answer: 0 },
+        { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "KUCING", options: [{e:"🐶",t:"Anjing"},{e:"🐱",t:"Kucing"},{e:"🐭",t:"Tikus"}], answer: 1 },
+        { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "BUNGA", options: [{e:"🌳",t:"Pohon"},{e:"🍃",t:"Daun"},{e:"🌸",t:"Bunga"}], answer: 2 },
+        { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "MOBIL", options: [{e:"🚗",t:"Mobil"},{e:"✈️",t:"Pesawat"},{e:"🚢",t:"Kapal"}], answer: 0 },
+        { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "MATAHARI", options: [{e:"🌙",t:"Bulan"},{e:"⭐",t:"Bintang"},{e:"☀️",t:"Matahari"}], answer: 2 },
+        { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "IKAN", options: [{e:"🐟",t:"Ikan"},{e:"🐦",t:"Burung"},{e:"🐢",t:"Kura-kura"}], answer: 0 },
+        { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "PAYUNG", options: [{e:"👒",t:"Topi"},{e:"☂️",t:"Payung"},{e:"👟",t:"Sepatu"}], answer: 1 },
+        { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "BUKU", options: [{e:"✏️",t:"Pensil"},{e:"📕",t:"Buku"},{e:"🎒",t:"Tas"}], answer: 1 }
+      ]
+    },
+    {
+      name: "Pilih Kata Benar",
+      icon: "🎯",
+      desc: "Pilih ejaan kata yang benar",
+      questions: [
+        { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🐱", options: ["Kucing","Kuceng","Kucingg"], answer: 0 },
+        { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🐘", options: ["Gaja","Gajah","Gajjah"], answer: 1 },
+        { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🏫", options: ["Sekolah","Sekola","Sekolahh"], answer: 0 },
+        { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🐰", options: ["Kelinci","Kelincih","Klinci"], answer: 0 },
+        { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🥚", options: ["Telor","Telur","Telir"], answer: 1 },
+        { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🌙", options: ["Bulan","Bulin","Bualan"], answer: 0 },
+        { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🐟", options: ["Ikan","Ikin","Ikann"], answer: 0 },
+        { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🍌", options: ["Pisang","Pisangg","Piseng"], answer: 0 }
+      ]
+    }
+  ];
+
+  // ===== STATE =====
+  const state = {
+    screen: 'home',
+    level: 0,
+    question: 0,
+    score: 0,
+    correctCount: 0,
+    stars: JSON.parse(localStorage.getItem('membaca_stars_v3') || '{}'),
+    arranged: [],
+    pool: [],
+    answered: false,
+    checking: false,
+    lastStars: 0,
+    lastCorrect: 0,
+    lastTotal: 0
+  };
+
+  // ===== HELPERS =====
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  function saveStars() {
+    try { localStorage.setItem('membaca_stars_v3', JSON.stringify(state.stars)); } catch(e) {}
+  }
+  function isLevelUnlocked(idx) {
+    if (idx === 0) return true;
+    return (state.stars[idx - 1] || 0) >= 1;
+  }
+  function totalStars() {
+    let t = 0;
+    levels.forEach((_, i) => { t += (state.stars[i] || 0); });
+    return t;
+  }
+  function maxStars() { return levels.length * 3; }
+
+  function spawnConfetti() {
+    const emojis = ['🎉','⭐','✨','🌟','💖','🎊','🌈','💫','🌸'];
+    for (let i = 0; i < 25; i++) {
+      const el = document.createElement('div');
+      el.className = 'confetti';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+      el.style.animationDelay = (Math.random() * 0.8) + 's';
+      el.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 5000);
+    }
   }
 
-  let questionHtml = '';
+  // ===== RENDER =====
+  function render() {
+    const app = document.getElementById('app');
+    if (state.screen === 'home') renderHome(app);
+    else if (state.screen === 'game') renderGame(app);
+    else if (state.screen === 'complete') renderComplete(app);
+  }
 
-  if (q.type === 'choice') {
-    questionHtml = `
-      <div class="question-card">
-        <div class="q-prompt">${q.prompt}</div>
-        <span class="q-emoji">${q.emoji}</span>
-        <div class="options">
-          ${q.options.map((opt, i) =>
-            `<button class="option" data-opt="${i}">${opt}</button>`
-          ).join('')}
-        </div>
+  function renderHome(app) {
+    const tStars = totalStars();
+    const mStars = maxStars();
+
+    app.innerHTML = `
+      <div class="topbar">
+        <div style="width:42px"></div>
+        <div class="topbar-title">📖 Petualangan Membaca</div>
+        <div class="star-pill">⭐ ${tStars}/${mStars}</div>
       </div>
-    `;
-  } else if (q.type === 'arrange') {
-    questionHtml = `
-      <div class="question-card">
-        <div class="q-prompt">${q.prompt}</div>
-        <div class="sentence-area" id="sentenceArea">
-          ${state.arranged.map((origIdx, pos) =>
-            `<span class="word-chip" data-pos="${pos}">${q.words[origIdx]}</span>`
-          ).join('')}
+      <div class="screen screen-enter">
+        <div class="home-hero">
+          <span class="mascot">📚</span>
+          <h1>Petualangan Membaca</h1>
+          <p>Kelas 1 SD • 8 permainan seru untuk belajar membaca! 🌈</p>
         </div>
-        <div class="word-pool" id="wordPool">
-          ${state.pool.map(p => {
-            const used = state.arranged.includes(p.idx);
-            return `<span class="word-chip ${used ? 'used' : ''}" data-idx="${p.idx}">${p.text}</span>`;
+        <div class="section-label">🎯 Pilih Permainanmu (8 Game)</div>
+        <div class="level-grid">
+          ${levels.map((lv, i) => {
+            const s = state.stars[i] || 0;
+            const unlocked = isLevelUnlocked(i);
+            const starsHtml = [0,1,2].map(k =>
+              `<span class="${k < s ? 'on' : 'off'}">★</span>`
+            ).join('');
+            return `
+              <div class="level-card ${unlocked ? '' : 'locked'}" data-level="${i}">
+                <div class="level-num">GAME ${i+1}</div>
+                <span class="level-emoji">${lv.icon}</span>
+                <div class="level-name">${lv.name}</div>
+                <div class="level-desc">${unlocked ? lv.desc : '🔒 Selesaikan game sebelumnya'}</div>
+                <div class="level-stars">${starsHtml}</div>
+                ${unlocked ? '' : '<span class="lock-badge">🔒</span>'}
+              </div>
+            `;
           }).join('')}
         </div>
       </div>
     `;
-  } else if (q.type === 'story') {
-    questionHtml = `
-      <div class="question-card">
-        <div class="story-box">${q.story}</div>
-        <div class="q-prompt">${q.prompt}</div>
-        <div class="options">
-          ${q.options.map((opt, i) =>
-            `<button class="option" data-opt="${i}">${opt}</button>`
-          ).join('')}
-        </div>
-      </div>
-    `;
-  } else if (q.type === 'readImage') {
-    questionHtml = `
-      <div class="question-card">
-        <div class="q-prompt">${q.prompt}</div>
-        <div class="read-word">
-          <div class="label">📖 Baca kata berikut</div>
-          <div class="word">${q.word}</div>
-        </div>
-        <div class="image-options">
-          ${q.options.map((opt, i) =>
-            `<button class="image-option" data-opt="${i}" title="${opt.t}">${opt.e}</button>`
-          ).join('')}
-        </div>
-      </div>
-    `;
+
+    app.querySelectorAll('.level-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const idx = parseInt(card.dataset.level);
+        if (!isLevelUnlocked(idx)) {
+          S.wrong();
+          card.style.animation = 'shake 0.5s';
+          setTimeout(() => card.style.animation = '', 500);
+          return;
+        }
+        S.click();
+        startLevel(idx);
+      });
+    });
   }
 
-  app.innerHTML = `
-    <div class="topbar">
-      <button class="btn-icon" id="btnHome" title="Menu">🏠</button>
-      <div class="topbar-title">${lv.icon} ${lv.name}</div>
-      <div class="star-pill">⭐ ${state.score}</div>
-    </div>
-    <div class="screen screen-enter">
-      <div class="progress-wrap">
-        <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
-        <div class="score-pill">⭐ ${state.score}</div>
+  function startLevel(levelIdx) {
+    state.level = levelIdx;
+    state.question = 0;
+    state.score = 0;
+    state.correctCount = 0;
+    state.arranged = [];
+    state.pool = [];
+    state.answered = false;
+    state.checking = false;
+    state.screen = 'game';
+    render();
+  }
+
+  function renderGame(app) {
+    const lv = levels[state.level];
+    const q = lv.questions[state.question];
+    const total = lv.questions.length;
+    const progress = (state.question / total) * 100;
+
+    if (q.type === 'arrange' && state.pool.length === 0) {
+      state.pool = shuffle(q.words.map((w, i) => ({ text: w, idx: i })));
+    }
+
+    let questionHtml = '';
+
+    if (q.type === 'choice') {
+      questionHtml = `
+        <div class="question-card">
+          <div class="q-prompt">${q.prompt}</div>
+          <span class="q-emoji">${q.emoji}</span>
+          <div class="options">
+            ${q.options.map((opt, i) =>
+              `<button class="option" data-opt="${i}">${opt}</button>`
+            ).join('')}
+          </div>
+        </div>
+      `;
+    } else if (q.type === 'arrange') {
+      questionHtml = `
+        <div class="question-card">
+          <div class="q-prompt">${q.prompt}</div>
+          <div class="sentence-area" id="sentenceArea">
+            ${state.arranged.map((origIdx, pos) =>
+              `<span class="word-chip" data-pos="${pos}">${q.words[origIdx]}</span>`
+            ).join('')}
+          </div>
+          <div class="word-pool" id="wordPool">
+            ${state.pool.map(p => {
+              const used = state.arranged.includes(p.idx);
+              return `<span class="word-chip ${used ? 'used' : ''}" data-idx="${p.idx}">${p.text}</span>`;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    } else if (q.type === 'story') {
+      questionHtml = `
+        <div class="question-card">
+          <div class="story-box">${q.story}</div>
+          <div class="q-prompt">${q.prompt}</div>
+          <div class="options">
+            ${q.options.map((opt, i) =>
+              `<button class="option" data-opt="${i}">${opt}</button>`
+            ).join('')}
+          </div>
+        </div>
+      `;
+    } else if (q.type === 'readImage') {
+      questionHtml = `
+        <div class="question-card">
+          <div class="q-prompt">${q.prompt}</div>
+          <div class="read-word">
+            <div class="label">📖 Baca kata berikut</div>
+            <div class="word">${q.word}</div>
+          </div>
+          <div class="image-options">
+            ${q.options.map((opt, i) =>
+              `<button class="image-option" data-opt="${i}" title="${opt.t}">${opt.e}</button>`
+            ).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    app.innerHTML = `
+      <div class="topbar">
+        <button class="btn-icon" id="btnHome" title="Menu">🏠</button>
+        <div class="topbar-title">${lv.icon} ${lv.name}</div>
+        <div class="star-pill">⭐ ${state.score}</div>
       </div>
-      ${questionHtml}
-      <div class="feedback" id="feedback">
-        <div class="feedback-box">
-          <span class="feedback-emoji" id="fbEmoji">🎉</span>
-          <div class="feedback-text" id="fbText">Hebat!</div>
-          <div class="feedback-sub" id="fbSub"></div>
-          <button class="btn-next" id="btnNext">Lanjut ➜</button>
+      <div class="screen screen-enter">
+        <div class="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
+          <div class="score-pill">⭐ ${state.score}</div>
+        </div>
+        ${questionHtml}
+        <div class="feedback" id="feedback">
+          <div class="feedback-box">
+            <span class="feedback-emoji" id="fbEmoji">🎉</span>
+            <div class="feedback-text" id="fbText">Hebat!</div>
+            <div class="feedback-sub" id="fbSub"></div>
+            <button class="btn-next" id="btnNext">Lanjut ➜</button>
+          </div>
         </div>
       </div>
-    </div>
-  `;
+    `;
 
-  document.getElementById('btnHome').addEventListener('click', () => {
-    S.click();
-    state.screen = 'home';
-    render();
-  });
-
-  if (q.type === 'choice' || q.type === 'story') {
-    app.querySelectorAll('.option').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (state.answered) return;
-        handleChoice(parseInt(btn.dataset.opt), q.answer, btn);
-      });
-    });
-  } else if (q.type === 'readImage') {
-    app.querySelectorAll('.image-option').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (state.answered) return;
-        handleChoice(parseInt(btn.dataset.opt), q.answer, btn);
-      });
-    });
-  } else if (q.type === 'arrange') {
-    app.querySelectorAll('#wordPool .word-chip').forEach(chip => {
-      chip.addEventListener('click', () => {
-        if (state.answered || state.checking) return;
-        const idx = parseInt(chip.dataset.idx);
-        if (state.arranged.includes(idx)) return;
-        S.click();
-        state.arranged.push(idx);
-        render();
-      });
-    });
-    app.querySelectorAll('#sentenceArea .word-chip').forEach(chip => {
-      chip.addEventListener('click', () => {
-        if (state.answered || state.checking) return;
-        S.click();
-        const pos = parseInt(chip.dataset.pos);
-        state.arranged.splice(pos, 1);
-        render();
-      });
+    document.getElementById('btnHome').addEventListener('click', () => {
+      S.click();
+      state.screen = 'home';
+      render();
     });
 
-    if (state.arranged.length === q.words.length && !state.answered && !state.checking) {
-      state.checking = true;
-      setTimeout(() => {
-        state.checking = false;
-        checkArrange(q);
-      }, 300);
+    if (q.type === 'choice' || q.type === 'story') {
+      app.querySelectorAll('.option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (state.answered) return;
+          handleChoice(parseInt(btn.dataset.opt), q.answer, btn);
+        });
+      });
+    } else if (q.type === 'readImage') {
+      app.querySelectorAll('.image-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (state.answered) return;
+          handleChoice(parseInt(btn.dataset.opt), q.answer, btn);
+        });
+      });
+    } else if (q.type === 'arrange') {
+      app.querySelectorAll('#wordPool .word-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          if (state.answered || state.checking) return;
+          const idx = parseInt(chip.dataset.idx);
+          if (state.arranged.includes(idx)) return;
+          S.click();
+          state.arranged.push(idx);
+          render();
+        });
+      });
+      app.querySelectorAll('#sentenceArea .word-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          if (state.answered || state.checking) return;
+          S.click();
+          const pos = parseInt(chip.dataset.pos);
+          state.arranged.splice(pos, 1);
+          render();
+        });
+      });
+
+      if (state.arranged.length === q.words.length && !state.answered && !state.checking) {
+        state.checking = true;
+        setTimeout(() => {
+          state.checking = false;
+          checkArrange(q);
+        }, 300);
+      }
+    }
+
+    document.getElementById('btnNext').addEventListener('click', () => {
+      S.click();
+      hideFeedback();
+      nextQuestion();
+    });
+  }
+
+  function handleChoice(selected, answer, btn) {
+    state.answered = true;
+    const correct = selected === answer;
+    const isImage = btn.classList.contains('image-option');
+    const allOpts = document.querySelectorAll(isImage ? '.image-option' : '.option');
+    allOpts.forEach(o => o.classList.add('disabled'));
+
+    if (correct) {
+      S.correct();
+      btn.classList.add('correct');
+      state.score += 10;
+      state.correctCount++;
+      showFeedback(true);
+    } else {
+      S.wrong();
+      btn.classList.add('wrong');
+      allOpts[answer].classList.add('correct');
+      showFeedback(false);
     }
   }
 
-  document.getElementById('btnNext').addEventListener('click', () => {
-    S.click();
-    hideFeedback();
-    nextQuestion();
-  });
-}
-
-function handleChoice(selected, answer, btn) {
-  state.answered = true;
-  const correct = selected === answer;
-  const isImage = btn.classList.contains('image-option');
-  const allOpts = document.querySelectorAll(isImage ? '.image-option' : '.option');
-  allOpts.forEach(o => o.classList.add('disabled'));
-
-  if (correct) {
-    S.correct();
-    btn.classList.add('correct');
-    state.score += 10;
-    state.correctCount++;
-    showFeedback(true);
-  } else {
-    S.wrong();
-    btn.classList.add('wrong');
-    allOpts[answer].classList.add('correct');
-    showFeedback(false);
-  }
-}
-
-function checkArrange(q) {
-  if (state.answered) return;
-  state.answered = true;
-  const userSentence = state.arranged.map(i => q.words[i]);
-  const correct = JSON.stringify(userSentence) === JSON.stringify(q.words);
-  if (correct) {
-    S.correct();
-    state.score += 10;
-    state.correctCount++;
-    showFeedback(true);
-  } else {
-    S.wrong();
-    showFeedback(false);
-  }
-}
-
-function showFeedback(correct) {
-  const fb = document.getElementById('feedback');
-  const emoji = document.getElementById('fbEmoji');
-  const text = document.getElementById('fbText');
-  const sub = document.getElementById('fbSub');
-  const isLast = state.question >= levels[state.level].questions.length - 1;
-
-  if (correct) {
-    const emojis = ['🎉','🌟','👏','💫','🏆','🎊','🌸'];
-    const texts = ['Hebat!','Pintar!','Bagus sekali!','Keren!','Mantap!','Luar biasa!'];
-    const i = Math.floor(Math.random() * emojis.length);
-    emoji.textContent = emojis[i];
-    text.textContent = texts[i];
-    text.style.color = '#10B981';
-    sub.textContent = '+10 poin ⭐';
-    spawnConfetti();
-  } else {
-    emoji.textContent = '😅';
-    text.textContent = 'Belum tepat!';
-    text.style.color = '#EF4444';
-    sub.textContent = 'Ayo coba lagi ya!';
+  function checkArrange(q) {
+    if (state.answered) return;
+    state.answered = true;
+    const userSentence = state.arranged.map(i => q.words[i]);
+    const correct = JSON.stringify(userSentence) === JSON.stringify(q.words);
+    if (correct) {
+      S.correct();
+      state.score += 10;
+      state.correctCount++;
+      showFeedback(true);
+    } else {
+      S.wrong();
+      showFeedback(false);
+    }
   }
 
-  document.getElementById('btnNext').textContent = isLast ? 'Selesai 🏁' : 'Lanjut ➜';
-  fb.classList.add('show');
-}
+  function showFeedback(correct) {
+    const fb = document.getElementById('feedback');
+    const emoji = document.getElementById('fbEmoji');
+    const text = document.getElementById('fbText');
+    const sub = document.getElementById('fbSub');
+    const isLast = state.question >= levels[state.level].questions.length - 1;
 
-function hideFeedback() {
-  const fb = document.getElementById('feedback');
-  if (fb) fb.classList.remove('show');
-}
+    if (correct) {
+      const emojis = ['🎉','🌟','👏','💫','🏆','🎊','🌸'];
+      const texts = ['Hebat!','Pintar!','Bagus sekali!','Keren!','Mantap!','Luar biasa!'];
+      const i = Math.floor(Math.random() * emojis.length);
+      emoji.textContent = emojis[i];
+      text.textContent = texts[i];
+      text.style.color = '#10B981';
+      sub.textContent = '+10 poin ⭐';
+      spawnConfetti();
+    } else {
+      emoji.textContent = '😅';
+      text.textContent = 'Belum tepat!';
+      text.style.color = '#EF4444';
+      sub.textContent = 'Ayo coba lagi ya!';
+    }
 
-function nextQuestion() {
-  const lv = levels[state.level];
-  if (state.question >= lv.questions.length - 1) {
-    const totalQ = lv.questions.length;
-    const percent = state.correctCount / totalQ;
-    let stars = 1;
-    if (percent >= 0.6) stars = 2;
-    if (percent >= 0.85) stars = 3;
+    document.getElementById('btnNext').textContent = isLast ? 'Selesai 🏁' : 'Lanjut ➜';
+    fb.classList.add('show');
+  }
 
-    const prev = state.stars[state.level] || 0;
-    if (stars > prev) state.stars[state.level] = stars;
-    saveStars();
+  function hideFeedback() {
+    const fb = document.getElementById('feedback');
+    if (fb) fb.classList.remove('show');
+  }
 
-    state.lastStars = stars;
-    state.lastCorrect = state.correctCount;
-    state.lastTotal = totalQ;
-    state.screen = 'complete';
-    S.win();
-    setTimeout(spawnConfetti, 200);
-    setTimeout(spawnConfetti, 800);
+  function nextQuestion() {
+    const lv = levels[state.level];
+    if (state.question >= lv.questions.length - 1) {
+      const totalQ = lv.questions.length;
+      const percent = state.correctCount / totalQ;
+      let stars = 1;
+      if (percent >= 0.6) stars = 2;
+      if (percent >= 0.85) stars = 3;
+
+      const prev = state.stars[state.level] || 0;
+      if (stars > prev) state.stars[state.level] = stars;
+      saveStars();
+
+      state.lastStars = stars;
+      state.lastCorrect = state.correctCount;
+      state.lastTotal = totalQ;
+      state.screen = 'complete';
+      S.win();
+      setTimeout(spawnConfetti, 200);
+      setTimeout(spawnConfetti, 800);
+      render();
+      return;
+    }
+    state.question++;
+    state.answered = false;
+    state.checking = false;
+    state.arranged = [];
+    state.pool = [];
     render();
-    return;
   }
-  state.question++;
-  state.answered = false;
-  state.checking = false;
-  state.arranged = [];
-  state.pool = [];
+
+  function renderComplete(app) {
+    const lv = levels[state.level];
+    const stars = state.lastStars;
+    const starsHtml = [0,1,2].map(i =>
+      `<span class="${i < stars ? 'on' : 'off'}">★</span>`
+    ).join('');
+    const isLastLevel = state.level >= levels.length - 1;
+
+    let subtitle;
+    if (stars === 3) subtitle = 'Sempurna! Kamu luar biasa! 🌟';
+    else if (stars === 2) subtitle = 'Bagus sekali! Sedikit lagi sempurna! 💪';
+    else subtitle = 'Kerja bagus! Coba lagi untuk bintang lebih banyak! ✨';
+
+    app.innerHTML = `
+      <div class="topbar">
+        <button class="btn-icon" id="btnHome">🏠</button>
+        <div class="topbar-title">${lv.icon} ${lv.name}</div>
+        <div style="width:42px"></div>
+      </div>
+      <div class="screen screen-enter">
+        <div class="complete-card">
+          <span class="complete-trophy">🏆</span>
+          <div class="complete-title">Level Selesai!</div>
+          <div class="complete-sub">
+            Kamu menjawab <b>${state.lastCorrect}</b> dari <b>${state.lastTotal}</b> soal dengan benar<br>
+            ${subtitle}
+          </div>
+          <div class="big-stars">${starsHtml}</div>
+          <div class="complete-btns">
+            <button class="btn-secondary" id="btnRetry">🔄 Ulangi</button>
+            ${isLastLevel
+              ? '<button class="btn-primary" id="btnHome2">🏠 Menu Utama</button>'
+              : '<button class="btn-primary" id="btnNextLevel">Level Berikutnya ➜</button>'}
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('btnHome').addEventListener('click', () => {
+      S.click(); state.screen = 'home'; render();
+    });
+    document.getElementById('btnRetry').addEventListener('click', () => {
+      S.click(); startLevel(state.level);
+    });
+    const nextBtn = document.getElementById('btnNextLevel');
+    if (nextBtn) nextBtn.addEventListener('click', () => {
+      S.click(); startLevel(state.level + 1);
+    });
+    const homeBtn2 = document.getElementById('btnHome2');
+    if (homeBtn2) homeBtn2.addEventListener('click', () => {
+      S.click(); state.screen = 'home'; render();
+    });
+  }
+
+  // ===== INIT =====
   render();
-}
-
-function renderComplete(app) {
-  const lv = levels[state.level];
-  const stars = state.lastStars;
-  const starsHtml = [0,1,2].map(i =>
-    `<span class="${i < stars ? 'on' : 'off'}">★</span>`
-  ).join('');
-  const isLastLevel = state.level >= levels.length - 1;
-
-  let subtitle;
-  if (stars === 3) subtitle = 'Sempurna! Kamu luar biasa! 🌟';
-  else if (stars === 2) subtitle = 'Bagus sekali! Sedikit lagi sempurna! 💪';
-  else subtitle = 'Kerja bagus! Coba lagi untuk bintang lebih banyak! ✨';
-
-  app.innerHTML = `
-    <div class="topbar">
-      <button class="btn-icon" id="btnHome">🏠</button>
-      <div class="topbar-title">${lv.icon} ${lv.name}</div>
-      <div style="width:42px"></div>
-    </div>
-    <div class="screen screen-enter">
-      <div class="complete-card">
-        <span class="complete-trophy">🏆</span>
-        <div class="complete-title">Level Selesai!</div>
-        <div class="complete-sub">
-          Kamu menjawab <b>${state.lastCorrect}</b> dari <b>${state.lastTotal}</b> soal dengan benar<br>
-          ${subtitle}
-        </div>
-        <div class="big-stars">${starsHtml}</div>
-        <div class="complete-btns">
-          <button class="btn-secondary" id="btnRetry">🔄 Ulangi</button>
-          ${isLastLevel
-            ? '<button class="btn-primary" id="btnHome2">🏠 Menu Utama</button>'
-            : '<button class="btn-primary" id="btnNextLevel">Level Berikutnya ➜</button>'}
-        </div>
-      </div>
-    </div>
-  `;
-
-  document.getElementById('btnHome').addEventListener('click', () => {
-    S.click(); state.screen = 'home'; render();
-  });
-  document.getElementById('btnRetry').addEventListener('click', () => {
-    S.click(); startLevel(state.level);
-  });
-  const nextBtn = document.getElementById('btnNextLevel');
-  if (nextBtn) nextBtn.addEventListener('click', () => {
-    S.click(); startLevel(state.level + 1);
-  });
-  const homeBtn2 = document.getElementById('btnHome2');
-  if (homeBtn2) homeBtn2.addEventListener('click', () => {
-    S.click(); state.screen = 'home'; render();
-  });
-}
-
-// ===== LOADING SCREEN =====
-function runLoadingScreen() {
-  const messages = [
-    'Menyiapkan petualangan',
-    'Mengumpulkan bunga',
-    'Menyusun huruf ajaib',
-    'Memanggil teman-teman',
-    'Hampir siap'
-  ];
-
-  const screen = document.getElementById('loadingScreen');
-  const bar = document.getElementById('loadBarFill');
-  const textEl = document.getElementById('loadText');
-  const percentEl = document.getElementById('loadPercent');
-
-  if (!screen || !bar) return;
-
-  let progress = 0;
-  let msgIndex = 0;
-  let done = false;
-
-  setTimeout(() => percentEl.classList.add('show'), 200);
-
-  const finish = () => {
-    if (done) return;
-    done = true;
-    textEl.textContent = 'Ayo mulai! 🎉';
-    setTimeout(() => {
-      screen.classList.add('hide');
-      setTimeout(() => {
-        screen.style.display = 'none';
-      }, 700);
-    }, 400);
-  };
-
-  const interval = setInterval(() => {
-    const step = progress < 30 ? 3.5 : progress < 75 ? 5.5 : 3;
-    progress = Math.min(100, progress + step + Math.random() * 2);
-
-    bar.style.width = progress + '%';
-    percentEl.textContent = Math.floor(progress) + '%';
-
-    const targetMsg = Math.min(
-      messages.length - 1,
-      Math.floor((progress / 100) * messages.length)
-    );
-    if (targetMsg !== msgIndex) {
-      msgIndex = targetMsg;
-      textEl.textContent = messages[msgIndex];
-    }
-
-    if (progress >= 100) {
-      clearInterval(interval);
-      finish();
-    }
-  }, 80);
-}
-
-// ===== INIT =====
-render();
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', runLoadingScreen);
-} else {
-  runLoadingScreen();
-}
 </script>
 </body>
 </html>
