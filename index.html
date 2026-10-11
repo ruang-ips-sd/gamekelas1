@@ -499,6 +499,18 @@
     box-shadow: 0 3px 0 #2563EB;
   }
 
+  /* Warna khusus tombol pada kartu Membaca */
+  .card.bindo .card-play {
+    background: linear-gradient(135deg, #F87171, #EF4444);
+    box-shadow: 0 5px 0 #B91C1C, 0 8px 18px rgba(239,68,68,0.35);
+  }
+  .card.bindo:hover .card-play {
+    box-shadow: 0 8px 0 #B91C1C, 0 12px 24px rgba(239,68,68,0.45);
+  }
+  .card.bindo:active .card-play {
+    box-shadow: 0 3px 0 #B91C1C;
+  }
+
   /* ====== GAME CARDS PREMIUM ====== */
   .game-grid {
     display: grid;
@@ -936,11 +948,17 @@
       <span class="card-play">🚀 Main Yuk!</span>
     </a>
 
-    <div class="card bindo reveal">
+    <!-- ✅ KARTU MEMBACA SUDAH DIUBAH MENJADI LINK -->
+    <a href="https://ruang-ips-sd.github.io/gamekelas1/gamemembaca.html"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="card bindo reveal">
       <div class="card-icon">🔤</div>
       <h3>Membaca</h3>
       <p>Kenali huruf A sampai Z dan belajar membaca kata sederhana.</p>
-    </div>
+      <span class="card-play">📖 Main Yuk!</span>
+    </a>
+
     <div class="card sains reveal">
       <div class="card-icon">🌱</div>
       <h3>Alam Sekitar</h3>
