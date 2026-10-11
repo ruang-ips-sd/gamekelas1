@@ -7,7 +7,7 @@
 <title>🌹 Petualangan Angka - Kelas 1 Ceria</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* ====== PREMIUM COLOR SYSTEM (sama dengan landing page) ====== */
+  /* ====== PREMIUM COLOR SYSTEM ====== */
   :root {
     --bg-1: #FFD3E0;
     --bg-2: #FFE8CC;
@@ -74,6 +74,206 @@
   }
 
   h1, h2, h3, h4 { font-family: 'Baloo 2', cursive; letter-spacing: -0.3px; }
+
+  /* ====== LOADING SCREEN ====== */
+  #loadingScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg,
+      #FFD3E0 0%,
+      #FFE8CC 30%,
+      #FFF4D6 55%,
+      #E8F4FF 80%,
+      #D6F0FF 100%);
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+    overflow: hidden;
+  }
+  #loadingScreen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(255,255,255,0.7) 0%, transparent 30%),
+      radial-gradient(circle at 85% 75%, rgba(255,255,255,0.5) 0%, transparent 35%),
+      radial-gradient(circle at 50% 50%, rgba(255,255,255,0.3) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  #loadingScreen.hide {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .loader-wrap {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    animation: loaderPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes loaderPop {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .loader-circle {
+    position: relative;
+    width: clamp(130px, 30vw, 180px);
+    height: clamp(130px, 30vw, 180px);
+    margin: 0 auto clamp(20px, 4vw, 32px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loader-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-top-color: #FF6B9D;
+    border-right-color: #FFB347;
+    animation: ringSpin 1.4s linear infinite;
+    filter: drop-shadow(0 4px 12px rgba(255,107,157,0.4));
+  }
+  .loader-ring-2 {
+    inset: 12px;
+    border-top-color: #7DD3FC;
+    border-right-color: #5EC4C4;
+    animation: ringSpin 1.8s linear infinite reverse;
+    filter: drop-shadow(0 4px 12px rgba(125,211,252,0.4));
+  }
+  .loader-ring-3 {
+    inset: 24px;
+    border-top-color: #F5C542;
+    border-right-color: #E8952E;
+    animation: ringSpin 2.2s linear infinite;
+    filter: drop-shadow(0 4px 12px rgba(245,197,66,0.4));
+  }
+  @keyframes ringSpin {
+    to { transform: rotate(360deg); }
+  }
+
+  .loader-core {
+    position: relative;
+    width: 62%;
+    height: 62%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%,
+      #FFFFFF 0%,
+      #FFF4D6 40%,
+      #FFD3E0 75%,
+      #FFB6D5 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 8px 24px rgba(255,107,157,0.35),
+      0 0 0 4px rgba(255,255,255,0.85),
+      inset 0 -6px 12px rgba(232,74,127,0.15),
+      inset 0 4px 8px rgba(255,255,255,0.9);
+    animation: corePulse 1.6s ease-in-out infinite;
+  }
+  @keyframes corePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  .loader-rks {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #E84A7F 0%, #E8952E 50%, #D4A017 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 2px rgba(255,107,157,0.4));
+  }
+
+  /* Tulisan Raisa Kids Studio berkedip warna-warni — JELAS & TAJAM */
+  .loader-brand {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: clamp(1.05rem, 3.4vw, 1.6rem);
+    letter-spacing: 1px;
+    margin-bottom: clamp(14px, 3vw, 22px);
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    flex-wrap: wrap;
+    filter: none;
+  }
+
+  .loader-brand span {
+    display: inline-block;
+    -webkit-text-stroke: 0.6px rgba(255,255,255,0.9);
+    text-shadow:
+      0 1px 0 rgba(255,255,255,0.9),
+      0 2px 3px rgba(0,0,0,0.12);
+    animation: colorBlink 1.4s ease-in-out infinite;
+    will-change: color, transform;
+  }
+  .loader-brand span.space { animation: none; }
+
+  .loader-brand span:nth-child(1)  { color: #E84A7F; animation-delay: 0.0s; }
+  .loader-brand span:nth-child(2)  { color: #F0722B; animation-delay: 0.1s; }
+  .loader-brand span:nth-child(3)  { color: #E8952E; animation-delay: 0.2s; }
+  .loader-brand span:nth-child(4)  { color: #D4A017; animation-delay: 0.3s; }
+  .loader-brand span:nth-child(5)  { color: #38BDF8; animation-delay: 0.4s; }
+  .loader-brand span:nth-child(6)  { animation-delay: 0.5s; }
+  .loader-brand span:nth-child(7)  { color: #2E8B7E; animation-delay: 0.6s; }
+  .loader-brand span:nth-child(8)  { color: #0284C7; animation-delay: 0.7s; }
+  .loader-brand span:nth-child(9)  { color: #7C3AED; animation-delay: 0.8s; }
+  .loader-brand span:nth-child(10) { color: #E84A7F; animation-delay: 0.9s; }
+  .loader-brand span:nth-child(11) { animation-delay: 1.0s; }
+  .loader-brand span:nth-child(12) { color: #F0722B; animation-delay: 1.1s; }
+  .loader-brand span:nth-child(13) { color: #D4A017; animation-delay: 1.2s; }
+  .loader-brand span:nth-child(14) { color: #38BDF8; animation-delay: 1.3s; }
+  .loader-brand span:nth-child(15) { color: #2E8B7E; animation-delay: 1.4s; }
+  .loader-brand span:nth-child(16) { color: #E84A7F; animation-delay: 1.5s; }
+
+  @keyframes colorBlink {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+      filter: brightness(1);
+    }
+    50% {
+      transform: translateY(-3px) scale(1.08);
+      filter: brightness(1.25) saturate(1.4);
+    }
+  }
+
+  .loader-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  .loader-dots span {
+    width: clamp(10px, 2vw, 14px);
+    height: clamp(10px, 2vw, 14px);
+    border-radius: 50%;
+    animation: dotBounce 1.2s ease-in-out infinite;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  .loader-dots span:nth-child(1) {
+    background: linear-gradient(135deg, #FF6B9D, #E84A7F);
+    animation-delay: 0s;
+  }
+  .loader-dots span:nth-child(2) {
+    background: linear-gradient(135deg, #FFB347, #E8952E);
+    animation-delay: 0.2s;
+  }
+  .loader-dots span:nth-child(3) {
+    background: linear-gradient(135deg, #7DD3FC, #38BDF8);
+    animation-delay: 0.4s;
+  }
+  @keyframes dotBounce {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+    50% { transform: translateY(-10px) scale(1.2); opacity: 1; }
+  }
 
   /* ===== BACKGROUND ===== */
   .bg-layer { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
@@ -154,7 +354,6 @@
   .heart-float { position: absolute; font-size: clamp(0.9rem, 2.5vw, 1.3rem); animation: heartUp linear infinite; opacity: 0.65; filter: drop-shadow(0 4px 8px rgba(255,107,157,0.4)); }
   @keyframes heartUp { 0% { transform: translateY(100vh) scale(0.6); opacity: 0; } 15% { opacity: 0.75; } 85% { opacity: 0.75; } 100% { transform: translateY(-80px) scale(1); opacity: 0; } }
 
-  /* Hills — warna premium soft */
   .hills { position: fixed; bottom: 0; left: 0; right: 0; width: 100%; height: clamp(90px, 22vh, 180px); z-index: 2; pointer-events: none; }
   .hills svg { display: block; width: 100%; height: 100%; }
 
@@ -172,7 +371,6 @@
   .screen.active { display: flex; flex-direction: column; animation: screenIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
   @keyframes screenIn { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
-  /* ===== TOP BAR — Glassmorphism Premium ===== */
   .top-bar { display: flex; justify-content: space-between; align-items: center; padding: clamp(4px, 1.5vw, 8px) clamp(2px, 1vw, 4px); margin-bottom: clamp(8px, 2vw, 12px); flex-shrink: 0; gap: clamp(6px, 2vw, 10px); }
 
   .stat-chip {
@@ -220,7 +418,6 @@
   .icon-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(94,196,196,0.4); }
   .icon-btn.muted { opacity: 0.55; }
 
-  /* ===== HOME HEADER ===== */
   .home-header { text-align: center; padding: clamp(2px, 1vw, 5px) 0 clamp(8px, 2vw, 12px); flex-shrink: 0; }
 
   .rose-wrap {
@@ -266,7 +463,6 @@
   }
   .game-subtitle { color: var(--text-soft); font-size: clamp(0.78rem, 3.2vw, 0.95rem); font-weight: 600; }
 
-  /* ===== XP BAR ===== */
   .xp-bar-wrap { margin: clamp(10px, 3vw, 15px) auto clamp(12px, 3vw, 18px); max-width: min(100%, 380px); width: 100%; flex-shrink: 0; }
   .xp-info { display: flex; justify-content: space-between; font-size: clamp(0.72rem, 2.8vw, 0.85rem); font-weight: 700; color: var(--text-soft); margin-bottom: 6px; padding: 0 4px; gap: 8px; }
   .xp-info .lvl-badge { color: var(--rose); font-family: 'Baloo 2', cursive; font-size: clamp(0.85rem, 3.2vw, 1rem); }
@@ -292,7 +488,6 @@
   }
   @keyframes gradientMove { to { background-position: 200% 0; } }
 
-  /* ===== LEVEL GRID ===== */
   .levels-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -400,7 +595,6 @@
   .level-btn.locked .lvl-name { color: var(--text-muted); }
   .level-btn.locked .lvl-desc { color: #aaa; border-top-color: rgba(0,0,0,0.06); }
 
-  /* ===== GAME HEADER ===== */
   .game-header { display: flex; align-items: center; gap: clamp(6px, 2vw, 10px); margin-bottom: clamp(8px, 2vw, 10px); flex-shrink: 0; }
   .game-progress-wrap { flex: 1; min-width: 0; }
   .game-progress-info { display: flex; justify-content: space-between; font-size: clamp(0.7rem, 2.8vw, 0.8rem); font-weight: 700; color: var(--text-soft); margin-bottom: 4px; gap: 6px; }
@@ -422,7 +616,6 @@
     box-shadow: 0 0 12px rgba(94,196,196,0.6);
   }
 
-  /* ===== MINI STATS ===== */
   .game-stats { display: flex; gap: clamp(5px, 1.5vw, 8px); margin-bottom: clamp(8px, 2vw, 12px); justify-content: center; flex-wrap: wrap; flex-shrink: 0; }
   .mini-stat {
     display: flex; align-items: center; gap: clamp(3px, 1vw, 5px);
@@ -456,7 +649,6 @@
 
   .game-content { position: relative; flex: 1; display: flex; flex-direction: column; min-height: 0; }
 
-  /* ===== TIMER ===== */
   .timer-wrap { position: absolute; top: clamp(6px, 2vw, 12px); right: clamp(6px, 2vw, 12px); width: clamp(42px, 12vw, 54px); height: clamp(42px, 12vw, 54px); z-index: 20; }
   .timer-wrap svg { width: 100%; height: 100%; }
   .timer-svg { transform: rotate(-90deg); }
@@ -467,7 +659,6 @@
   @keyframes timerPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
   .timer-num { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: clamp(0.85rem, 3.3vw, 1.1rem); font-family: 'Baloo 2', cursive; color: var(--text-soft); }
 
-  /* ===== QUESTION CARD ===== */
   .question-card {
     background: rgba(255,255,255,0.92);
     backdrop-filter: blur(12px);
@@ -594,7 +785,6 @@
   }
   .q-image-area .op-badge { font-family: 'Baloo 2', cursive; font-weight: 800; color: var(--rose); font-size: clamp(1.2rem, 5vw, 1.8rem); padding: 0 4px; align-self: center; }
 
-  /* ===== TRAIN ===== */
   .q-train { display: flex; align-items: center; justify-content: center; gap: clamp(3px, 1vw, 6px); flex-wrap: wrap; }
   .q-train .t-slot {
     background: linear-gradient(180deg, var(--mint), var(--mint-deep));
@@ -622,7 +812,6 @@
   @keyframes emptyBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
   .q-train .t-arrow { color: var(--orange); font-size: clamp(0.9rem, 3vw, 1.2rem); }
 
-  /* ===== COMPARE ===== */
   .q-compare { display: flex; gap: clamp(6px, 2vw, 10px); justify-content: center; align-items: stretch; width: 100%; flex-wrap: wrap; }
   .compare-side {
     background: linear-gradient(135deg, #FFF8D6, var(--bg-1));
@@ -647,7 +836,6 @@
   .vs-badge { align-self: center; font-size: clamp(1.1rem, 4vw, 1.4rem); font-weight: 800; color: var(--rose); font-family: 'Baloo 2', cursive; animation: vsPulse 1.5s infinite; text-shadow: 2px 2px 0 var(--gold); flex-shrink: 0; }
   @keyframes vsPulse { 0%,100% { transform: scale(1) rotate(-5deg); } 50% { transform: scale(1.15) rotate(5deg); } }
 
-  /* ===== TRAIN PLAY ===== */
   .q-train-play { display: flex; flex-direction: column; gap: clamp(8px, 2vw, 12px); align-items: center; width: 100%; }
   .train-track { display: flex; gap: clamp(4px, 1.2vw, 8px); justify-content: center; flex-wrap: wrap; }
   .train-car {
@@ -698,7 +886,6 @@
   @keyframes fillPop { from { transform: scale(0.5) rotate(-10deg); } to { transform: scale(1) rotate(0); } }
   .train-arrow { font-size: clamp(0.9rem, 3.5vw, 1.4rem); color: var(--orange); align-self: center; }
 
-  /* ===== PICK ===== */
   .pick-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(4px, 1.5vw, 8px); }
   .pick-item {
     font-size: clamp(1.4rem, 5.5vw, 2rem);
@@ -723,7 +910,6 @@
     filter: grayscale(0%);
   }
 
-  /* ===== OPTIONS ===== */
   .options { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(8px, 2.5vw, 12px); }
   .opt-btn {
     background: rgba(255,255,255,0.95);
@@ -770,7 +956,6 @@
   @keyframes correctBounce { 0% { transform: scale(1); } 40% { transform: scale(1.1) rotate(3deg); } 100% { transform: scale(1); } }
   @keyframes shakeX { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-10px); } 40% { transform: translateX(10px); } 60% { transform: translateX(-8px); } 80% { transform: translateX(8px); } }
 
-  /* ===== BUTTONS ===== */
   .btn-primary {
     background: linear-gradient(135deg, var(--rose), var(--orange));
     color: #fff;
@@ -834,7 +1019,6 @@
     box-shadow: 0 2px 0 rgba(94,196,196,0.6);
   }
 
-  /* ===== FEEDBACK ===== */
   .feedback-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 900; display: flex; align-items: center; justify-content: center; }
   .feedback-text {
     font-family: 'Baloo 2', cursive;
@@ -855,7 +1039,6 @@
   }
   @keyframes feedbackPop { 0% { transform: scale(0) rotate(-20deg); opacity: 0; } 30% { transform: scale(1.3) rotate(5deg); opacity: 1; } 60% { transform: scale(1) rotate(0); opacity: 1; } 100% { transform: scale(1.2) rotate(0); opacity: 0; } }
 
-  /* ===== RESULT ===== */
   .result-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: clamp(15px, 4vw, 25px) clamp(12px, 3vw, 20px); text-align: center; gap: clamp(8px, 2vw, 12px); }
   .result-rose {
     width: clamp(80px, 24vw, 120px);
@@ -898,14 +1081,12 @@
   .result-stat .lbl { font-size: clamp(0.6rem, 2.2vw, 0.72rem); color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
   .result-btns { display: flex; gap: clamp(6px, 2vw, 10px); flex-wrap: wrap; justify-content: center; }
 
-  /* ===== CONFETTI ===== */
   .confetti-piece { position: fixed; width: clamp(8px, 2vw, 12px); height: clamp(12px, 3vw, 18px); pointer-events: none; z-index: 1000; animation: confettiFall linear forwards; }
   @keyframes confettiFall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
 
   .burst-particle { position: fixed; width: clamp(6px, 1.8vw, 10px); height: clamp(6px, 1.8vw, 10px); border-radius: 50%; pointer-events: none; z-index: 950; animation: burstOut 0.8s ease-out forwards; }
   @keyframes burstOut { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; } }
 
-  /* ===== ACHIEVEMENT TOAST ===== */
   .achievement-toast {
     position: fixed;
     top: calc(env(safe-area-inset-top, 0px) + 12px);
@@ -943,27 +1124,68 @@
     border-top: 1.5px solid rgba(255,255,255,0.9);
     box-shadow: 0 -4px 24px rgba(255,107,157,0.08);
   }
-  .app-footer .foot-text {
+
+  /* Footer brand sama seperti loading — berkedip warna-warni */
+  .app-footer .foot-brand {
     font-family: 'Baloo 2', cursive;
-    font-size: clamp(0.7rem, 2.8vw, 0.88rem);
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    background: linear-gradient(90deg, var(--rose), var(--orange), var(--gold), var(--mint), var(--lavender), var(--rose));
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: footerShine 6s linear infinite;
-    line-height: 1.3;
-    display: block;
+    font-weight: 800;
+    font-size: clamp(0.85rem, 3.2vw, 1.1rem);
+    letter-spacing: 0.8px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: baseline;
+    flex-wrap: wrap;
+    filter: none;
+    line-height: 1.2;
   }
-  @keyframes footerShine { to { background-position: 300% 0; } }
-  .app-footer .foot-heart { color: var(--rose); -webkit-text-fill-color: var(--rose); display: inline-block; animation: heartBeat 1.2s infinite; margin: 0 3px; }
+  .app-footer .foot-brand span {
+    display: inline-block;
+    -webkit-text-stroke: 0.6px rgba(255,255,255,0.9);
+    text-shadow:
+      0 1px 0 rgba(255,255,255,0.9),
+      0 2px 3px rgba(0,0,0,0.12);
+    animation: colorBlink 1.4s ease-in-out infinite;
+    will-change: color, transform;
+  }
+  .app-footer .foot-brand span.space { animation: none; }
+
+  .app-footer .foot-brand span:nth-child(1)  { color: #E84A7F; animation-delay: 0.0s; }
+  .app-footer .foot-brand span:nth-child(2)  { color: #F0722B; animation-delay: 0.1s; }
+  .app-footer .foot-brand span:nth-child(3)  { color: #E8952E; animation-delay: 0.2s; }
+  .app-footer .foot-brand span:nth-child(4)  { color: #D4A017; animation-delay: 0.3s; }
+  .app-footer .foot-brand span:nth-child(5)  { color: #38BDF8; animation-delay: 0.4s; }
+  .app-footer .foot-brand span:nth-child(6)  { animation-delay: 0.5s; }
+  .app-footer .foot-brand span:nth-child(7)  { color: #2E8B7E; animation-delay: 0.6s; }
+  .app-footer .foot-brand span:nth-child(8)  { color: #0284C7; animation-delay: 0.7s; }
+  .app-footer .foot-brand span:nth-child(9)  { color: #7C3AED; animation-delay: 0.8s; }
+  .app-footer .foot-brand span:nth-child(10) { color: #E84A7F; animation-delay: 0.9s; }
+  .app-footer .foot-brand span:nth-child(11) { animation-delay: 1.0s; }
+  .app-footer .foot-brand span:nth-child(12) { color: #F0722B; animation-delay: 1.1s; }
+  .app-footer .foot-brand span:nth-child(13) { color: #D4A017; animation-delay: 1.2s; }
+  .app-footer .foot-brand span:nth-child(14) { color: #38BDF8; animation-delay: 1.3s; }
+  .app-footer .foot-brand span:nth-child(15) { color: #2E8B7E; animation-delay: 1.4s; }
+  .app-footer .foot-brand span:nth-child(16) { color: #E84A7F; animation-delay: 1.5s; }
+
+  .app-footer .foot-heart {
+    display: inline-block;
+    animation: heartBeat 1.2s infinite;
+    margin: 0 4px;
+    font-size: 1.05em;
+    -webkit-text-stroke: 0;
+    filter: drop-shadow(0 0 6px rgba(255,107,157,0.7));
+  }
+  .app-footer .foot-heart.l {
+    -webkit-text-fill-color: #FF6B9D;
+    color: #FF6B9D;
+  }
+  .app-footer .foot-heart.r {
+    -webkit-text-fill-color: #A78BFA;
+    color: #A78BFA;
+  }
   @keyframes heartBeat { 0%,100% { transform: scale(1); } 25% { transform: scale(1.25); } 50% { transform: scale(1); } 75% { transform: scale(1.15); } }
 
   #error-box { display: none; position: fixed; bottom: calc(60px + env(safe-area-inset-bottom, 0)); left: 10px; right: 10px; background: var(--rose); color: white; padding: 12px; border-radius: 12px; font-size: 13px; z-index: 99999; font-family: monospace; word-break: break-word; }
 
-  /* ===== RESPONSIVE ===== */
   @media (max-width: 340px) {
     .game-title { font-size: 1.3rem; }
     .q-text { font-size: 0.95rem; }
@@ -971,6 +1193,7 @@
     .opt-btn { font-size: 1.3rem; padding: 12px; }
     .mini-stat { font-size: 0.72rem; padding: 3px 8px; }
     .level-btn .lvl-desc { font-size: 0.58rem; }
+    .app-footer .foot-brand { font-size: 0.78rem; }
   }
   @media (max-height: 500px) and (orientation: landscape) {
     .home-header { padding: 2px 0 6px; }
@@ -990,7 +1213,7 @@
     .opt-btn { padding: 12px; font-size: 1.5rem; min-height: 44px; }
     #app { padding-bottom: calc(clamp(6px, 2vw, 10px) + 36px + env(safe-area-inset-bottom, 0)); }
     .app-footer { padding: 4px 8px calc(4px + env(safe-area-inset-bottom, 0)); }
-    .app-footer .foot-text { font-size: 0.68rem; }
+    .app-footer .foot-brand { font-size: 0.72rem; }
   }
   @media (min-width: 600px) {
     #app { max-width: 640px; padding: 16px 16px calc(16px + 48px + env(safe-area-inset-bottom, 0)); }
@@ -1016,6 +1239,32 @@
 </style>
 </head>
 <body>
+
+<!-- ====== LOADING SCREEN ====== -->
+<div id="loadingScreen">
+  <div class="loader-wrap">
+    <div class="loader-circle">
+      <div class="loader-ring"></div>
+      <div class="loader-ring loader-ring-2"></div>
+      <div class="loader-ring loader-ring-3"></div>
+      <div class="loader-core">
+        <span class="loader-rks">RKS</span>
+      </div>
+    </div>
+
+    <div class="loader-brand">
+      <span>R</span><span>a</span><span>i</span><span>s</span><span>a</span>
+      <span class="space">&nbsp;</span>
+      <span>K</span><span>i</span><span>d</span><span>s</span>
+      <span class="space">&nbsp;</span>
+      <span>S</span><span>t</span><span>u</span><span>d</span><span>i</span><span>o</span>
+    </div>
+
+    <div class="loader-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</div>
 
 <div class="bg-layer">
   <div class="sun-wrap"><div class="sun-rays"></div><div class="sun-core"></div></div>
@@ -1197,622 +1446,643 @@
 </div>
 
 <footer class="app-footer">
-  <span class="foot-text">🌹 <span class="foot-heart">♥</span> Raisa Game Development for Education <span class="foot-heart">♥</span> 🌹</span>
+  <span class="foot-brand">
+    <span>R</span><span>a</span><span>i</span><span>s</span><span>a</span>
+    <span class="space">&nbsp;</span>
+    <span>K</span><span>i</span><span>d</span><span>s</span>
+    <span class="space">&nbsp;</span>
+    <span>S</span><span>t</span><span>u</span><span>d</span><span>i</span><span>o</span>
+  </span>
 </footer>
 
 <div id="error-box"></div>
 
 <script>
-window.onerror = function(msg, url, line) {
-  var box = document.getElementById('error-box');
-  if (box) { box.style.display = 'block'; box.textContent = '⚠️ ' + msg + ' (line ' + line + ')'; }
-  return false;
-};
+  // ====== LOADING SCREEN ======
+  (function() {
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loader = document.getElementById('loadingScreen');
+        if (loader) {
+          loader.classList.add('hide');
+          document.body.style.overflow = '';
+          setTimeout(() => loader.remove(), 700);
+        }
+      }, 2200);
+    });
+  })();
 
-function loadSave() {
-  try {
-    var raw = localStorage.getItem('mathGameSave');
-    if (raw) return JSON.parse(raw);
-  } catch(e) {}
-  return { stars: {}, coins: 0, xp: 0, level: 1, unlocked: 1 };
-}
-function persistSave() {
-  try { localStorage.setItem('mathGameSave', JSON.stringify(save)); } catch(e) {}
-}
-var save = loadSave();
-
-function rand(a,b) { return Math.floor(Math.random()*(b-a+1))+a; }
-function shuffle(arr) {
-  var a = arr.slice();
-  for (var i=a.length-1;i>0;i--) { var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; }
-  return a;
-}
-
-var EMOJI_LIST = [
-  { e: '🍎', n: 'apel' }, { e: '🍌', n: 'pisang' }, { e: '🍇', n: 'anggur' },
-  { e: '🍓', n: 'stroberi' }, { e: '🍊', n: 'jeruk' }, { e: '🍒', n: 'ceri' },
-  { e: '🌸', n: 'bunga sakura' }, { e: '🌷', n: 'bunga tulip' }, { e: '🌹', n: 'bunga mawar' },
-  { e: '🌺', n: 'bunga sepatu' }, { e: '🌻', n: 'bunga matahari' }, { e: '🌼', n: 'bunga daisy' },
-  { e: '🦋', n: 'kupu-kupu' }, { e: '⭐', n: 'bintang' }, { e: '🎈', n: 'balon' }
-];
-function pickEmojiObj() { return EMOJI_LIST[rand(0, EMOJI_LIST.length-1)]; }
-
-function shuffle4(answer, min, max) {
-  var opts = [answer], tries = 0;
-  while (opts.length < 4 && tries < 100) {
-    var c = answer + rand(-3, 3);
-    if (c >= min && c <= max && opts.indexOf(c) === -1) opts.push(c);
-    tries++;
-  }
-  var fill = 0;
-  while (opts.length < 4 && fill < 50) {
-    var n = rand(min, max);
-    if (opts.indexOf(n) === -1) opts.push(n);
-    fill++;
-  }
-  return shuffle(opts);
-}
-
-var audioCtx = null, soundEnabled = true;
-function initAudio() { if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {} } }
-function beep(freq, dur, type, vol) {
-  if (!soundEnabled) return;
-  try {
-    initAudio(); if (!audioCtx) return;
-    var osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
-    osc.type = type || 'sine'; osc.frequency.value = freq;
-    osc.connect(gain); gain.connect(audioCtx.destination);
-    var v = vol || 0.12;
-    gain.gain.setValueAtTime(0, audioCtx.currentTime);
-    gain.gain.linearRampToValueAtTime(v, audioCtx.currentTime + 0.01);
-    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + (dur || 0.2));
-    osc.start(); osc.stop(audioCtx.currentTime + (dur || 0.2));
-  } catch(e) {}
-}
-function playCorrect(c) {
-  var notes = c >= 3 ? [523,659,784,1047,1319] : [523,659,784,1047];
-  notes.forEach(function(n, i) { setTimeout(function() { beep(n, 0.15, 'sine', 0.14); }, i*70); });
-}
-function playWrong() { beep(330,0.12,'triangle',0.1); setTimeout(function(){beep(262,0.25,'triangle',0.1);},120); }
-function playClick() { beep(880, 0.05, 'sine', 0.08); }
-function playLevelUp() { [523,659,784,1047,1319,1568].forEach(function(n,i){setTimeout(function(){beep(n,0.25,'sine',0.15);},i*90);}); }
-function playCoin() { beep(1318,0.08,'sine',0.1); setTimeout(function(){beep(1760,0.12,'sine',0.1);},60); }
-function toggleSound() {
-  soundEnabled = !soundEnabled;
-  document.getElementById('btn-sound').textContent = soundEnabled ? '🔊' : '🔇';
-  document.getElementById('btn-sound').classList.toggle('muted', !soundEnabled);
-}
-function vibrate(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch(e) {} }
-
-var ROSE_SVG_HTML = document.querySelector('.rose-wrap').innerHTML.replace(/<span[^>]*class="rose-sparkle"[^>]*>.*?<\/span>/g, '');
-
-var LEVELS = [
-  { id: 1, name: 'Hitung Gambar', icon: '🍌', color: '#FF6B9D', light: 'rgba(255,211,224,0.5)',
-    desc: 'Hitung jumlah benda yang muncul di layar' },
-  { id: 2, name: 'Angka Hilang',  icon: '🔢', color: '#5EC4C4', light: 'rgba(214,240,255,0.5)',
-    desc: 'Cari angka yang hilang dari urutan' },
-  { id: 3, name: 'Mana Lebih?',   icon: '⚖️', color: '#FFB347', light: 'rgba(255,232,204,0.5)',
-    desc: 'Bandingkan kelompok mana yang lebih banyak' },
-  { id: 4, name: 'Tambah Seru',   icon: '➕', color: '#A78BFA', light: 'rgba(237,228,255,0.5)',
-    desc: 'Belajar penjumlahan dengan gambar lucu' },
-  { id: 5, name: 'Kurang Seru',   icon: '➖', color: '#F472B6', light: 'rgba(255,224,240,0.5)',
-    desc: 'Belajar pengurangan dengan benda dicoret' },
-  { id: 6, name: 'Urut Kereta',   icon: '🚂', color: '#7DD3FC', light: 'rgba(219,234,254,0.5)',
-    desc: 'Susun angka dari kecil ke besar di kereta' },
-  { id: 7, name: 'Pilih Gambar',  icon: '🎯', color: '#5EC4C4', light: 'rgba(209,250,229,0.5)',
-    desc: 'Klik gambar sesuai jumlah yang diminta' },
-  { id: 8, name: 'Cerita Seru',   icon: '📖', color: '#F5C542', light: 'rgba(254,243,199,0.5)',
-    desc: 'Soal cerita bergambar seperti di buku' }
-];
-
-var game = {
-  currentLevel: null, currentQ: 0, score: 0, totalQ: 5,
-  currentQuestion: null, locked: false, combo: 0, maxCombo: 0,
-  levelCoins: 0, correctCount: 0, timeLeft: 0, timerId: null
-};
-
-function showScreen(id) {
-  var s = document.querySelectorAll('.screen');
-  for (var i = 0; i < s.length; i++) s[i].classList.remove('active');
-  document.getElementById(id).classList.add('active');
-}
-function goHome() { stopTimer(); showScreen('screen-home'); renderHome(); }
-
-function renderHome() {
-  document.getElementById('stat-coins').textContent = save.coins;
-  document.getElementById('player-level').textContent = save.level;
-  var xpInLevel = save.xp % 100;
-  document.getElementById('xp-text').textContent = xpInLevel + ' / 100 XP';
-  document.getElementById('xp-fill').style.width = xpInLevel + '%';
-
-  var html = '';
-  for (var i = 0; i < LEVELS.length; i++) {
-    var lvl = LEVELS[i];
-    var stars = save.stars[lvl.id] || 0;
-    var isLocked = lvl.id > save.unlocked;
-    var starStr = '';
-    for (var s = 1; s <= 3; s++) starStr += (s <= stars ? '⭐' : '☆');
-    html += '<button class="level-btn' + (isLocked ? ' locked' : '') + '" ' +
-      'style="border-color:' + lvl.color + '; background:' + (isLocked ? 'rgba(245,245,245,0.9)' : lvl.light) + '; box-shadow: 0 8px 0 ' + lvl.color + '40, 0 20px 45px ' + lvl.color + '20, inset 0 1px 0 rgba(255,255,255,1);" ' +
-      (isLocked ? '' : 'onclick="startLevel(' + lvl.id + ')"') + '>' +
-      '<div class="lvl-num">' + lvl.id + '</div>' +
-      '<div class="lvl-icon">' + lvl.icon + '</div>' +
-      '<div class="lvl-name">' + lvl.name + '</div>' +
-      '<div class="lvl-stars">' + starStr + '</div>' +
-      '<div class="lvl-desc">' + lvl.desc + '</div>' +
-    '</button>';
-  }
-  document.getElementById('levels-grid').innerHTML = html;
-}
-
-function startLevel(id) {
-  var found = null;
-  for (var i = 0; i < LEVELS.length; i++) if (LEVELS[i].id === id) found = LEVELS[i];
-  if (!found) return;
-  game.currentLevel = found;
-  game.currentQ = 0; game.score = 0; game.combo = 0;
-  game.maxCombo = 0; game.levelCoins = 0; game.correctCount = 0;
-  game.locked = false;
-  document.getElementById('score-val').textContent = '0';
-  document.getElementById('score-coins').textContent = '0';
-  updateComboDisplay();
-  showScreen('screen-game');
-  updateProgress();
-  nextQuestion();
-}
-
-function updateProgress() {
-  var pct = (game.currentQ / game.totalQ) * 100;
-  document.getElementById('game-progress-fill').style.width = pct + '%';
-  document.getElementById('progress-label').textContent = 'Soal ' + Math.min(game.currentQ + 1, game.totalQ) + ' / ' + game.totalQ;
-}
-function updateComboDisplay() {
-  var comboEl = document.getElementById('stat-combo');
-  document.getElementById('combo-val').textContent = 'x' + Math.max(1, game.combo);
-  if (game.combo >= 2) {
-    comboEl.classList.add('combo-active');
-    setTimeout(function() { comboEl.classList.remove('combo-active'); }, 500);
-  } else comboEl.classList.remove('combo-active');
-  document.getElementById('combo-label').textContent = 'Combo x' + Math.max(1, game.combo);
-}
-function nextQuestion() {
-  if (game.currentQ >= game.totalQ) { endLevel(); return; }
-  game.locked = false;
-  updateProgress();
-  game.currentQuestion = generateQuestion(game.currentLevel.id);
-  renderQuestion(game.currentQuestion);
-  startTimer(15);
-}
-
-function startTimer(seconds) {
-  stopTimer();
-  game.timeLeft = seconds;
-  var wrap = document.getElementById('timer-wrap');
-  var num = document.getElementById('timer-num');
-  var progress = document.getElementById('timer-progress');
-  var total = 138;
-  wrap.style.display = 'block';
-  num.textContent = seconds;
-  progress.setAttribute('stroke-dashoffset', '0');
-  progress.classList.remove('warning', 'danger');
-  game.timerId = setInterval(function() {
-    game.timeLeft--;
-    num.textContent = Math.max(0, game.timeLeft);
-    var offset = total * (1 - game.timeLeft / seconds);
-    progress.setAttribute('stroke-dashoffset', offset);
-    if (game.timeLeft <= 5) progress.classList.add('danger');
-    else if (game.timeLeft <= 9) progress.classList.add('warning');
-    if (game.timeLeft <= 0) { stopTimer(); if (!game.locked) timeUp(); }
-  }, 1000);
-}
-function stopTimer() {
-  if (game.timerId) { clearInterval(game.timerId); game.timerId = null; }
-  document.getElementById('timer-wrap').style.display = 'none';
-}
-function timeUp() {
-  game.locked = true;
-  game.combo = 0; updateComboDisplay();
-  playWrong(); vibrate([50,50,50]);
-  showFeedback('⏰', 'wrong');
-  var all = document.querySelectorAll('.opt-btn');
-  for (var i = 0; i < all.length; i++) {
-    if (parseInt(all[i].textContent) === game.currentQuestion.answer) all[i].classList.add('correct');
-  }
-  game.currentQ++; updateProgress();
-  setTimeout(nextQuestion, 1400);
-}
-
-function generateQuestion(id) { return [gen1,gen2,gen3,gen4,gen5,gen6,gen7,gen8][id-1](); }
-
-function gen1() {
-  var obj = pickEmojiObj();
-  var count = rand(2, 10);
-  var items = '';
-  for (var i = 0; i < count; i++) items += '<span class="emoji-item" style="animation-delay:' + (i*0.06) + 's">' + obj.e + '</span>';
-  return {
-    type: 'options', ribbon: '🔢 Hitung Gambar',
-    text: 'Berapa jumlah <span class="q-name">' + obj.n + '</span> di bawah ini?',
-    bodyHtml: '<div class="q-image-area" data-label="Gambar ' + obj.n + '">' + items + '</div>',
-    answer: count, options: shuffle4(count, 1, 12)
+  window.onerror = function(msg, url, line) {
+    var box = document.getElementById('error-box');
+    if (box) { box.style.display = 'block'; box.textContent = '⚠️ ' + msg + ' (line ' + line + ')'; }
+    return false;
   };
-}
 
-function gen2() {
-  var start = rand(1, 5);
-  var seq = [start, start+1, start+2, start+3, start+4];
-  var missIdx = rand(1, 3);
-  var track = '';
-  for (var i = 0; i < seq.length; i++) {
-    if (i > 0) track += '<span class="t-arrow">→</span>';
-    if (i === missIdx) track += '<div class="t-slot empty">?</div>';
-    else track += '<div class="t-slot">' + seq[i] + '</div>';
+  function loadSave() {
+    try {
+      var raw = localStorage.getItem('mathGameSave');
+      if (raw) return JSON.parse(raw);
+    } catch(e) {}
+    return { stars: {}, coins: 0, xp: 0, level: 1, unlocked: 1 };
   }
-  return {
-    type: 'options', ribbon: '🔍 Angka Hilang',
-    text: 'Angka berapa yang <span class="q-name">hilang</span> dari urutan ini?',
-    bodyHtml: '<div class="q-train">' + track + '</div>',
-    answer: seq[missIdx], options: shuffle4(seq[missIdx], 1, 9)
-  };
-}
-
-function gen3() {
-  var a = rand(1, 9), b = rand(1, 9);
-  while (a === b) b = rand(1, 9);
-  var askMore = Math.random() < 0.5;
-  var correctSide = askMore ? (a > b ? 'left' : 'right') : (a < b ? 'left' : 'right');
-  var objA = pickEmojiObj(), objB = pickEmojiObj();
-  while (objB.e === objA.e) objB = pickEmojiObj();
-  var rowA = '', rowB = '';
-  for (var i = 0; i < a; i++) rowA += '<span>' + objA.e + '</span>';
-  for (var j = 0; j < b; j++) rowB += '<span>' + objB.e + '</span>';
-  var bodyHtml = '<div class="q-compare">' +
-    '<div class="compare-side" data-side="left" onclick="answerCompare(\'left\',\'' + correctSide + '\')">' +
-      '<div class="c-label">' + objA.n + '</div><div class="emoji-box">' + rowA + '</div></div>' +
-    '<div class="vs-badge">VS</div>' +
-    '<div class="compare-side" data-side="right" onclick="answerCompare(\'right\',\'' + correctSide + '\')">' +
-      '<div class="c-label">' + objB.n + '</div><div class="emoji-box">' + rowB + '</div></div>' +
-  '</div>';
-  return {
-    type: 'compare', ribbon: '⚖️ Bandingkan',
-    text: askMore ? 'Mana yang jumlahnya LEBIH <span class="q-name">banyak</span>?' : 'Mana yang jumlahnya LEBIH <span class="q-name">sedikit</span>?',
-    bodyHtml: bodyHtml
-  };
-}
-
-function gen4() {
-  var a = rand(1, 5), b = rand(1, 5);
-  var obj = pickEmojiObj();
-  var items = '';
-  for (var i = 0; i < a; i++) items += '<span class="emoji-item" style="animation-delay:' + (i*0.06) + 's">' + obj.e + '</span>';
-  items += '<span class="op-badge">+</span>';
-  for (var j = 0; j < b; j++) items += '<span class="emoji-item" style="animation-delay:' + ((a+j)*0.06) + 's">' + obj.e + '</span>';
-  var formula = '<div class="q-formula">' +
-    '<div class="num-box">' + a + '</div><span class="op-box">+</span>' +
-    '<div class="num-box">' + b + '</div><span class="eq-box">=</span>' +
-    '<div class="q-box">?</div></div>';
-  return {
-    type: 'options', ribbon: '➕ Penjumlahan',
-    text: 'Berapa jumlah <span class="q-name">' + obj.n + '</span> semuanya?',
-    bodyHtml: formula + '<div class="q-image-area" data-label="Gambar ' + obj.n + '">' + items + '</div>',
-    answer: a + b, options: shuffle4(a + b, 1, 10)
-  };
-}
-
-function gen5() {
-  var a = rand(3, 10), b = rand(1, a - 1);
-  var obj = pickEmojiObj();
-  var items = '';
-  for (var i = 0; i < a; i++) {
-    var crossed = i >= (a - b);
-    items += '<span class="emoji-item' + (crossed ? ' crossed' : '') + '" style="animation-delay:' + (i*0.06) + 's">' + obj.e + '</span>';
+  function persistSave() {
+    try { localStorage.setItem('mathGameSave', JSON.stringify(save)); } catch(e) {}
   }
-  var formula = '<div class="q-formula">' +
-    '<div class="num-box">' + a + '</div><span class="op-box">−</span>' +
-    '<div class="num-box">' + b + '</div><span class="eq-box">=</span>' +
-    '<div class="q-box">?</div></div>';
-  return {
-    type: 'options', ribbon: '➖ Pengurangan',
-    text: 'Berapa <span class="q-name">' + obj.n + '</span> yang masih tersisa?',
-    bodyHtml: formula + '<div class="q-image-area" data-label="' + obj.n + ' yang dicoret berarti diambil">' + items + '</div>',
-    answer: a - b, options: shuffle4(a - b, 0, 10)
-  };
-}
+  var save = loadSave();
 
-function gen6() {
-  var start = rand(1, 5);
-  var nums = [start, start+1, start+2, start+3];
-  var shuf = shuffle(nums);
-  var tries = 0;
-  while (shuf.join(',') === nums.join(',') && tries < 20) { shuf = shuffle(nums); tries++; }
-  var slots = '';
-  for (var i = 0; i < 4; i++) {
-    if (i > 0) slots += '<span class="train-arrow">→</span>';
-    slots += '<div class="train-slot" data-idx="' + i + '">?</div>';
+  function rand(a,b) { return Math.floor(Math.random()*(b-a+1))+a; }
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i=a.length-1;i>0;i--) { var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; }
+    return a;
   }
-  var avail = '';
-  for (var j = 0; j < shuf.length; j++)
-    avail += '<div class="train-car" data-val="' + shuf[j] + '" onclick="pickTrain(this)">' + shuf[j] + '</div>';
-  var bodyHtml = '<div class="q-train-play">' +
-    '<div class="train-track" id="train-slots" style="flex-wrap:nowrap;">' + slots + '</div>' +
-    '<div class="train-track" id="train-available" style="margin-top:6px;">' + avail + '</div>' +
-    '<p style="color:var(--text-muted);font-size:clamp(0.7rem,2.6vw,0.82rem);margin-top:4px;font-weight:600;">Klik angka untuk mengisi kereta 🚃</p></div>';
-  return {
-    type: 'train', ribbon: '🚂 Urutkan Angka',
-    text: 'Susun angka dari <span class="q-name">kecil</span> ke <span class="q-name">besar</span>',
-    bodyHtml: bodyHtml, answer: nums
-  };
-}
 
-function gen7() {
-  var target = rand(2, 8);
-  var obj = pickEmojiObj();
-  var grid = '';
-  for (var i = 0; i < 10; i++) grid += '<div class="pick-item" onclick="togglePick(this)">' + obj.e + '</div>';
-  var bodyHtml = '<div class="pick-grid" id="pick-grid">' + grid + '</div>' +
-    '<button class="btn-primary" style="margin-top:clamp(8px,2vw,12px);padding:clamp(9px,2.5vw,12px) clamp(20px,6vw,28px);font-size:clamp(0.9rem,3.4vw,1rem);" onclick="submitPick(' + target + ')">✔️ Selesai</button>';
-  return {
-    type: 'pick', ribbon: '🎯 Pilih Tepat',
-    text: 'Klik tepat <span class="q-num">' + target + '</span> <span class="q-name">' + obj.n + '</span>',
-    bodyHtml: bodyHtml, target: target
-  };
-}
-
-function gen8() {
-  var templates = [
-    function() { var a = rand(2,5), b = rand(1,4);
-      return { text: 'Ada <span class="q-num">' + a + '</span> pisang 🍌<br>Ibu beli <span class="q-num">' + b + '</span> pisang lagi<br>Berapa jumlah <span class="q-name">pisang</span> semuanya?', answer: a+b, min:1, max:10 }; },
-    function() { var a = rand(4,8), b = rand(1,3);
-      return { text: 'Ada <span class="q-num">' + a + '</span> apel 🍎<br>Sebanyak <span class="q-num">' + b + '</span> apel dimakan<br>Berapa sisa <span class="q-name">apel</span>?', answer: a-b, min:0, max:10 }; },
-    function() { var a = rand(2,5), b = rand(2,4);
-      return { text: 'Ada <span class="q-num">' + a + '</span> bunga 🌷<br>dan <span class="q-num">' + b + '</span> kupu-kupu 🦋<br>Berapa jumlah <span class="q-name">semuanya</span>?', answer: a+b, min:1, max:12 }; },
-    function() { var a = rand(3,6), b = rand(1,3);
-      return { text: 'Ada <span class="q-num">' + a + '</span> balon 🎈<br>Sebanyak <span class="q-num">' + b + '</span> balon meletus<br>Berapa sisa <span class="q-name">balon</span>?', answer: a-b, min:0, max:10 }; }
+  var EMOJI_LIST = [
+    { e: '🍎', n: 'apel' }, { e: '🍌', n: 'pisang' }, { e: '🍇', n: 'anggur' },
+    { e: '🍓', n: 'stroberi' }, { e: '🍊', n: 'jeruk' }, { e: '🍒', n: 'ceri' },
+    { e: '🌸', n: 'bunga sakura' }, { e: '🌷', n: 'bunga tulip' }, { e: '🌹', n: 'bunga mawar' },
+    { e: '🌺', n: 'bunga sepatu' }, { e: '🌻', n: 'bunga matahari' }, { e: '🌼', n: 'bunga daisy' },
+    { e: '🦋', n: 'kupu-kupu' }, { e: '⭐', n: 'bintang' }, { e: '🎈', n: 'balon' }
   ];
-  var q = templates[rand(0, templates.length - 1)]();
-  return { type: 'options', ribbon: '📖 Soal Cerita', text: q.text, bodyHtml: '', answer: q.answer, options: shuffle4(q.answer, q.min, q.max) };
-}
+  function pickEmojiObj() { return EMOJI_LIST[rand(0, EMOJI_LIST.length-1)]; }
 
-var trainPicks = [], pickedCount = 0;
-
-function renderQuestion(q) {
-  var box = document.getElementById('question-box');
-  var area = document.getElementById('answer-area');
-  var ribbonHtml = q.ribbon ? '<div class="q-ribbon">' + q.ribbon + '</div>' : '';
-  box.innerHTML = ribbonHtml + '<div class="q-body"><div class="q-text">' + q.text + '</div>' + (q.bodyHtml || '') + '</div>';
-  if (q.type === 'options') {
-    var html = '<div class="options">';
-    for (var i = 0; i < q.options.length; i++) {
-      html += '<button class="opt-btn" onclick="answerOption(this, ' + q.options[i] + ', ' + q.answer + ')">' + q.options[i] + '</button>';
+  function shuffle4(answer, min, max) {
+    var opts = [answer], tries = 0;
+    while (opts.length < 4 && tries < 100) {
+      var c = answer + rand(-3, 3);
+      if (c >= min && c <= max && opts.indexOf(c) === -1) opts.push(c);
+      tries++;
     }
-    html += '</div>';
-    area.innerHTML = html;
-  } else {
-    area.innerHTML = '';
-    if (q.type === 'train') trainPicks = [];
-    if (q.type === 'pick') pickedCount = 0;
-  }
-}
-
-function answerOption(btn, chosen, correct) {
-  if (game.locked) return;
-  game.locked = true; stopTimer();
-  var all = document.querySelectorAll('.opt-btn');
-  for (var i = 0; i < all.length; i++) all[i].disabled = true;
-  if (chosen === correct) handleCorrect(btn);
-  else handleWrong(btn, correct, all);
-  game.currentQ++; updateProgress();
-  setTimeout(nextQuestion, 1300);
-}
-
-function answerCompare(side, correctSide) {
-  if (game.locked) return;
-  game.locked = true; stopTimer();
-  var sides = document.querySelectorAll('.compare-side');
-  for (var i = 0; i < sides.length; i++) {
-    if (sides[i].getAttribute('data-side') === correctSide) {
-      sides[i].style.background = 'linear-gradient(180deg, #D1FAE5, #A7F3D0)';
-      sides[i].style.borderColor = '#10B981';
-      sides[i].style.boxShadow = '0 6px 0 #10B981';
+    var fill = 0;
+    while (opts.length < 4 && fill < 50) {
+      var n = rand(min, max);
+      if (opts.indexOf(n) === -1) opts.push(n);
+      fill++;
     }
+    return shuffle(opts);
   }
-  if (side === correctSide) handleCorrect(null);
-  else {
-    playWrong(); vibrate([60,60,60]);
+
+  var audioCtx = null, soundEnabled = true;
+  function initAudio() { if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {} } }
+  function beep(freq, dur, type, vol) {
+    if (!soundEnabled) return;
+    try {
+      initAudio(); if (!audioCtx) return;
+      var osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
+      osc.type = type || 'sine'; osc.frequency.value = freq;
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      var v = vol || 0.12;
+      gain.gain.setValueAtTime(0, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(v, audioCtx.currentTime + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + (dur || 0.2));
+      osc.start(); osc.stop(audioCtx.currentTime + (dur || 0.2));
+    } catch(e) {}
+  }
+  function playCorrect(c) {
+    var notes = c >= 3 ? [523,659,784,1047,1319] : [523,659,784,1047];
+    notes.forEach(function(n, i) { setTimeout(function() { beep(n, 0.15, 'sine', 0.14); }, i*70); });
+  }
+  function playWrong() { beep(330,0.12,'triangle',0.1); setTimeout(function(){beep(262,0.25,'triangle',0.1);},120); }
+  function playClick() { beep(880, 0.05, 'sine', 0.08); }
+  function playLevelUp() { [523,659,784,1047,1319,1568].forEach(function(n,i){setTimeout(function(){beep(n,0.25,'sine',0.15);},i*90);}); }
+  function playCoin() { beep(1318,0.08,'sine',0.1); setTimeout(function(){beep(1760,0.12,'sine',0.1);},60); }
+  function toggleSound() {
+    soundEnabled = !soundEnabled;
+    document.getElementById('btn-sound').textContent = soundEnabled ? '🔊' : '🔇';
+    document.getElementById('btn-sound').classList.toggle('muted', !soundEnabled);
+  }
+  function vibrate(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch(e) {} }
+
+  var ROSE_SVG_HTML = document.querySelector('.rose-wrap').innerHTML.replace(/<span[^>]*class="rose-sparkle"[^>]*>.*?<\/span>/g, '');
+
+  var LEVELS = [
+    { id: 1, name: 'Hitung Gambar', icon: '🍌', color: '#FF6B9D', light: 'rgba(255,211,224,0.5)',
+      desc: 'Hitung jumlah benda yang muncul di layar' },
+    { id: 2, name: 'Angka Hilang',  icon: '🔢', color: '#5EC4C4', light: 'rgba(214,240,255,0.5)',
+      desc: 'Cari angka yang hilang dari urutan' },
+    { id: 3, name: 'Mana Lebih?',   icon: '⚖️', color: '#FFB347', light: 'rgba(255,232,204,0.5)',
+      desc: 'Bandingkan kelompok mana yang lebih banyak' },
+    { id: 4, name: 'Tambah Seru',   icon: '➕', color: '#A78BFA', light: 'rgba(237,228,255,0.5)',
+      desc: 'Belajar penjumlahan dengan gambar lucu' },
+    { id: 5, name: 'Kurang Seru',   icon: '➖', color: '#F472B6', light: 'rgba(255,224,240,0.5)',
+      desc: 'Belajar pengurangan dengan benda dicoret' },
+    { id: 6, name: 'Urut Kereta',   icon: '🚂', color: '#7DD3FC', light: 'rgba(219,234,254,0.5)',
+      desc: 'Susun angka dari kecil ke besar di kereta' },
+    { id: 7, name: 'Pilih Gambar',  icon: '🎯', color: '#5EC4C4', light: 'rgba(209,250,229,0.5)',
+      desc: 'Klik gambar sesuai jumlah yang diminta' },
+    { id: 8, name: 'Cerita Seru',   icon: '📖', color: '#F5C542', light: 'rgba(254,243,199,0.5)',
+      desc: 'Soal cerita bergambar seperti di buku' }
+  ];
+
+  var game = {
+    currentLevel: null, currentQ: 0, score: 0, totalQ: 5,
+    currentQuestion: null, locked: false, combo: 0, maxCombo: 0,
+    levelCoins: 0, correctCount: 0, timeLeft: 0, timerId: null
+  };
+
+  function showScreen(id) {
+    var s = document.querySelectorAll('.screen');
+    for (var i = 0; i < s.length; i++) s[i].classList.remove('active');
+    document.getElementById(id).classList.add('active');
+  }
+  function goHome() { stopTimer(); showScreen('screen-home'); renderHome(); }
+
+  function renderHome() {
+    document.getElementById('stat-coins').textContent = save.coins;
+    document.getElementById('player-level').textContent = save.level;
+    var xpInLevel = save.xp % 100;
+    document.getElementById('xp-text').textContent = xpInLevel + ' / 100 XP';
+    document.getElementById('xp-fill').style.width = xpInLevel + '%';
+
+    var html = '';
+    for (var i = 0; i < LEVELS.length; i++) {
+      var lvl = LEVELS[i];
+      var stars = save.stars[lvl.id] || 0;
+      var isLocked = lvl.id > save.unlocked;
+      var starStr = '';
+      for (var s = 1; s <= 3; s++) starStr += (s <= stars ? '⭐' : '☆');
+      html += '<button class="level-btn' + (isLocked ? ' locked' : '') + '" ' +
+        'style="border-color:' + lvl.color + '; background:' + (isLocked ? 'rgba(245,245,245,0.9)' : lvl.light) + '; box-shadow: 0 8px 0 ' + lvl.color + '40, 0 20px 45px ' + lvl.color + '20, inset 0 1px 0 rgba(255,255,255,1);" ' +
+        (isLocked ? '' : 'onclick="startLevel(' + lvl.id + ')"') + '>' +
+        '<div class="lvl-num">' + lvl.id + '</div>' +
+        '<div class="lvl-icon">' + lvl.icon + '</div>' +
+        '<div class="lvl-name">' + lvl.name + '</div>' +
+        '<div class="lvl-stars">' + starStr + '</div>' +
+        '<div class="lvl-desc">' + lvl.desc + '</div>' +
+      '</button>';
+    }
+    document.getElementById('levels-grid').innerHTML = html;
+  }
+
+  function startLevel(id) {
+    var found = null;
+    for (var i = 0; i < LEVELS.length; i++) if (LEVELS[i].id === id) found = LEVELS[i];
+    if (!found) return;
+    game.currentLevel = found;
+    game.currentQ = 0; game.score = 0; game.combo = 0;
+    game.maxCombo = 0; game.levelCoins = 0; game.correctCount = 0;
+    game.locked = false;
+    document.getElementById('score-val').textContent = '0';
+    document.getElementById('score-coins').textContent = '0';
+    updateComboDisplay();
+    showScreen('screen-game');
+    updateProgress();
+    nextQuestion();
+  }
+
+  function updateProgress() {
+    var pct = (game.currentQ / game.totalQ) * 100;
+    document.getElementById('game-progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = 'Soal ' + Math.min(game.currentQ + 1, game.totalQ) + ' / ' + game.totalQ;
+  }
+  function updateComboDisplay() {
+    var comboEl = document.getElementById('stat-combo');
+    document.getElementById('combo-val').textContent = 'x' + Math.max(1, game.combo);
+    if (game.combo >= 2) {
+      comboEl.classList.add('combo-active');
+      setTimeout(function() { comboEl.classList.remove('combo-active'); }, 500);
+    } else comboEl.classList.remove('combo-active');
+    document.getElementById('combo-label').textContent = 'Combo x' + Math.max(1, game.combo);
+  }
+  function nextQuestion() {
+    if (game.currentQ >= game.totalQ) { endLevel(); return; }
+    game.locked = false;
+    updateProgress();
+    game.currentQuestion = generateQuestion(game.currentLevel.id);
+    renderQuestion(game.currentQuestion);
+    startTimer(15);
+  }
+
+  function startTimer(seconds) {
+    stopTimer();
+    game.timeLeft = seconds;
+    var wrap = document.getElementById('timer-wrap');
+    var num = document.getElementById('timer-num');
+    var progress = document.getElementById('timer-progress');
+    var total = 138;
+    wrap.style.display = 'block';
+    num.textContent = seconds;
+    progress.setAttribute('stroke-dashoffset', '0');
+    progress.classList.remove('warning', 'danger');
+    game.timerId = setInterval(function() {
+      game.timeLeft--;
+      num.textContent = Math.max(0, game.timeLeft);
+      var offset = total * (1 - game.timeLeft / seconds);
+      progress.setAttribute('stroke-dashoffset', offset);
+      if (game.timeLeft <= 5) progress.classList.add('danger');
+      else if (game.timeLeft <= 9) progress.classList.add('warning');
+      if (game.timeLeft <= 0) { stopTimer(); if (!game.locked) timeUp(); }
+    }, 1000);
+  }
+  function stopTimer() {
+    if (game.timerId) { clearInterval(game.timerId); game.timerId = null; }
+    document.getElementById('timer-wrap').style.display = 'none';
+  }
+  function timeUp() {
+    game.locked = true;
     game.combo = 0; updateComboDisplay();
-    showFeedback('❌', 'wrong');
-    for (var j = 0; j < sides.length; j++) {
-      if (sides[j].getAttribute('data-side') === side) {
-        sides[j].style.background = 'linear-gradient(180deg, #FEE2E2, #FECACA)';
-        sides[j].style.borderColor = '#EF4444';
-        sides[j].style.boxShadow = '0 6px 0 #EF4444';
+    playWrong(); vibrate([50,50,50]);
+    showFeedback('⏰', 'wrong');
+    var all = document.querySelectorAll('.opt-btn');
+    for (var i = 0; i < all.length; i++) {
+      if (parseInt(all[i].textContent) === game.currentQuestion.answer) all[i].classList.add('correct');
+    }
+    game.currentQ++; updateProgress();
+    setTimeout(nextQuestion, 1400);
+  }
+
+  function generateQuestion(id) { return [gen1,gen2,gen3,gen4,gen5,gen6,gen7,gen8][id-1](); }
+
+  function gen1() {
+    var obj = pickEmojiObj();
+    var count = rand(2, 10);
+    var items = '';
+    for (var i = 0; i < count; i++) items += '<span class="emoji-item" style="animation-delay:' + (i*0.06) + 's">' + obj.e + '</span>';
+    return {
+      type: 'options', ribbon: '🔢 Hitung Gambar',
+      text: 'Berapa jumlah <span class="q-name">' + obj.n + '</span> di bawah ini?',
+      bodyHtml: '<div class="q-image-area" data-label="Gambar ' + obj.n + '">' + items + '</div>',
+      answer: count, options: shuffle4(count, 1, 12)
+    };
+  }
+
+  function gen2() {
+    var start = rand(1, 5);
+    var seq = [start, start+1, start+2, start+3, start+4];
+    var missIdx = rand(1, 3);
+    var track = '';
+    for (var i = 0; i < seq.length; i++) {
+      if (i > 0) track += '<span class="t-arrow">→</span>';
+      if (i === missIdx) track += '<div class="t-slot empty">?</div>';
+      else track += '<div class="t-slot">' + seq[i] + '</div>';
+    }
+    return {
+      type: 'options', ribbon: '🔍 Angka Hilang',
+      text: 'Angka berapa yang <span class="q-name">hilang</span> dari urutan ini?',
+      bodyHtml: '<div class="q-train">' + track + '</div>',
+      answer: seq[missIdx], options: shuffle4(seq[missIdx], 1, 9)
+    };
+  }
+
+  function gen3() {
+    var a = rand(1, 9), b = rand(1, 9);
+    while (a === b) b = rand(1, 9);
+    var askMore = Math.random() < 0.5;
+    var correctSide = askMore ? (a > b ? 'left' : 'right') : (a < b ? 'left' : 'right');
+    var objA = pickEmojiObj(), objB = pickEmojiObj();
+    while (objB.e === objA.e) objB = pickEmojiObj();
+    var rowA = '', rowB = '';
+    for (var i = 0; i < a; i++) rowA += '<span>' + objA.e + '</span>';
+    for (var j = 0; j < b; j++) rowB += '<span>' + objB.e + '</span>';
+    var bodyHtml = '<div class="q-compare">' +
+      '<div class="compare-side" data-side="left" onclick="answerCompare(\'left\',\'' + correctSide + '\')">' +
+        '<div class="c-label">' + objA.n + '</div><div class="emoji-box">' + rowA + '</div></div>' +
+      '<div class="vs-badge">VS</div>' +
+      '<div class="compare-side" data-side="right" onclick="answerCompare(\'right\',\'' + correctSide + '\')">' +
+        '<div class="c-label">' + objB.n + '</div><div class="emoji-box">' + rowB + '</div></div>' +
+    '</div>';
+    return {
+      type: 'compare', ribbon: '⚖️ Bandingkan',
+      text: askMore ? 'Mana yang jumlahnya LEBIH <span class="q-name">banyak</span>?' : 'Mana yang jumlahnya LEBIH <span class="q-name">sedikit</span>?',
+      bodyHtml: bodyHtml
+    };
+  }
+
+  function gen4() {
+    var a = rand(1, 5), b = rand(1, 5);
+    var obj = pickEmojiObj();
+    var items = '';
+    for (var i = 0; i < a; i++) items += '<span class="emoji-item" style="animation-delay:' + (i*0.06) + 's">' + obj.e + '</span>';
+    items += '<span class="op-badge">+</span>';
+    for (var j = 0; j < b; j++) items += '<span class="emoji-item" style="animation-delay:' + ((a+j)*0.06) + 's">' + obj.e + '</span>';
+    var formula = '<div class="q-formula">' +
+      '<div class="num-box">' + a + '</div><span class="op-box">+</span>' +
+      '<div class="num-box">' + b + '</div><span class="eq-box">=</span>' +
+      '<div class="q-box">?</div></div>';
+    return {
+      type: 'options', ribbon: '➕ Penjumlahan',
+      text: 'Berapa jumlah <span class="q-name">' + obj.n + '</span> semuanya?',
+      bodyHtml: formula + '<div class="q-image-area" data-label="Gambar ' + obj.n + '">' + items + '</div>',
+      answer: a + b, options: shuffle4(a + b, 1, 10)
+    };
+  }
+
+  function gen5() {
+    var a = rand(3, 10), b = rand(1, a - 1);
+    var obj = pickEmojiObj();
+    var items = '';
+    for (var i = 0; i < a; i++) {
+      var crossed = i >= (a - b);
+      items += '<span class="emoji-item' + (crossed ? ' crossed' : '') + '" style="animation-delay:' + (i*0.06) + 's">' + obj.e + '</span>';
+    }
+    var formula = '<div class="q-formula">' +
+      '<div class="num-box">' + a + '</div><span class="op-box">−</span>' +
+      '<div class="num-box">' + b + '</div><span class="eq-box">=</span>' +
+      '<div class="q-box">?</div></div>';
+    return {
+      type: 'options', ribbon: '➖ Pengurangan',
+      text: 'Berapa <span class="q-name">' + obj.n + '</span> yang masih tersisa?',
+      bodyHtml: formula + '<div class="q-image-area" data-label="' + obj.n + ' yang dicoret berarti diambil">' + items + '</div>',
+      answer: a - b, options: shuffle4(a - b, 0, 10)
+    };
+  }
+
+  function gen6() {
+    var start = rand(1, 5);
+    var nums = [start, start+1, start+2, start+3];
+    var shuf = shuffle(nums);
+    var tries = 0;
+    while (shuf.join(',') === nums.join(',') && tries < 20) { shuf = shuffle(nums); tries++; }
+    var slots = '';
+    for (var i = 0; i < 4; i++) {
+      if (i > 0) slots += '<span class="train-arrow">→</span>';
+      slots += '<div class="train-slot" data-idx="' + i + '">?</div>';
+    }
+    var avail = '';
+    for (var j = 0; j < shuf.length; j++)
+      avail += '<div class="train-car" data-val="' + shuf[j] + '" onclick="pickTrain(this)">' + shuf[j] + '</div>';
+    var bodyHtml = '<div class="q-train-play">' +
+      '<div class="train-track" id="train-slots" style="flex-wrap:nowrap;">' + slots + '</div>' +
+      '<div class="train-track" id="train-available" style="margin-top:6px;">' + avail + '</div>' +
+      '<p style="color:var(--text-muted);font-size:clamp(0.7rem,2.6vw,0.82rem);margin-top:4px;font-weight:600;">Klik angka untuk mengisi kereta 🚃</p></div>';
+    return {
+      type: 'train', ribbon: '🚂 Urutkan Angka',
+      text: 'Susun angka dari <span class="q-name">kecil</span> ke <span class="q-name">besar</span>',
+      bodyHtml: bodyHtml, answer: nums
+    };
+  }
+
+  function gen7() {
+    var target = rand(2, 8);
+    var obj = pickEmojiObj();
+    var grid = '';
+    for (var i = 0; i < 10; i++) grid += '<div class="pick-item" onclick="togglePick(this)">' + obj.e + '</div>';
+    var bodyHtml = '<div class="pick-grid" id="pick-grid">' + grid + '</div>' +
+      '<button class="btn-primary" style="margin-top:clamp(8px,2vw,12px);padding:clamp(9px,2.5vw,12px) clamp(20px,6vw,28px);font-size:clamp(0.9rem,3.4vw,1rem);" onclick="submitPick(' + target + ')">✔️ Selesai</button>';
+    return {
+      type: 'pick', ribbon: '🎯 Pilih Tepat',
+      text: 'Klik tepat <span class="q-num">' + target + '</span> <span class="q-name">' + obj.n + '</span>',
+      bodyHtml: bodyHtml, target: target
+    };
+  }
+
+  function gen8() {
+    var templates = [
+      function() { var a = rand(2,5), b = rand(1,4);
+        return { text: 'Ada <span class="q-num">' + a + '</span> pisang 🍌<br>Ibu beli <span class="q-num">' + b + '</span> pisang lagi<br>Berapa jumlah <span class="q-name">pisang</span> semuanya?', answer: a+b, min:1, max:10 }; },
+      function() { var a = rand(4,8), b = rand(1,3);
+        return { text: 'Ada <span class="q-num">' + a + '</span> apel 🍎<br>Sebanyak <span class="q-num">' + b + '</span> apel dimakan<br>Berapa sisa <span class="q-name">apel</span>?', answer: a-b, min:0, max:10 }; },
+      function() { var a = rand(2,5), b = rand(2,4);
+        return { text: 'Ada <span class="q-num">' + a + '</span> bunga 🌷<br>dan <span class="q-num">' + b + '</span> kupu-kupu 🦋<br>Berapa jumlah <span class="q-name">semuanya</span>?', answer: a+b, min:1, max:12 }; },
+      function() { var a = rand(3,6), b = rand(1,3);
+        return { text: 'Ada <span class="q-num">' + a + '</span> balon 🎈<br>Sebanyak <span class="q-num">' + b + '</span> balon meletus<br>Berapa sisa <span class="q-name">balon</span>?', answer: a-b, min:0, max:10 }; }
+    ];
+    var q = templates[rand(0, templates.length - 1)]();
+    return { type: 'options', ribbon: '📖 Soal Cerita', text: q.text, bodyHtml: '', answer: q.answer, options: shuffle4(q.answer, q.min, q.max) };
+  }
+
+  var trainPicks = [], pickedCount = 0;
+
+  function renderQuestion(q) {
+    var box = document.getElementById('question-box');
+    var area = document.getElementById('answer-area');
+    var ribbonHtml = q.ribbon ? '<div class="q-ribbon">' + q.ribbon + '</div>' : '';
+    box.innerHTML = ribbonHtml + '<div class="q-body"><div class="q-text">' + q.text + '</div>' + (q.bodyHtml || '') + '</div>';
+    if (q.type === 'options') {
+      var html = '<div class="options">';
+      for (var i = 0; i < q.options.length; i++) {
+        html += '<button class="opt-btn" onclick="answerOption(this, ' + q.options[i] + ', ' + q.answer + ')">' + q.options[i] + '</button>';
       }
+      html += '</div>';
+      area.innerHTML = html;
+    } else {
+      area.innerHTML = '';
+      if (q.type === 'train') trainPicks = [];
+      if (q.type === 'pick') pickedCount = 0;
     }
   }
-  game.currentQ++; updateProgress();
-  setTimeout(nextQuestion, 1300);
-}
 
-function pickTrain(el) {
-  if (game.locked || el.classList.contains('selected')) return;
-  playClick(); vibrate(15);
-  el.classList.add('selected');
-  var val = parseInt(el.getAttribute('data-val'));
-  trainPicks.push(val);
-  var slot = document.querySelector('#train-slots .train-slot[data-idx="' + (trainPicks.length - 1) + '"]');
-  if (slot) { slot.textContent = val; slot.classList.add('filled'); }
-  if (trainPicks.length === 4) {
+  function answerOption(btn, chosen, correct) {
+    if (game.locked) return;
     game.locked = true; stopTimer();
-    var isCorrect = trainPicks.join(',') === game.currentQuestion.answer.join(',');
-    setTimeout(function() {
-      if (isCorrect) handleCorrect(null);
-      else {
-        playWrong(); vibrate([60,60,60]);
-        game.combo = 0; updateComboDisplay();
-        showFeedback('❌', 'wrong');
+    var all = document.querySelectorAll('.opt-btn');
+    for (var i = 0; i < all.length; i++) all[i].disabled = true;
+    if (chosen === correct) handleCorrect(btn);
+    else handleWrong(btn, correct, all);
+    game.currentQ++; updateProgress();
+    setTimeout(nextQuestion, 1300);
+  }
+
+  function answerCompare(side, correctSide) {
+    if (game.locked) return;
+    game.locked = true; stopTimer();
+    var sides = document.querySelectorAll('.compare-side');
+    for (var i = 0; i < sides.length; i++) {
+      if (sides[i].getAttribute('data-side') === correctSide) {
+        sides[i].style.background = 'linear-gradient(180deg, #D1FAE5, #A7F3D0)';
+        sides[i].style.borderColor = '#10B981';
+        sides[i].style.boxShadow = '0 6px 0 #10B981';
       }
-      game.currentQ++; updateProgress();
-      trainPicks = [];
-      setTimeout(nextQuestion, 1000);
-    }, 300);
+    }
+    if (side === correctSide) handleCorrect(null);
+    else {
+      playWrong(); vibrate([60,60,60]);
+      game.combo = 0; updateComboDisplay();
+      showFeedback('❌', 'wrong');
+      for (var j = 0; j < sides.length; j++) {
+        if (sides[j].getAttribute('data-side') === side) {
+          sides[j].style.background = 'linear-gradient(180deg, #FEE2E2, #FECACA)';
+          sides[j].style.borderColor = '#EF4444';
+          sides[j].style.boxShadow = '0 6px 0 #EF4444';
+        }
+      }
+    }
+    game.currentQ++; updateProgress();
+    setTimeout(nextQuestion, 1300);
   }
-}
 
-function togglePick(el) {
-  if (game.locked) return;
-  playClick(); vibrate(10);
-  el.classList.toggle('selected');
-  pickedCount = document.querySelectorAll('.pick-item.selected').length;
-}
-
-function submitPick(target) {
-  if (game.locked) return;
-  game.locked = true; stopTimer();
-  if (pickedCount === target) handleCorrect(null);
-  else {
-    playWrong(); vibrate([60,60,60]);
-    game.combo = 0; updateComboDisplay();
-    showFeedback('❌', 'wrong');
-  }
-  game.currentQ++; updateProgress();
-  pickedCount = 0;
-  setTimeout(nextQuestion, 1100);
-}
-
-function handleCorrect(btnEl) {
-  game.combo++; game.correctCount++;
-  if (game.combo > game.maxCombo) game.maxCombo = game.combo;
-  var points = 10 + Math.max(0, game.combo - 1) * 5;
-  var coins = 5 + Math.max(0, game.combo - 1) * 2;
-  game.score += points; game.levelCoins += coins;
-  document.getElementById('score-val').textContent = game.score;
-  document.getElementById('score-coins').textContent = game.levelCoins;
-  updateComboDisplay();
-  if (btnEl) btnEl.classList.add('correct');
-  playCorrect(game.combo);
-  if (game.combo >= 3) setTimeout(playCoin, 200);
-  vibrate(30);
-  showFeedback(game.combo >= 3 ? '🔥 COMBO x' + game.combo : '✅', 'correct');
-  if (btnEl) burstFromElement(btnEl); else burstFromCenter();
-}
-
-function handleWrong(btnEl, correct, all) {
-  game.combo = 0; updateComboDisplay();
-  playWrong(); vibrate([60,60,60]);
-  if (btnEl) btnEl.classList.add('wrong');
-  showFeedback('❌', 'wrong');
-  if (all) {
-    for (var j = 0; j < all.length; j++) {
-      if (parseInt(all[j].textContent) === correct) all[j].classList.add('correct');
+  function pickTrain(el) {
+    if (game.locked || el.classList.contains('selected')) return;
+    playClick(); vibrate(15);
+    el.classList.add('selected');
+    var val = parseInt(el.getAttribute('data-val'));
+    trainPicks.push(val);
+    var slot = document.querySelector('#train-slots .train-slot[data-idx="' + (trainPicks.length - 1) + '"]');
+    if (slot) { slot.textContent = val; slot.classList.add('filled'); }
+    if (trainPicks.length === 4) {
+      game.locked = true; stopTimer();
+      var isCorrect = trainPicks.join(',') === game.currentQuestion.answer.join(',');
+      setTimeout(function() {
+        if (isCorrect) handleCorrect(null);
+        else {
+          playWrong(); vibrate([60,60,60]);
+          game.combo = 0; updateComboDisplay();
+          showFeedback('❌', 'wrong');
+        }
+        game.currentQ++; updateProgress();
+        trainPicks = [];
+        setTimeout(nextQuestion, 1000);
+      }, 300);
     }
   }
-}
 
-function showFeedback(text, type) {
-  var fb = document.getElementById('feedback-text');
-  fb.textContent = text;
-  fb.className = 'feedback-text ' + (type || '') + (text.indexOf('COMBO') >= 0 ? ' combo' : '');
-  void fb.offsetWidth;
-  fb.classList.add('show');
-  setTimeout(function() { fb.classList.remove('show'); }, 1000);
-}
-
-function burstFromElement(el) { var rect = el.getBoundingClientRect(); burstAt(rect.left + rect.width/2, rect.top + rect.height/2); }
-function burstFromCenter() { burstAt(window.innerWidth/2, window.innerHeight/2); }
-function burstAt(cx, cy) {
-  for (var i = 0; i < 16; i++) {
-    var p = document.createElement('div');
-    p.className = 'burst-particle';
-    var angle = (Math.PI * 2 * i) / 16;
-    var dist = 50 + Math.random() * 60;
-    p.style.left = cx + 'px'; p.style.top = cy + 'px';
-    p.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
-    p.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
-    p.style.background = ['#F5C542','#5EC4C4','#FF6B9D','#A78BFA','#FFB347','#7DD3FC'][rand(0,5)];
-    document.body.appendChild(p);
-    (function(el) { setTimeout(function() { el.remove(); }, 900); })(p);
+  function togglePick(el) {
+    if (game.locked) return;
+    playClick(); vibrate(10);
+    el.classList.toggle('selected');
+    pickedCount = document.querySelectorAll('.pick-item.selected').length;
   }
-}
 
-function endLevel() {
-  stopTimer();
-  var correctRatio = game.correctCount / game.totalQ;
-  var stars = correctRatio === 1 ? 3 : correctRatio >= 0.6 ? 2 : correctRatio >= 0.4 ? 1 : 0;
-  if (stars > (save.stars[game.currentLevel.id] || 0)) save.stars[game.currentLevel.id] = stars;
-  save.coins += game.levelCoins;
-  save.xp += game.score;
-  var oldLevel = save.level;
-  save.level = 1 + Math.floor(save.xp / 100);
-  var leveledUp = save.level > oldLevel;
-  if (stars >= 1 && save.unlocked < game.currentLevel.id + 1 && game.currentLevel.id + 1 <= 8)
-    save.unlocked = game.currentLevel.id + 1;
-  persistSave();
-
-  var resultHolder = document.getElementById('result-rose-holder');
-  var roseClone = document.createElement('div');
-  roseClone.style.width = '100%'; roseClone.style.height = '100%';
-  roseClone.innerHTML = ROSE_SVG_HTML;
-  resultHolder.innerHTML = '';
-  resultHolder.appendChild(roseClone);
-
-  document.getElementById('result-title').textContent =
-    stars === 3 ? 'SEMPURNA!' : stars === 2 ? 'Hebat!' : stars === 1 ? 'Bagus!' : 'Coba Lagi ya!';
-  var starsHtml = '';
-  for (var i = 1; i <= 3; i++)
-    starsHtml += '<span style="animation-delay:' + (i*0.25) + 's">' + (i <= stars ? '⭐' : '☆') + '</span>';
-  document.getElementById('result-stars').innerHTML = starsHtml;
-  document.getElementById('result-correct').textContent = game.score;
-  document.getElementById('result-xp').textContent = '+' + game.score;
-  document.getElementById('result-coins').textContent = '+' + game.levelCoins;
-
-  showScreen('screen-result');
-  if (stars >= 2) setTimeout(function() { launchConfetti(); playLevelUp(); }, 300);
-  if (leveledUp) setTimeout(function() { showAchievement('⭐','LEVEL UP!','Kamu naik ke level ' + save.level); }, 800);
-  else if (stars === 3) setTimeout(function() { showAchievement('🌹','PERFECT!','Semua jawaban benar!'); }, 800);
-}
-
-function launchConfetti() {
-  var colors = ['#F5C542','#5EC4C4','#FF6B9D','#A78BFA','#F472B6','#7DD3FC','#FFB347','#FF69B4','#FF8FC7'];
-  for (var i = 0; i < 60; i++) {
-    var c = document.createElement('div');
-    c.className = 'confetti-piece';
-    c.style.left = Math.random() * 100 + 'vw';
-    c.style.background = colors[rand(0, colors.length - 1)];
-    c.style.animationDuration = (2 + Math.random() * 2) + 's';
-    c.style.animationDelay = (Math.random() * 0.5) + 's';
-    if (Math.random() > 0.5) c.style.borderRadius = '50%';
-    document.body.appendChild(c);
-    (function(el) { setTimeout(function() { el.remove(); }, 4500); })(c);
+  function submitPick(target) {
+    if (game.locked) return;
+    game.locked = true; stopTimer();
+    if (pickedCount === target) handleCorrect(null);
+    else {
+      playWrong(); vibrate([60,60,60]);
+      game.combo = 0; updateComboDisplay();
+      showFeedback('❌', 'wrong');
+    }
+    game.currentQ++; updateProgress();
+    pickedCount = 0;
+    setTimeout(nextQuestion, 1100);
   }
-}
 
-function showAchievement(icon, title, sub) {
-  var toast = document.getElementById('achievement-toast');
-  document.getElementById('ach-icon').textContent = icon;
-  document.getElementById('ach-title').textContent = title;
-  document.getElementById('ach-sub').textContent = sub;
-  toast.classList.add('show');
-  vibrate([100,50,100]);
-  setTimeout(function() { toast.classList.remove('show'); }, 3500);
-}
+  function handleCorrect(btnEl) {
+    game.combo++; game.correctCount++;
+    if (game.combo > game.maxCombo) game.maxCombo = game.combo;
+    var points = 10 + Math.max(0, game.combo - 1) * 5;
+    var coins = 5 + Math.max(0, game.combo - 1) * 2;
+    game.score += points; game.levelCoins += coins;
+    document.getElementById('score-val').textContent = game.score;
+    document.getElementById('score-coins').textContent = game.levelCoins;
+    updateComboDisplay();
+    if (btnEl) btnEl.classList.add('correct');
+    playCorrect(game.combo);
+    if (game.combo >= 3) setTimeout(playCoin, 200);
+    vibrate(30);
+    showFeedback(game.combo >= 3 ? '🔥 COMBO x' + game.combo : '✅', 'correct');
+    if (btnEl) burstFromElement(btnEl); else burstFromCenter();
+  }
 
-function resetProgress() {
-  if (!confirm('Reset semua progress?')) return;
-  save = { stars: {}, coins: 0, xp: 0, level: 1, unlocked: 1 };
-  persistSave();
-  renderHome();
-}
+  function handleWrong(btnEl, correct, all) {
+    game.combo = 0; updateComboDisplay();
+    playWrong(); vibrate([60,60,60]);
+    if (btnEl) btnEl.classList.add('wrong');
+    showFeedback('❌', 'wrong');
+    if (all) {
+      for (var j = 0; j < all.length; j++) {
+        if (parseInt(all[j].textContent) === correct) all[j].classList.add('correct');
+      }
+    }
+  }
 
-try {
-  renderHome();
-  document.addEventListener('click', function once() {
-    initAudio();
-    document.removeEventListener('click', once);
-  }, { once: true });
-} catch(e) {
-  var eb = document.getElementById('error-box');
-  eb.style.display = 'block';
-  eb.textContent = 'Init error: ' + e.message;
-}
+  function showFeedback(text, type) {
+    var fb = document.getElementById('feedback-text');
+    fb.textContent = text;
+    fb.className = 'feedback-text ' + (type || '') + (text.indexOf('COMBO') >= 0 ? ' combo' : '');
+    void fb.offsetWidth;
+    fb.classList.add('show');
+    setTimeout(function() { fb.classList.remove('show'); }, 1000);
+  }
+
+  function burstFromElement(el) { var rect = el.getBoundingClientRect(); burstAt(rect.left + rect.width/2, rect.top + rect.height/2); }
+  function burstFromCenter() { burstAt(window.innerWidth/2, window.innerHeight/2); }
+  function burstAt(cx, cy) {
+    for (var i = 0; i < 16; i++) {
+      var p = document.createElement('div');
+      p.className = 'burst-particle';
+      var angle = (Math.PI * 2 * i) / 16;
+      var dist = 50 + Math.random() * 60;
+      p.style.left = cx + 'px'; p.style.top = cy + 'px';
+      p.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+      p.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+      p.style.background = ['#F5C542','#5EC4C4','#FF6B9D','#A78BFA','#FFB347','#7DD3FC'][rand(0,5)];
+      document.body.appendChild(p);
+      (function(el) { setTimeout(function() { el.remove(); }, 900); })(p);
+    }
+  }
+
+  function endLevel() {
+    stopTimer();
+    var correctRatio = game.correctCount / game.totalQ;
+    var stars = correctRatio === 1 ? 3 : correctRatio >= 0.6 ? 2 : correctRatio >= 0.4 ? 1 : 0;
+    if (stars > (save.stars[game.currentLevel.id] || 0)) save.stars[game.currentLevel.id] = stars;
+    save.coins += game.levelCoins;
+    save.xp += game.score;
+    var oldLevel = save.level;
+    save.level = 1 + Math.floor(save.xp / 100);
+    var leveledUp = save.level > oldLevel;
+    if (stars >= 1 && save.unlocked < game.currentLevel.id + 1 && game.currentLevel.id + 1 <= 8)
+      save.unlocked = game.currentLevel.id + 1;
+    persistSave();
+
+    var resultHolder = document.getElementById('result-rose-holder');
+    var roseClone = document.createElement('div');
+    roseClone.style.width = '100%'; roseClone.style.height = '100%';
+    roseClone.innerHTML = ROSE_SVG_HTML;
+    resultHolder.innerHTML = '';
+    resultHolder.appendChild(roseClone);
+
+    document.getElementById('result-title').textContent =
+      stars === 3 ? 'SEMPURNA!' : stars === 2 ? 'Hebat!' : stars === 1 ? 'Bagus!' : 'Coba Lagi ya!';
+    var starsHtml = '';
+    for (var i = 1; i <= 3; i++)
+      starsHtml += '<span style="animation-delay:' + (i*0.25) + 's">' + (i <= stars ? '⭐' : '☆') + '</span>';
+    document.getElementById('result-stars').innerHTML = starsHtml;
+    document.getElementById('result-correct').textContent = game.score;
+    document.getElementById('result-xp').textContent = '+' + game.score;
+    document.getElementById('result-coins').textContent = '+' + game.levelCoins;
+
+    showScreen('screen-result');
+    if (stars >= 2) setTimeout(function() { launchConfetti(); playLevelUp(); }, 300);
+    if (leveledUp) setTimeout(function() { showAchievement('⭐','LEVEL UP!','Kamu naik ke level ' + save.level); }, 800);
+    else if (stars === 3) setTimeout(function() { showAchievement('🌹','PERFECT!','Semua jawaban benar!'); }, 800);
+  }
+
+  function launchConfetti() {
+    var colors = ['#F5C542','#5EC4C4','#FF6B9D','#A78BFA','#F472B6','#7DD3FC','#FFB347','#FF69B4','#FF8FC7'];
+    for (var i = 0; i < 60; i++) {
+      var c = document.createElement('div');
+      c.className = 'confetti-piece';
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.background = colors[rand(0, colors.length - 1)];
+      c.style.animationDuration = (2 + Math.random() * 2) + 's';
+      c.style.animationDelay = (Math.random() * 0.5) + 's';
+      if (Math.random() > 0.5) c.style.borderRadius = '50%';
+      document.body.appendChild(c);
+      (function(el) { setTimeout(function() { el.remove(); }, 4500); })(c);
+    }
+  }
+
+  function showAchievement(icon, title, sub) {
+    var toast = document.getElementById('achievement-toast');
+    document.getElementById('ach-icon').textContent = icon;
+    document.getElementById('ach-title').textContent = title;
+    document.getElementById('ach-sub').textContent = sub;
+    toast.classList.add('show');
+    vibrate([100,50,100]);
+    setTimeout(function() { toast.classList.remove('show'); }, 3500);
+  }
+
+  function resetProgress() {
+    if (!confirm('Reset semua progress?')) return;
+    save = { stars: {}, coins: 0, xp: 0, level: 1, unlocked: 1 };
+    persistSave();
+    renderHome();
+  }
+
+  try {
+    renderHome();
+    document.addEventListener('click', function once() {
+      initAudio();
+      document.removeEventListener('click', once);
+    }, { once: true });
+  } catch(e) {
+    var eb = document.getElementById('error-box');
+    eb.style.display = 'block';
+    eb.textContent = 'Init error: ' + e.message;
+  }
 </script>
 </body>
 </html>
