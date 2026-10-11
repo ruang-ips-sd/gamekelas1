@@ -422,6 +422,8 @@
   .level-card:nth-child(4) { animation-delay: 0.2s; }
   .level-card:nth-child(5) { animation-delay: 0.25s; }
   .level-card:nth-child(6) { animation-delay: 0.3s; }
+  .level-card:nth-child(7) { animation-delay: 0.35s; }
+  .level-card:nth-child(8) { animation-delay: 0.4s; }
   @keyframes cardAppear {
     from { opacity: 0; transform: translateY(30px) scale(0.9); }
     to { opacity: 1; transform: translateY(0) scale(1); }
@@ -684,6 +686,152 @@
     40% { transform: translateX(10px); }
     60% { transform: translateX(-6px); }
     80% { transform: translateX(6px); }
+  }
+
+  /* ===== PILIH KATA (game baru) ===== */
+  .word-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .word-option {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F0F9FF 100%);
+    border: 3px solid #BAE6FD;
+    border-radius: 20px;
+    padding: 16px 20px;
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(1.1rem, 3.6vw, 1.5rem);
+    font-weight: 800;
+    color: #075985;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 5px 0 #BAE6FD;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .word-option:hover:not(.disabled) {
+    transform: translateY(-4px);
+    border-color: #FFB347;
+    background: linear-gradient(180deg, #FFF6CC 0%, #FFE9A8 100%);
+    box-shadow: 0 9px 0 #FFB347;
+    color: #B45309;
+  }
+  .word-option:active:not(.disabled) {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #BAE6FD;
+  }
+  .word-option.correct {
+    background: linear-gradient(180deg, #D1FAE5 0%, #A7F3D0 100%);
+    border-color: #10B981;
+    box-shadow: 0 5px 0 #10B981;
+    color: #065F46;
+    animation: correctPulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .word-option.wrong {
+    background: linear-gradient(180deg, #FEE2E2 0%, #FECACA 100%);
+    border-color: #EF4444;
+    box-shadow: 0 5px 0 #EF4444;
+    color: #991B1B;
+    animation: shake 0.5s;
+  }
+
+  /* ===== BACA & TEBAK (game baru) ===== */
+  .read-word {
+    background: linear-gradient(135deg, #FFF6CC 0%, #FFE0EF 100%);
+    border-radius: 24px;
+    padding: 24px 20px;
+    margin-bottom: 20px;
+    border: 3px dashed #FFB347;
+    position: relative;
+    z-index: 1;
+  }
+  .read-word .label {
+    font-family: 'Baloo 2', cursive;
+    font-size: 0.85rem;
+    color: #7C4A8E;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.75;
+  }
+  .read-word .word {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(2rem, 9vw, 3.5rem);
+    font-weight: 800;
+    color: #FF7EB6;
+    letter-spacing: 4px;
+    text-shadow: 3px 3px 0 #FFF6CC, 5px 5px 15px rgba(255,126,182,0.4);
+    animation: wordPulse 2s ease-in-out infinite;
+  }
+  @keyframes wordPulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+  .read-word .sentence {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(1.15rem, 4vw, 1.6rem);
+    font-weight: 700;
+    color: #6B4C7A;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+  }
+  .read-word .sentence .highlight {
+    background: linear-gradient(180deg, transparent 60%, #FFD93D 60%);
+    padding: 0 4px;
+    border-radius: 4px;
+  }
+
+  .image-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .image-option {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FAF5FF 100%);
+    border: 3px solid #E9D5FF;
+    border-radius: 20px;
+    padding: 16px 8px;
+    font-size: clamp(2.5rem, 9vw, 4rem);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 5px 0 #E9D5FF;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1/1;
+  }
+  .image-option:hover:not(.disabled) {
+    transform: translateY(-4px) scale(1.03);
+    border-color: #FFB347;
+    background: linear-gradient(180deg, #FFF6CC 0%, #FFE9A8 100%);
+    box-shadow: 0 9px 0 #FFB347;
+  }
+  .image-option:active:not(.disabled) {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #E9D5FF;
+  }
+  .image-option.correct {
+    background: linear-gradient(180deg, #D1FAE5 0%, #A7F3D0 100%);
+    border-color: #10B981;
+    box-shadow: 0 5px 0 #10B981;
+    animation: correctPulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .image-option.wrong {
+    background: linear-gradient(180deg, #FEE2E2 0%, #FECACA 100%);
+    border-color: #EF4444;
+    box-shadow: 0 5px 0 #EF4444;
+    animation: shake 0.5s;
   }
 
   /* ===== SUSUN KALIMAT ===== */
@@ -1038,10 +1186,13 @@
     .options { grid-template-columns: repeat(2, 1fr); }
     .option { padding: 16px 8px; }
     .screen { padding: 18px 14px 30px; }
+    .image-options { grid-template-columns: repeat(3, 1fr); }
   }
   @media (max-width: 360px) {
     .topbar { padding: 10px 12px; }
     .btn-icon { width: 38px; height: 38px; font-size: 1rem; }
+    .image-options { gap: 8px; }
+    .image-option { padding: 10px 4px; font-size: 2rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1099,7 +1250,6 @@
 
 <script>
 // ===== FORCE HIDE LOADING (fallback) =====
-// Kalau karena suatu hal loading tidak hilang, ini akan paksa hilangkan setelah 6 detik.
 window.addEventListener('load', function() {
   setTimeout(function() {
     var ls = document.getElementById('loadingScreen');
@@ -1134,7 +1284,7 @@ const S = {
   win:     () => { [523,659,784,1046,1318].forEach((f,i)=>setTimeout(()=>beep(f,0.18),i*110)); }
 };
 
-// ===== DATA LEVEL =====
+// ===== DATA LEVEL (8 LEVEL) =====
 const levels = [
   {
     name: "Kenali Huruf",
@@ -1218,6 +1368,36 @@ const levels = [
       { type: "story", story: "Rina suka sekali buah. Setiap pagi ia makan apel. Apel itu manis dan segar.", prompt: "Buah apa yang dimakan Rina?", options: ["Mangga","Apel","Jeruk"], answer: 1 },
       { type: "story", story: "Pak Tani pergi ke sawah. Ia membawa cangkul. Pak Tani menanam padi.", prompt: "Apa yang ditanam Pak Tani?", options: ["Jagung","Padi","Sayur"], answer: 1 }
     ]
+  },
+  {
+    name: "Baca & Tebak",
+    icon: "🔊",
+    desc: "Baca kata, pilih gambarnya",
+    questions: [
+      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "APEL", options: [{e:"🍎",t:"Apel"},{e:"🍌",t:"Pisang"},{e:"🍇",t:"Anggur"}], answer: 0 },
+      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "KUCING", options: [{e:"🐶",t:"Anjing"},{e:"🐱",t:"Kucing"},{e:"🐭",t:"Tikus"}], answer: 1 },
+      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "BUNGA", options: [{e:"🌳",t:"Pohon"},{e:"🍃",t:"Daun"},{e:"🌸",t:"Bunga"}], answer: 2 },
+      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "MOBIL", options: [{e:"🚗",t:"Mobil"},{e:"✈️",t:"Pesawat"},{e:"🚢",t:"Kapal"}], answer: 0 },
+      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "MATAHARI", options: [{e:"🌙",t:"Bulan"},{e:"⭐",t:"Bintang"},{e:"☀️",t:"Matahari"}], answer: 2 },
+      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "IKAN", options: [{e:"🐟",t:"Ikan"},{e:"🐦",t:"Burung"},{e:"🐢",t:"Kura-kura"}], answer: 0 },
+      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "PAYUNG", options: [{e:"👒",t:"Topi"},{e:"☂️",t:"Payung"},{e:"👟",t:"Sepatu"}], answer: 1 },
+      { type: "readImage", prompt: "Baca kata di bawah, lalu pilih gambar yang cocok!", word: "BUKU", options: [{e:"✏️",t:"Pensil"},{e:"📕",t:"Buku"},{e:"🎒",t:"Tas"}], answer: 1 }
+    ]
+  },
+  {
+    name: "Pilih Kata Benar",
+    icon: "🎯",
+    desc: "Pilih ejaan kata yang benar",
+    questions: [
+      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🐱", options: ["Kucing","Kuceng","Kucingg"], answer: 0 },
+      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🐘", options: ["Gaja","Gajah","Gajjah"], answer: 1 },
+      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🏫", options: ["Sekolah","Sekola","Sekolahh"], answer: 0 },
+      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🐰", options: ["Kelinci","Kelincih","Klinci"], answer: 0 },
+      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🥚", options: ["Telor","Telur","Telir"], answer: 1 },
+      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🌙", options: ["Bulan","Bulin","Bualan"], answer: 0 },
+      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🐟", options: ["Ikan","Ikin","Ikann"], answer: 0 },
+      { type: "choice", prompt: "Pilih ejaan yang benar untuk gambar ini:", emoji: "🍌", options: ["Pisang","Pisangg","Piseng"], answer: 0 }
+    ]
   }
 ];
 
@@ -1228,7 +1408,7 @@ const state = {
   question: 0,
   score: 0,
   correctCount: 0,
-  stars: JSON.parse(localStorage.getItem('membaca_stars_v2') || '{}'),
+  stars: JSON.parse(localStorage.getItem('membaca_stars_v3') || '{}'),
   arranged: [],
   pool: [],
   answered: false,
@@ -1248,7 +1428,7 @@ function shuffle(arr) {
   return a;
 }
 function saveStars() {
-  try { localStorage.setItem('membaca_stars_v2', JSON.stringify(state.stars)); } catch(e) {}
+  try { localStorage.setItem('membaca_stars_v3', JSON.stringify(state.stars)); } catch(e) {}
 }
 function isLevelUnlocked(idx) {
   if (idx === 0) return true;
@@ -1298,9 +1478,9 @@ function renderHome(app) {
       <div class="home-hero">
         <span class="mascot">📚</span>
         <h1>Petualangan Membaca</h1>
-        <p>Kelas 1 SD • Belajar membaca sambil bermain! 🌈</p>
+        <p>Kelas 1 SD • 8 permainan seru untuk belajar membaca! 🌈</p>
       </div>
-      <div class="section-label">🎯 Pilih Levelmu</div>
+      <div class="section-label">🎯 Pilih Permainanmu (8 Game)</div>
       <div class="level-grid">
         ${levels.map((lv, i) => {
           const s = state.stars[i] || 0;
@@ -1310,10 +1490,10 @@ function renderHome(app) {
           ).join('');
           return `
             <div class="level-card ${unlocked ? '' : 'locked'}" data-level="${i}">
-              <div class="level-num">LEVEL ${i+1}</div>
+              <div class="level-num">GAME ${i+1}</div>
               <span class="level-emoji">${lv.icon}</span>
               <div class="level-name">${lv.name}</div>
-              <div class="level-desc">${unlocked ? lv.desc : '🔒 Selesaikan level sebelumnya'}</div>
+              <div class="level-desc">${unlocked ? lv.desc : '🔒 Selesaikan game sebelumnya'}</div>
               <div class="level-stars">${starsHtml}</div>
               ${unlocked ? '' : '<span class="lock-badge">🔒</span>'}
             </div>
@@ -1404,6 +1584,21 @@ function renderGame(app) {
         </div>
       </div>
     `;
+  } else if (q.type === 'readImage') {
+    questionHtml = `
+      <div class="question-card">
+        <div class="q-prompt">${q.prompt}</div>
+        <div class="read-word">
+          <div class="label">📖 Baca kata berikut</div>
+          <div class="word">${q.word}</div>
+        </div>
+        <div class="image-options">
+          ${q.options.map((opt, i) =>
+            `<button class="image-option" data-opt="${i}" title="${opt.t}">${opt.e}</button>`
+          ).join('')}
+        </div>
+      </div>
+    `;
   }
 
   app.innerHTML = `
@@ -1437,6 +1632,13 @@ function renderGame(app) {
 
   if (q.type === 'choice' || q.type === 'story') {
     app.querySelectorAll('.option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (state.answered) return;
+        handleChoice(parseInt(btn.dataset.opt), q.answer, btn);
+      });
+    });
+  } else if (q.type === 'readImage') {
+    app.querySelectorAll('.image-option').forEach(btn => {
       btn.addEventListener('click', () => {
         if (state.answered) return;
         handleChoice(parseInt(btn.dataset.opt), q.answer, btn);
@@ -1482,7 +1684,9 @@ function renderGame(app) {
 function handleChoice(selected, answer, btn) {
   state.answered = true;
   const correct = selected === answer;
-  const allOpts = document.querySelectorAll('.option');
+  // Support both .option and .image-option
+  const isImage = btn.classList.contains('image-option');
+  const allOpts = document.querySelectorAll(isImage ? '.image-option' : '.option');
   allOpts.forEach(o => o.classList.add('disabled'));
 
   if (correct) {
@@ -1680,7 +1884,7 @@ function runLoadingScreen() {
     );
     if (targetMsg !== msgIndex) {
       msgIndex = targetMsg;
-      textEl.textContent = messages[msgIndex];
+      textEl.textContent = messages[msgIdx];
     }
 
     if (progress >= 100) {
@@ -1691,9 +1895,7 @@ function runLoadingScreen() {
 }
 
 // ===== INIT =====
-// Render dulu supaya konten sudah siap di belakang loading
 render();
-// Jalankan loading screen setelah DOM siap
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', runLoadingScreen);
 } else {
