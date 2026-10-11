@@ -2,67 +2,261 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#34D399">
-<title>🌿 Petualangan Alam Sekitar - Kelas 1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
+<meta name="theme-color" content="#FFB6D9">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>🌈 Petualangan Alam Sekitar - Kelas 1 Ceria</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
     font-family: 'Fredoka', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: linear-gradient(180deg, #B0E0FF 0%, #DFF6FF 35%, #FFF6CC 75%, #E8F5E9 100%);
-    background-attachment: fixed;
-    color: #333;
+    color: #4a4a4a;
     overflow-x: hidden;
     min-height: 100vh;
+    min-height: 100dvh;
     position: relative;
-    padding-bottom: 20px;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    background: linear-gradient(180deg,
+      #7EC8F5 0%,
+      #A7DBF5 12%,
+      #C7E9F5 25%,
+      #E4F4FA 40%,
+      #FFF6CC 58%,
+      #FFE4C4 75%,
+      #FFD9E8 90%,
+      #FFC7DC 100%);
+    background-attachment: fixed;
+    touch-action: manipulation;
   }
   h1, h2, h3, h4 { font-family: 'Baloo 2', cursive; }
 
-  /* ====== BACKGROUND DECO ====== */
-  .bg-deco { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  /* ============================================================
+     BACKGROUND WORLD
+     ============================================================ */
+  .bg-world {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .bg-sky {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg,
+      rgba(126,200,245,0.35) 0%,
+      rgba(231,180,241,0.15) 35%,
+      rgba(255,246,204,0.25) 65%,
+      rgba(255,217,232,0.35) 100%);
+  }
+
+  /* Sun */
+  .sun {
+    position: absolute;
+    top: max(20px, env(safe-area-inset-top, 0px));
+    right: clamp(15px, 4vw, 70px);
+    width: clamp(70px, 14vw, 150px);
+    height: clamp(70px, 14vw, 150px);
+  }
+  .sun-core {
+    position: absolute; inset: 20%;
+    background: radial-gradient(circle, #FFF59D 0%, #FFD93D 45%, #FFB300 85%, #FF9800 100%);
+    border-radius: 50%;
+    box-shadow:
+      0 0 40px rgba(255,217,61,0.9),
+      0 0 80px rgba(255,217,61,0.6),
+      0 0 120px rgba(255,217,61,0.4);
+    animation: sunPulse 3s ease-in-out infinite;
+  }
+  .sun-rays {
+    position: absolute; inset: 0;
+    animation: raysSpin 40s linear infinite;
+  }
+  .sun-rays span {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 60%; height: 5px;
+    background: linear-gradient(90deg, rgba(255,217,61,0.85), rgba(255,217,61,0));
+    border-radius: 3px;
+    transform-origin: left center;
+  }
+  .sun-rays span:nth-child(1) { transform: translate(0,-50%) rotate(0deg); }
+  .sun-rays span:nth-child(2) { transform: translate(0,-50%) rotate(45deg); }
+  .sun-rays span:nth-child(3) { transform: translate(0,-50%) rotate(90deg); }
+  .sun-rays span:nth-child(4) { transform: translate(0,-50%) rotate(135deg); }
+  .sun-rays span:nth-child(5) { transform: translate(0,-50%) rotate(180deg); }
+  .sun-rays span:nth-child(6) { transform: translate(0,-50%) rotate(225deg); }
+  .sun-rays span:nth-child(7) { transform: translate(0,-50%) rotate(270deg); }
+  .sun-rays span:nth-child(8) { transform: translate(0,-50%) rotate(315deg); }
+  @keyframes sunPulse {
+    0%,100% { transform: scale(1); filter: brightness(1); }
+    50% { transform: scale(1.08); filter: brightness(1.15); }
+  }
+  @keyframes raysSpin { to { transform: rotate(360deg); } }
+
+  /* Clouds */
   .bg-cloud {
-    position: absolute; background: white; border-radius: 60px; opacity: 0.85;
-    filter: drop-shadow(0 6px 12px rgba(135,180,220,0.25));
+    position: absolute;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F0F8FF 100%);
+    border-radius: 80px;
+    filter: drop-shadow(0 8px 16px rgba(135,180,220,0.3));
   }
   .bg-cloud::before, .bg-cloud::after {
-    content: ''; position: absolute; background: white; border-radius: 50%;
+    content: ''; position: absolute; background: inherit; border-radius: 50%;
   }
-  .bg-cloud::before { width: 55%; height: 130%; top: -65%; left: 15%; }
-  .bg-cloud::after { width: 45%; height: 110%; top: -45%; left: 50%; }
-  .bg-cloud.c1 { top: 8%; left: -160px; width: 120px; height: 40px; animation: drift 50s linear infinite; }
-  .bg-cloud.c2 { top: 20%; left: -160px; width: 90px; height: 30px; animation: drift 62s linear infinite 12s; }
-  .bg-cloud.c3 { top: 4%; left: -160px; width: 150px; height: 48px; opacity: 0.7; animation: drift 70s linear infinite 25s; }
-  @keyframes drift { to { transform: translateX(calc(100vw + 250px)); } }
+  .bg-cloud::before { width: 55%; height: 140%; top: -70%; left: 12%; }
+  .bg-cloud::after { width: 45%; height: 120%; top: -50%; left: 52%; }
+  .bg-cloud.c1 { top: 4%; left: -220px; width: 150px; height: 48px; opacity: 0.95; animation: drift 55s linear infinite; }
+  .bg-cloud.c2 { top: 15%; left: -220px; width: 110px; height: 36px; opacity: 0.85; animation: drift 70s linear infinite 10s; }
+  .bg-cloud.c3 { top: 25%; left: -220px; width: 170px; height: 55px; opacity: 0.75; animation: drift 85s linear infinite 22s; }
+  .bg-cloud.c4 { top: 9%; left: -220px; width: 90px; height: 30px; opacity: 0.9; animation: drift 62s linear infinite 35s; }
+  .bg-cloud.c5 { top: 33%; left: -220px; width: 130px; height: 42px; opacity: 0.65; animation: drift 78s linear infinite 45s; }
+  @keyframes drift { to { transform: translateX(calc(100vw + 320px)); } }
 
-  .bg-sun {
+  /* Birds */
+  .bird {
     position: absolute;
-    top: 20px; right: 20px;
-    width: clamp(60px, 12vw, 100px);
-    height: clamp(60px, 12vw, 100px);
-    background: radial-gradient(circle, #FFF176 0%, #FFD93D 50%, #FFB300 100%);
-    border-radius: 50%;
-    box-shadow: 0 0 40px rgba(255,217,61,0.8), 0 0 80px rgba(255,217,61,0.4);
-    animation: sunPulse 4s ease-in-out infinite;
+    font-size: clamp(0.9rem, 2vw, 1.4rem);
+    animation: birdFly 40s linear infinite;
+    opacity: 0.85;
   }
-  @keyframes sunPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+  .bird.b1 { top: 12%; animation-delay: 0s; }
+  .bird.b2 { top: 18%; animation-delay: 3s; font-size: clamp(0.7rem, 1.5vw, 1rem); }
+  .bird.b3 { top: 8%; animation-delay: 15s; }
+  @keyframes birdFly {
+    0% { transform: translateX(-60px) translateY(0); opacity: 0; }
+    10% { opacity: 0.9; }
+    50% { transform: translateX(50vw) translateY(-20px); }
+    90% { opacity: 0.9; }
+    100% { transform: translateX(calc(100vw + 60px)) translateY(0); opacity: 0; }
+  }
 
-  /* ====== SCREEN WRAPPER ====== */
+  /* Twinkles */
+  .twinkle {
+    position: absolute;
+    color: white;
+    text-shadow: 0 0 8px #FFD93D, 0 0 15px #FFD93D, 0 0 25px #FFB6D9;
+    animation: twinkleAnim 3s infinite;
+    font-size: clamp(0.7rem, 1.6vw, 1.1rem);
+  }
+  @keyframes twinkleAnim {
+    0%,100% { opacity: 0.2; transform: scale(0.7) rotate(0); }
+    50% { opacity: 1; transform: scale(1.3) rotate(180deg); }
+  }
+
+  /* Balloons */
+  .balloon {
+    position: absolute;
+    font-size: clamp(1.5rem, 3.5vw, 2.3rem);
+    animation: balloonUp linear infinite;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+  }
+  @keyframes balloonUp {
+    0% { transform: translateY(100vh) rotate(-8deg); opacity: 0; }
+    10% { opacity: 0.9; }
+    90% { opacity: 0.9; }
+    100% { transform: translateY(-180px) rotate(8deg); opacity: 0; }
+  }
+
+  /* Butterflies */
+  .butterfly {
+    position: absolute;
+    font-size: clamp(1.1rem, 2.4vw, 1.7rem);
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+    animation: flutterPath 22s ease-in-out infinite;
+  }
+  @keyframes flutterPath {
+    0%,100% { transform: translate(0,0) rotate(-5deg); }
+    25% { transform: translate(60px,-40px) rotate(15deg); }
+    50% { transform: translate(120px,20px) rotate(-10deg); }
+    75% { transform: translate(40px,60px) rotate(8deg); }
+  }
+
+  /* Hills */
+  .hills {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: clamp(100px, 20vh, 220px);
+    z-index: 1;
+  }
+  .hills svg { display: block; width: 100%; height: 100%; }
+
+  /* Trees & ground */
+  .ground-deco {
+    position: absolute;
+    bottom: clamp(30px, 8vh, 80px);
+    left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 clamp(5px, 3vw, 40px);
+    pointer-events: none;
+    z-index: 2;
+  }
+  .ground-deco .tree {
+    font-size: clamp(2rem, 6vw, 4rem);
+    animation: treeSway 4s ease-in-out infinite;
+    transform-origin: bottom center;
+    filter: drop-shadow(0 6px 8px rgba(0,0,0,0.15));
+  }
+  .ground-deco .tree:nth-child(1) { animation-delay: 0s; }
+  .ground-deco .tree:nth-child(2) { animation-delay: 0.5s; font-size: clamp(1.8rem, 5vw, 3.2rem); }
+  .ground-deco .tree:nth-child(3) { animation-delay: 1s; }
+  .ground-deco .tree:nth-child(4) { animation-delay: 1.5s; font-size: clamp(1.6rem, 4.5vw, 3rem); }
+  @keyframes treeSway {
+    0%,100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+
+  .grass-row {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    z-index: 3;
+    pointer-events: none;
+    padding: 0 8px;
+  }
+  .grass-row span {
+    font-size: clamp(1.1rem, 3vw, 2rem);
+    animation: grassWave 2.5s ease-in-out infinite;
+    transform-origin: bottom center;
+    display: inline-block;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+  }
+  .grass-row span:nth-child(odd) { animation-delay: 0.4s; }
+  .grass-row span:nth-child(3n) { animation-delay: 0.9s; }
+  @keyframes grassWave {
+    0%,100% { transform: rotate(-5deg) translateY(0); }
+    50% { transform: rotate(5deg) translateY(-3px); }
+  }
+
+  /* ============================================================
+     SCREEN CONTAINER
+     ============================================================ */
   .screen {
     display: none;
     min-height: 100vh;
-    padding: clamp(15px, 3vw, 25px);
+    min-height: 100dvh;
+    padding: clamp(12px, 2.5vw, 25px);
+    padding-top: max(clamp(12px, 2.5vw, 25px), env(safe-area-inset-top, 0px));
+    padding-left: max(clamp(12px, 2.5vw, 25px), env(safe-area-inset-left, 0px));
+    padding-right: max(clamp(12px, 2.5vw, 25px), env(safe-area-inset-right, 0px));
     position: relative;
-    z-index: 5;
-    max-width: 900px;
+    z-index: 10;
+    width: 100%;
+    max-width: 1100px;
     margin: 0 auto;
     flex-direction: column;
   }
   .screen.active { display: flex; }
 
-  /* ====== START SCREEN ====== */
+  /* ============================================================
+     START SCREEN
+     ============================================================ */
   .start-wrap {
     flex: 1;
     display: flex;
@@ -70,90 +264,189 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 20px;
+    padding: 20px 15px 140px;
   }
   .start-badge {
-    display: inline-block;
-    background: #fff;
-    color: #10B981;
-    padding: 10px 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #FFFFFF, #FFF9E6);
+    color: #F59E0B;
+    padding: clamp(8px, 2vw, 12px) clamp(18px, 4vw, 28px);
     border-radius: 30px;
     font-weight: 700;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 0 #34D399, 0 8px 20px rgba(52,211,153,0.3);
-    font-size: clamp(0.8rem, 2.4vw, 0.95rem);
-    border: 2px solid #D1FAE5;
+    margin-bottom: clamp(15px, 3vw, 25px);
+    box-shadow:
+      0 6px 0 #FCD34D,
+      0 12px 25px rgba(252,211,77,0.4),
+      inset 0 -3px 0 rgba(0,0,0,0.05);
+    font-size: clamp(0.75rem, 2.2vw, 1rem);
+    border: 2px solid #FEF3C7;
+    animation: badgeFloat 3s ease-in-out infinite;
+  }
+  @keyframes badgeFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  .start-mascot-wrap {
+    position: relative;
+    margin-bottom: clamp(10px, 2vw, 20px);
   }
   .start-mascot {
-    font-size: clamp(5rem, 18vw, 8rem);
-    margin-bottom: 15px;
+    font-size: clamp(4.5rem, 18vw, 9rem);
     display: inline-block;
     animation: mascotBounce 2s ease-in-out infinite;
-    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+    filter: drop-shadow(0 20px 30px rgba(16,185,129,0.35)) drop-shadow(0 8px 15px rgba(0,0,0,0.15));
+    position: relative;
+    z-index: 2;
   }
   @keyframes mascotBounce {
-    0%,100% { transform: translateY(0) rotate(-5deg); }
-    50% { transform: translateY(-15px) rotate(5deg); }
+    0%,100% { transform: translateY(0) rotate(-5deg) scale(1); }
+    50% { transform: translateY(-18px) rotate(5deg) scale(1.05); }
   }
+  .mascot-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(160px, 42vw, 280px);
+    height: clamp(160px, 42vw, 280px);
+    background: radial-gradient(circle, rgba(52,211,153,0.45) 0%, rgba(52,211,153,0.15) 40%, transparent 70%);
+    border-radius: 50%;
+    animation: glowPulse 2.5s ease-in-out infinite;
+    z-index: 1;
+  }
+  @keyframes glowPulse {
+    0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.7; }
+    50% { transform: translate(-50%,-50%) scale(1.2); opacity: 1; }
+  }
+  .sparkle-ring {
+    position: absolute;
+    inset: -20px;
+    animation: ringRotate 8s linear infinite;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .sparkle-ring span {
+    position: absolute;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    filter: drop-shadow(0 0 8px #FCD34D);
+  }
+  .sparkle-ring span:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
+  .sparkle-ring span:nth-child(2) { top: 50%; right: 0; transform: translateY(-50%); }
+  .sparkle-ring span:nth-child(3) { bottom: 0; left: 50%; transform: translateX(-50%); }
+  .sparkle-ring span:nth-child(4) { top: 50%; left: 0; transform: translateY(-50%); }
+  @keyframes ringRotate { to { transform: rotate(360deg); } }
+
   .start-title {
-    font-size: clamp(2rem, 7vw, 3.5rem);
+    font-size: clamp(1.8rem, 8vw, 4rem);
     font-weight: 800;
-    color: white;
-    text-shadow: 3px 3px 0 #10B981, 6px 6px 0 #34D399, 8px 8px 20px rgba(16,185,129,0.3);
-    margin-bottom: 12px;
-    line-height: 1.1;
+    color: #fff;
+    text-shadow:
+      3px 3px 0 #10B981,
+      6px 6px 0 #34D399,
+      9px 9px 0 rgba(16,185,129,0.4),
+      12px 12px 25px rgba(16,185,129,0.4);
+    margin-bottom: clamp(10px, 2vw, 16px);
+    line-height: 1.05;
     letter-spacing: -0.5px;
+    animation: titleFloat 4s ease-in-out infinite;
+  }
+  @keyframes titleFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .start-title .grad-text {
+    background: linear-gradient(135deg, #FEF3C7, #FCD34D, #F59E0B, #EF4444);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(3px 3px 0 #10B981) drop-shadow(6px 6px 20px rgba(245,158,11,0.6));
+    display: inline-block;
+    animation: gradientShift 4s ease infinite;
+    background-size: 200% 200%;
+  }
+  @keyframes gradientShift {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
   }
   .start-sub {
-    font-size: clamp(0.95rem, 2.6vw, 1.2rem);
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
     color: #555;
-    margin-bottom: 30px;
+    margin-bottom: clamp(22px, 4vw, 32px);
     font-weight: 500;
-    max-width: 500px;
-    line-height: 1.5;
+    max-width: 540px;
+    line-height: 1.55;
+    padding: 0 10px;
   }
   .btn-start {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
-    background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+    background: linear-gradient(135deg, #34D399 0%, #10B981 50%, #059669 100%);
     color: white;
-    padding: clamp(16px, 3vw, 20px) clamp(38px, 7vw, 55px);
-    border-radius: 50px;
-    font-size: clamp(1.05rem, 2.8vw, 1.3rem);
+    padding: clamp(14px, 3vw, 22px) clamp(28px, 7vw, 60px);
+    border-radius: 60px;
+    font-size: clamp(1rem, 2.8vw, 1.4rem);
     font-weight: 800;
     font-family: 'Baloo 2', cursive;
     text-decoration: none;
-    box-shadow: 0 8px 0 #047857, 0 15px 35px rgba(52,211,153,0.45), inset 0 -3px 0 rgba(0,0,0,0.1);
+    box-shadow:
+      0 10px 0 #047857,
+      0 20px 45px rgba(52,211,153,0.5),
+      0 8px 20px rgba(16,185,129,0.4),
+      inset 0 -4px 0 rgba(0,0,0,0.15),
+      inset 0 3px 0 rgba(255,255,255,0.3);
     transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
     border: none;
     cursor: pointer;
-    letter-spacing: 0.5px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    letter-spacing: 0.6px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     position: relative;
     overflow: hidden;
+    max-width: 100%;
   }
   .btn-start::before {
-    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    transition: 0.6s;
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    animation: shineSweep 3s infinite;
   }
-  .btn-start:hover::before { left: 100%; }
-  .btn-start:hover { transform: translateY(-4px); box-shadow: 0 12px 0 #047857, 0 20px 45px rgba(52,211,153,0.55); }
-  .btn-start:active { transform: translateY(4px); box-shadow: 0 4px 0 #047857, 0 8px 15px rgba(52,211,153,0.3); }
+  @keyframes shineSweep {
+    0% { left: -100%; }
+    50%, 100% { left: 100%; }
+  }
+  .btn-start:hover {
+    transform: translateY(-5px);
+    box-shadow:
+      0 15px 0 #047857,
+      0 28px 55px rgba(52,211,153,0.6),
+      0 12px 25px rgba(16,185,129,0.5),
+      inset 0 -4px 0 rgba(0,0,0,0.15),
+      inset 0 3px 0 rgba(255,255,255,0.3);
+  }
+  .btn-start:active {
+    transform: translateY(5px);
+    box-shadow:
+      0 4px 0 #047857,
+      0 8px 15px rgba(52,211,153,0.3),
+      inset 0 -2px 0 rgba(0,0,0,0.15);
+  }
 
   .start-emoji-row {
-    margin-top: 35px;
+    margin-top: clamp(25px, 4vw, 40px);
     display: flex;
     justify-content: center;
-    gap: clamp(10px, 3vw, 22px);
+    gap: clamp(10px, 2.5vw, 25px);
     flex-wrap: wrap;
   }
   .start-emoji-row span {
-    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-size: clamp(1.5rem, 4.5vw, 2.8rem);
     display: inline-block;
     animation: bounceEmoji 2.5s infinite;
-    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.15));
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.18));
   }
   .start-emoji-row span:nth-child(1) { animation-delay: 0s; }
   .start-emoji-row span:nth-child(2) { animation-delay: 0.2s; }
@@ -162,437 +455,657 @@
   .start-emoji-row span:nth-child(5) { animation-delay: 0.8s; }
   .start-emoji-row span:nth-child(6) { animation-delay: 1s; }
   @keyframes bounceEmoji {
-    0%,100% { transform: translateY(0) rotate(-5deg); }
-    50% { transform: translateY(-12px) rotate(5deg); }
+    0%,100% { transform: translateY(0) rotate(-5deg) scale(1); }
+    50% { transform: translateY(-15px) rotate(5deg) scale(1.1); }
   }
 
-  /* ====== LEVEL SELECT ====== */
+  /* ============================================================
+     LEVEL SCREEN
+     ============================================================ */
   .level-head {
     text-align: center;
-    padding: 20px 10px 25px;
+    padding: clamp(15px, 3vw, 25px) 10px clamp(18px, 3vw, 28px);
   }
   .level-head h2 {
-    font-size: clamp(1.6rem, 5vw, 2.5rem);
+    font-size: clamp(1.4rem, 5vw, 2.8rem);
     font-weight: 800;
     color: white;
-    text-shadow: 3px 3px 0 #10B981, 5px 5px 15px rgba(16,185,129,0.3);
+    text-shadow:
+      3px 3px 0 #10B981,
+      5px 5px 0 #34D399,
+      8px 8px 20px rgba(16,185,129,0.4);
     margin-bottom: 8px;
+    letter-spacing: -0.5px;
   }
   .level-head p {
     color: #555;
-    font-size: clamp(0.9rem, 2.3vw, 1.05rem);
-    font-weight: 500;
+    font-size: clamp(0.85rem, 2.2vw, 1.05rem);
+    font-weight: 600;
+    background: rgba(255,255,255,0.75);
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 3px 0 rgba(255,255,255,0.5);
+  }
+  .level-progress-wrap {
+    width: 100%;
+    max-width: 380px;
+    margin: 18px auto 0;
+    background: rgba(255,255,255,0.9);
+    padding: 12px 16px;
+    border-radius: 24px;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.08), 0 12px 25px rgba(0,0,0,0.08);
+    backdrop-filter: blur(10px);
   }
   .level-progress {
-    max-width: 320px;
-    margin: 15px auto 0;
-    background: #fff;
-    height: 20px;
+    background: #E5E7EB;
+    height: 18px;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
     position: relative;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.15);
   }
   .level-progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, #34D399, #10B981);
+    background: linear-gradient(90deg, #34D399 0%, #10B981 50%, #FCD34D 100%);
     border-radius: 20px;
-    transition: width 0.5s ease;
-    box-shadow: 0 0 10px rgba(52,211,153,0.5);
+    transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 15px rgba(52,211,153,0.7), inset 0 -3px 0 rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .level-progress-bar::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    animation: shineSweep 2s infinite;
   }
   .level-progress-text {
     text-align: center;
     margin-top: 8px;
-    font-weight: 700;
+    font-weight: 800;
     color: #10B981;
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+    font-family: 'Baloo 2', cursive;
   }
 
   .level-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: clamp(12px, 2.5vw, 18px);
-    padding: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+    gap: clamp(10px, 2vw, 18px);
+    padding: clamp(8px, 2vw, 12px);
   }
-  @media (min-width: 620px) {
-    .level-grid { grid-template-columns: repeat(2, 1fr); }
-  }
+
   .level-card {
-    background: #fff;
-    border-radius: 22px;
-    padding: clamp(18px, 3vw, 24px) clamp(14px, 2.5vw, 20px);
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFF9F0 100%);
+    border-radius: 24px;
+    padding: clamp(16px, 3vw, 26px) clamp(14px, 2.5vw, 22px);
     text-align: center;
-    box-shadow: 0 8px 0 rgba(0,0,0,0.08), 0 15px 30px rgba(0,0,0,0.08);
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow:
+      0 10px 0 rgba(0,0,0,0.1),
+      0 20px 35px rgba(0,0,0,0.1),
+      inset 0 -3px 0 rgba(0,0,0,0.05),
+      inset 0 3px 0 rgba(255,255,255,0.8);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     cursor: pointer;
     border: 4px solid #D1FAE5;
     position: relative;
     overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .level-card::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.7) 50%, transparent 70%);
+    transform: rotate(-45deg);
+    opacity: 0;
+    transition: 0.6s;
+    pointer-events: none;
+  }
+  .level-card:hover:not(.locked)::before { opacity: 1; animation: shineLoop 0.8s; }
+  @keyframes shineLoop {
+    from { transform: translateX(-100%) rotate(-45deg); }
+    to { transform: translateX(100%) rotate(-45deg); }
   }
   .level-card:hover:not(.locked) {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 12px 0 rgba(0,0,0,0.1), 0 22px 40px rgba(0,0,0,0.12);
+    transform: translateY(-10px) scale(1.03);
+    box-shadow:
+      0 16px 0 rgba(0,0,0,0.12),
+      0 30px 50px rgba(0,0,0,0.15),
+      inset 0 -3px 0 rgba(0,0,0,0.05),
+      inset 0 3px 0 rgba(255,255,255,0.8);
+    border-color: #34D399;
   }
   .level-card.locked {
     cursor: not-allowed;
-    opacity: 0.6;
-    filter: grayscale(0.5);
+    opacity: 0.65;
+    filter: grayscale(0.7) brightness(0.95);
+    background: #F3F4F6;
   }
   .level-card.done {
     border-color: #FCD34D;
-    background: linear-gradient(180deg, #fff, #FFFBEB);
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFBEB 100%);
+    box-shadow:
+      0 10px 0 #F59E0B,
+      0 20px 35px rgba(245,158,11,0.25),
+      inset 0 -3px 0 rgba(0,0,0,0.05),
+      inset 0 3px 0 rgba(255,255,255,0.8);
   }
   .level-card .num-badge {
     position: absolute;
-    top: 10px; left: 10px;
-    background: #10B981;
+    top: 12px; left: 12px;
+    background: linear-gradient(135deg, #34D399, #10B981);
     color: white;
-    width: 30px; height: 30px;
+    width: 34px; height: 34px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 800;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-family: 'Baloo 2', cursive;
-    box-shadow: 0 3px 0 #047857;
+    box-shadow: 0 4px 0 #047857, inset 0 2px 0 rgba(255,255,255,0.4);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
   }
-  .level-card.locked .num-badge { background: #9CA3AF; box-shadow: 0 3px 0 #6B7280; }
-  .level-card.done .num-badge { background: #F59E0B; box-shadow: 0 3px 0 #B45309; }
+  .level-card.locked .num-badge { background: linear-gradient(135deg, #9CA3AF, #6B7280); box-shadow: 0 4px 0 #4B5563; }
+  .level-card.done .num-badge { background: linear-gradient(135deg, #FCD34D, #F59E0B); box-shadow: 0 4px 0 #B45309; }
   .level-card .level-icon {
-    font-size: clamp(2.5rem, 7vw, 3.5rem);
+    font-size: clamp(2.4rem, 7vw, 4rem);
     display: inline-block;
-    margin: 5px 0 8px;
-    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.12));
+    margin: 6px 0 8px;
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.18));
+    animation: iconBob 3s ease-in-out infinite;
+  }
+  .level-card:hover:not(.locked) .level-icon {
+    animation: iconSpin 0.7s ease;
+  }
+  @keyframes iconBob {
+    0%,100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-6px) rotate(3deg); }
+  }
+  @keyframes iconSpin {
+    0% { transform: rotate(0) scale(1); }
+    50% { transform: rotate(15deg) scale(1.15); }
+    100% { transform: rotate(0) scale(1.1); }
   }
   .level-card h3 {
-    font-size: clamp(0.95rem, 2.8vw, 1.2rem);
+    font-size: clamp(0.95rem, 2.6vw, 1.25rem);
     font-weight: 800;
     color: #333;
     margin-bottom: 4px;
   }
   .level-card .level-desc {
-    font-size: clamp(0.72rem, 2vw, 0.85rem);
+    font-size: clamp(0.7rem, 1.9vw, 0.85rem);
     color: #777;
     line-height: 1.4;
     margin-bottom: 8px;
     min-height: 2.4em;
   }
+  .level-card .bank-info {
+    display: inline-block;
+    background: linear-gradient(135deg, #DBEAFE, #BFDBFE);
+    color: #1E40AF;
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: clamp(0.65rem, 1.8vw, 0.78rem);
+    font-weight: 800;
+    margin-bottom: 6px;
+    border: 2px solid #93C5FD;
+    box-shadow: 0 3px 0 #60A5FA;
+  }
   .level-stars {
     display: flex;
     justify-content: center;
     gap: 3px;
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 2.8vw, 1.2rem);
     min-height: 1.3em;
   }
-  .level-stars .star { opacity: 0.25; }
-  .level-stars .star.filled { opacity: 1; filter: drop-shadow(0 0 4px rgba(255,193,7,0.6)); }
+  .level-stars .star {
+    opacity: 0.25;
+    transition: all 0.3s;
+  }
+  .level-stars .star.filled {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(255,193,7,0.8));
+    animation: starTwinkle 2s infinite;
+  }
+  @keyframes starTwinkle {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
   .lock-icon {
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 5vw, 2.5rem);
     color: #6B7280;
     text-shadow: 0 2px 6px rgba(0,0,0,0.2);
     z-index: 2;
-    background: rgba(255,255,255,0.85);
-    width: 60px; height: 60px;
+    background: rgba(255,255,255,0.95);
+    width: clamp(54px, 13vw, 64px);
+    height: clamp(54px, 13vw, 64px);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2), inset 0 2px 0 rgba(255,255,255,0.5);
   }
 
   .level-footer {
     text-align: center;
-    padding: 20px 10px 5px;
+    padding: clamp(20px, 4vw, 30px) 10px 10px;
   }
   .btn-reset {
     background: #fff;
-    border: 2px solid #FCA5A5;
+    border: 3px solid #FCA5A5;
     color: #DC2626;
-    padding: 10px 22px;
+    padding: 12px 26px;
     border-radius: 30px;
     font-family: 'Baloo 2', cursive;
-    font-weight: 700;
-    font-size: 0.85rem;
+    font-weight: 800;
+    font-size: clamp(0.8rem, 2.2vw, 0.9rem);
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 0 4px 0 #FCA5A5;
+    box-shadow: 0 5px 0 #FCA5A5, 0 8px 15px rgba(220,38,38,0.15);
   }
-  .btn-reset:hover { background: #FEF2F2; transform: translateY(-2px); box-shadow: 0 6px 0 #FCA5A5; }
+  .btn-reset:hover { background: #FEF2F2; transform: translateY(-3px); box-shadow: 0 8px 0 #FCA5A5, 0 12px 22px rgba(220,38,38,0.2); }
   .btn-reset:active { transform: translateY(2px); box-shadow: 0 2px 0 #FCA5A5; }
 
-  /* ====== GAME SCREEN ====== */
+  /* ============================================================
+     GAME SCREEN
+     ============================================================ */
   .game-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: 8px;
+    margin-bottom: clamp(12px, 2vw, 15px);
+    flex-wrap: nowrap;
   }
   .btn-back {
-    background: #fff;
-    border: 2px solid #D1D5DB;
+    background: linear-gradient(180deg, #fff, #F3F4F6);
+    border: 3px solid #D1D5DB;
     color: #4B5563;
-    width: 44px; height: 44px;
+    width: clamp(42px, 11vw, 48px);
+    height: clamp(42px, 11vw, 48px);
     border-radius: 50%;
-    font-size: 1.2rem;
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
     cursor: pointer;
-    box-shadow: 0 4px 0 #D1D5DB;
+    box-shadow: 0 5px 0 #D1D5DB, 0 8px 15px rgba(0,0,0,0.08), inset 0 2px 0 rgba(255,255,255,0.8);
     transition: all 0.15s;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    font-weight: 800;
   }
-  .btn-back:hover { background: #F3F4F6; transform: translateY(-2px); }
-  .btn-back:active { transform: translateY(2px); box-shadow: 0 2px 0 #D1D5DB; }
+  .btn-back:hover { background: #F9FAFB; transform: translateY(-3px); box-shadow: 0 8px 0 #D1D5DB, 0 12px 22px rgba(0,0,0,0.1); }
+  .btn-back:active { transform: translateY(3px); box-shadow: 0 2px 0 #D1D5DB; }
 
   .game-info {
     flex: 1;
-    background: #fff;
-    padding: 10px 16px;
-    border-radius: 20px;
-    box-shadow: 0 4px 0 rgba(0,0,0,0.05);
+    background: rgba(255,255,255,0.95);
+    padding: clamp(8px, 1.8vw, 12px) clamp(10px, 2vw, 16px);
+    border-radius: 24px;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.06), 0 12px 25px rgba(0,0,0,0.08), inset 0 2px 0 rgba(255,255,255,0.9);
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: clamp(6px, 1.5vw, 10px);
     min-width: 0;
+    backdrop-filter: blur(10px);
   }
   .game-info .level-tag {
-    background: #10B981;
+    background: linear-gradient(135deg, #34D399, #10B981);
     color: white;
-    padding: 4px 12px;
+    padding: 5px 12px;
     border-radius: 20px;
     font-family: 'Baloo 2', cursive;
     font-weight: 800;
-    font-size: 0.78rem;
+    font-size: clamp(0.7rem, 1.9vw, 0.85rem);
     white-space: nowrap;
+    box-shadow: 0 3px 0 #047857, inset 0 2px 0 rgba(255,255,255,0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    flex-shrink: 0;
   }
   .game-info .q-counter {
     color: #555;
     font-weight: 700;
-    font-size: 0.88rem;
+    font-size: clamp(0.75rem, 2vw, 0.9rem);
     white-space: nowrap;
+    flex-shrink: 0;
   }
   .game-info .progress-mini {
     flex: 1;
-    height: 12px;
+    height: clamp(10px, 2.2vw, 14px);
     background: #E5E7EB;
-    border-radius: 12px;
+    border-radius: 14px;
     overflow: hidden;
-    min-width: 40px;
+    min-width: 30px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
   }
   .game-info .progress-mini-fill {
     height: 100%;
-    background: linear-gradient(90deg, #34D399, #10B981);
-    border-radius: 12px;
+    background: linear-gradient(90deg, #34D399, #10B981, #FCD34D);
+    border-radius: 14px;
     transition: width 0.4s ease;
+    box-shadow: 0 0 10px rgba(52,211,153,0.6);
+    position: relative;
+  }
+  .game-info .progress-mini-fill::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    animation: shineSweep 1.8s infinite;
   }
   .game-info .score-display {
     font-family: 'Baloo 2', cursive;
     font-weight: 800;
     color: #F59E0B;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2.4vw, 1.1rem);
     white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(245,158,11,0.3);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+  .game-info .score-display.bump {
+    animation: scoreBump 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes scoreBump {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.4) rotate(-5deg); color: #10B981; }
+    100% { transform: scale(1); }
   }
 
   .question-area {
-    background: #fff;
-    border-radius: 28px;
-    padding: clamp(20px, 4vw, 35px) clamp(15px, 3vw, 25px);
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFEF9 100%);
+    border-radius: clamp(22px, 4vw, 32px);
+    padding: clamp(18px, 4vw, 40px) clamp(14px, 3vw, 30px);
     text-align: center;
-    box-shadow: 0 10px 0 rgba(0,0,0,0.06), 0 20px 40px rgba(0,0,0,0.08);
-    margin-bottom: 18px;
-    border: 4px solid #D1FAE5;
-    animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow:
+      0 12px 0 rgba(0,0,0,0.08),
+      0 25px 50px rgba(0,0,0,0.12),
+      inset 0 -4px 0 rgba(0,0,0,0.03),
+      inset 0 4px 0 rgba(255,255,255,1);
+    margin-bottom: clamp(12px, 2.5vw, 18px);
+    border: clamp(3px, 0.8vw, 5px) solid #D1FAE5;
+    animation: slideIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .question-area::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at center, rgba(52,211,153,0.08) 0%, transparent 60%);
+    pointer-events: none;
   }
   @keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(25px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
   }
   .question-visual {
-    font-size: clamp(4rem, 18vw, 7rem);
+    font-size: clamp(3.5rem, 16vw, 8rem);
     line-height: 1;
-    margin-bottom: 10px;
+    margin-bottom: clamp(6px, 1.5vw, 10px);
     display: inline-block;
     animation: visualFloat 3s ease-in-out infinite;
-    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.12));
+    filter: drop-shadow(0 15px 20px rgba(0,0,0,0.18));
+    position: relative;
+    z-index: 1;
   }
   @keyframes visualFloat {
-    0%,100% { transform: translateY(0) rotate(-3deg); }
-    50% { transform: translateY(-10px) rotate(3deg); }
-  }
-  .question-visual.two {
-    letter-spacing: -0.2em;
+    0%,100% { transform: translateY(0) rotate(-3deg) scale(1); }
+    50% { transform: translateY(-12px) rotate(3deg) scale(1.05); }
   }
   .visual-caption {
     display: inline-block;
-    background: #ECFDF5;
+    background: linear-gradient(135deg, #ECFDF5, #D1FAE5);
     color: #047857;
-    padding: 8px 18px;
-    border-radius: 20px;
-    font-size: clamp(0.82rem, 2.2vw, 0.95rem);
-    font-weight: 600;
-    margin-bottom: 15px;
+    padding: clamp(7px, 1.8vw, 10px) clamp(14px, 3vw, 22px);
+    border-radius: 24px;
+    font-size: clamp(0.78rem, 2.1vw, 1rem);
+    font-weight: 700;
+    margin-bottom: clamp(10px, 2vw, 15px);
     max-width: 95%;
     line-height: 1.4;
     border: 2px dashed #6EE7B7;
+    box-shadow: 0 4px 0 rgba(110,231,183,0.4);
+    position: relative;
+    z-index: 1;
   }
   .question-text {
-    font-size: clamp(1.05rem, 3.2vw, 1.5rem);
+    font-size: clamp(0.98rem, 3vw, 1.6rem);
     font-weight: 800;
     color: #333;
     font-family: 'Baloo 2', cursive;
     line-height: 1.3;
+    position: relative;
+    z-index: 1;
   }
 
   .options-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: clamp(10px, 2.5vw, 15px);
-  }
-  @media (max-width: 360px) {
-    .options-grid { grid-template-columns: 1fr; }
+    gap: clamp(8px, 2vw, 16px);
   }
   .option-btn {
-    background: #fff;
-    border: 4px solid #D1D5DB;
-    border-radius: 22px;
-    padding: clamp(14px, 3vw, 22px) clamp(10px, 2vw, 16px);
+    background: linear-gradient(180deg, #FFFFFF 0%, #F9FAFB 100%);
+    border: clamp(3px, 0.7vw, 4px) solid #D1D5DB;
+    border-radius: clamp(18px, 3.5vw, 24px);
+    padding: clamp(12px, 2.8vw, 24px) clamp(10px, 1.8vw, 18px);
     font-family: 'Fredoka', sans-serif;
-    font-size: clamp(0.9rem, 2.6vw, 1.15rem);
+    font-size: clamp(0.85rem, 2.4vw, 1.2rem);
     font-weight: 700;
     color: #333;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 6px 0 #D1D5DB, 0 10px 20px rgba(0,0,0,0.06);
+    box-shadow:
+      0 8px 0 #D1D5DB,
+      0 12px 22px rgba(0,0,0,0.08),
+      inset 0 -2px 0 rgba(0,0,0,0.05),
+      inset 0 2px 0 rgba(255,255,255,1);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    min-height: 70px;
+    gap: clamp(6px, 1.5vw, 10px);
+    min-height: clamp(60px, 14vw, 78px);
     line-height: 1.25;
+    overflow: hidden;
+    text-align: center;
+    word-break: break-word;
   }
+  .option-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+    transition: 0.5s;
+  }
+  .option-btn:hover:not(:disabled)::before { left: 100%; }
   .option-btn:hover:not(:disabled) {
     border-color: #34D399;
-    background: #ECFDF5;
-    transform: translateY(-4px);
-    box-shadow: 0 10px 0 #34D399, 0 15px 30px rgba(52,211,153,0.25);
+    background: linear-gradient(180deg, #ECFDF5 0%, #D1FAE5 100%);
+    transform: translateY(-5px);
+    box-shadow:
+      0 13px 0 #10B981,
+      0 20px 35px rgba(52,211,153,0.35),
+      inset 0 -2px 0 rgba(0,0,0,0.05),
+      inset 0 2px 0 rgba(255,255,255,1);
   }
   .option-btn:active:not(:disabled) {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 #D1D5DB;
+    transform: translateY(3px);
+    box-shadow: 0 3px 0 #D1D5DB, 0 6px 10px rgba(0,0,0,0.05);
   }
   .option-btn:disabled { cursor: default; }
   .option-btn.correct {
-    background: linear-gradient(180deg, #D1FAE5, #A7F3D0);
+    background: linear-gradient(180deg, #D1FAE5 0%, #A7F3D0 100%);
     border-color: #10B981;
-    box-shadow: 0 6px 0 #047857, 0 12px 25px rgba(16,185,129,0.35);
-    animation: correctPulse 0.6s ease;
+    box-shadow:
+      0 8px 0 #047857,
+      0 15px 30px rgba(16,185,129,0.4),
+      inset 0 -2px 0 rgba(0,0,0,0.05),
+      inset 0 2px 0 rgba(255,255,255,1);
+    animation: correctPulse 0.7s ease;
     color: #047857;
   }
   @keyframes correctPulse {
-    0%,100% { transform: scale(1); }
-    50% { transform: scale(1.08); }
+    0% { transform: scale(1); }
+    40% { transform: scale(1.12) rotate(-2deg); }
+    70% { transform: scale(0.98); }
+    100% { transform: scale(1); }
   }
   .option-btn.wrong {
-    background: linear-gradient(180deg, #FEE2E2, #FECACA);
+    background: linear-gradient(180deg, #FEE2E2 0%, #FECACA 100%);
     border-color: #EF4444;
-    box-shadow: 0 6px 0 #B91C1C, 0 12px 25px rgba(239,68,68,0.3);
-    animation: wrongShake 0.5s ease;
+    box-shadow:
+      0 8px 0 #B91C1C,
+      0 15px 30px rgba(239,68,68,0.35),
+      inset 0 -2px 0 rgba(0,0,0,0.05),
+      inset 0 2px 0 rgba(255,255,255,1);
+    animation: wrongShake 0.55s ease;
     color: #991B1B;
   }
   @keyframes wrongShake {
     0%,100% { transform: translateX(0); }
-    20% { transform: translateX(-8px); }
-    40% { transform: translateX(8px); }
-    60% { transform: translateX(-6px); }
-    80% { transform: translateX(6px); }
+    15% { transform: translateX(-10px) rotate(-2deg); }
+    30% { transform: translateX(10px) rotate(2deg); }
+    45% { transform: translateX(-8px); }
+    60% { transform: translateX(8px); }
+    75% { transform: translateX(-4px); }
+    90% { transform: translateX(4px); }
   }
   .option-btn .opt-emoji {
-    font-size: 1.5em;
+    font-size: clamp(1.3rem, 3.5vw, 1.6rem);
     line-height: 1;
     flex-shrink: 0;
+    filter: drop-shadow(0 3px 5px rgba(0,0,0,0.15));
   }
 
-  /* ====== FEEDBACK OVERLAY ====== */
+  /* ============================================================
+     FEEDBACK OVERLAY
+     ============================================================ */
   .feedback-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.35);
+    background: rgba(0,0,0,0.4);
     display: none;
     align-items: center;
     justify-content: center;
     z-index: 100;
-    padding: 20px;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    padding: max(15px, env(safe-area-inset-top, 0px)) 15px max(15px, env(safe-area-inset-bottom, 0px));
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
   .feedback-overlay.show { display: flex; }
   .feedback-card {
-    background: #fff;
-    border-radius: 30px;
-    padding: clamp(25px, 5vw, 40px) clamp(25px, 5vw, 45px);
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFEF9 100%);
+    border-radius: clamp(24px, 5vw, 36px);
+    padding: clamp(22px, 5vw, 45px) clamp(20px, 4.5vw, 50px);
     text-align: center;
-    max-width: 400px;
+    max-width: 420px;
     width: 100%;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-    animation: feedbackPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    border: 5px solid;
+    box-shadow:
+      0 20px 0 rgba(0,0,0,0.1),
+      0 30px 60px rgba(0,0,0,0.3);
+    animation: feedbackPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: clamp(4px, 1vw, 6px) solid;
+    position: relative;
+    overflow: hidden;
   }
-  .feedback-card.good { border-color: #10B981; }
-  .feedback-card.bad { border-color: #EF4444; }
+  .feedback-card::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 50%);
+    animation: rotateGlow 3s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes rotateGlow {
+    to { transform: rotate(360deg); }
+  }
+  .feedback-card.good {
+    border-color: #10B981;
+    box-shadow:
+      0 20px 0 #047857,
+      0 30px 60px rgba(16,185,129,0.4);
+  }
+  .feedback-card.bad {
+    border-color: #EF4444;
+    box-shadow:
+      0 20px 0 #B91C1C,
+      0 30px 60px rgba(239,68,68,0.35);
+  }
   @keyframes feedbackPop {
-    from { transform: scale(0.7); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from { transform: scale(0.6) rotate(-10deg); opacity: 0; }
+    to { transform: scale(1) rotate(0); opacity: 1; }
   }
   .feedback-emoji {
-    font-size: clamp(3.5rem, 12vw, 5.5rem);
+    font-size: clamp(3rem, 13vw, 6.5rem);
     display: inline-block;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     animation: feedbackBounce 0.7s ease infinite alternate;
+    filter: drop-shadow(0 15px 20px rgba(0,0,0,0.2));
+    position: relative;
+    z-index: 2;
   }
   @keyframes feedbackBounce {
-    from { transform: translateY(0) scale(1); }
-    to { transform: translateY(-10px) scale(1.08); }
+    from { transform: translateY(0) scale(1) rotate(-5deg); }
+    to { transform: translateY(-12px) scale(1.1) rotate(5deg); }
   }
   .feedback-title {
     font-family: 'Baloo 2', cursive;
-    font-size: clamp(1.4rem, 4.5vw, 2rem);
+    font-size: clamp(1.3rem, 4.5vw, 2.2rem);
     font-weight: 800;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 2;
+    text-shadow: 2px 2px 0 rgba(255,255,255,0.8);
   }
   .feedback-card.good .feedback-title { color: #10B981; }
   .feedback-card.bad .feedback-title { color: #EF4444; }
   .feedback-text {
-    font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+    font-size: clamp(0.85rem, 2.4vw, 1.08rem);
     color: #555;
-    margin-bottom: 20px;
-    line-height: 1.5;
-    font-weight: 500;
+    margin-bottom: 22px;
+    line-height: 1.55;
+    font-weight: 600;
+    position: relative;
+    z-index: 2;
   }
   .btn-feedback {
     background: linear-gradient(135deg, #34D399, #10B981);
     color: white;
-    padding: 14px 38px;
-    border-radius: 40px;
+    padding: clamp(13px, 3vw, 16px) clamp(28px, 6vw, 42px);
+    border-radius: 45px;
     font-family: 'Baloo 2', cursive;
     font-weight: 800;
-    font-size: 1.05rem;
+    font-size: clamp(0.95rem, 2.6vw, 1.1rem);
     border: none;
     cursor: pointer;
-    box-shadow: 0 6px 0 #047857, 0 10px 22px rgba(16,185,129,0.4);
+    box-shadow:
+      0 8px 0 #047857,
+      0 12px 25px rgba(16,185,129,0.4),
+      inset 0 -3px 0 rgba(0,0,0,0.15),
+      inset 0 3px 0 rgba(255,255,255,0.3);
     transition: all 0.15s;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.4px;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.15);
   }
-  .btn-feedback:hover { transform: translateY(-3px); box-shadow: 0 9px 0 #047857, 0 14px 28px rgba(16,185,129,0.5); }
-  .btn-feedback:active { transform: translateY(3px); box-shadow: 0 3px 0 #047857; }
+  .btn-feedback:hover { transform: translateY(-3px); box-shadow: 0 12px 0 #047857, 0 18px 32px rgba(16,185,129,0.5), inset 0 -3px 0 rgba(0,0,0,0.15), inset 0 3px 0 rgba(255,255,255,0.3); }
+  .btn-feedback:active { transform: translateY(3px); box-shadow: 0 3px 0 #047857, inset 0 -1px 0 rgba(0,0,0,0.15); }
 
-  /* ====== RESULT SCREEN ====== */
+  /* ============================================================
+     RESULT SCREEN
+     ============================================================ */
   .result-wrap {
     flex: 1;
     display: flex;
@@ -600,113 +1113,161 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 20px;
+    padding: 15px;
   }
   .result-card {
-    background: #fff;
-    border-radius: 30px;
-    padding: clamp(30px, 6vw, 50px) clamp(20px, 4vw, 40px);
-    box-shadow: 0 15px 0 rgba(0,0,0,0.06), 0 25px 50px rgba(0,0,0,0.1);
-    border: 5px solid #FCD34D;
-    max-width: 480px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFEF9 100%);
+    border-radius: clamp(24px, 5vw, 36px);
+    padding: clamp(24px, 5.5vw, 55px) clamp(18px, 4vw, 45px);
+    box-shadow:
+      0 18px 0 #FCD34D,
+      0 30px 60px rgba(252,211,77,0.35);
+    border: clamp(4px, 1vw, 6px) solid #FCD34D;
+    max-width: 500px;
     width: 100%;
-    animation: resultPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: resultPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .result-card::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(252,211,77,0.15) 0%, transparent 50%);
+    animation: rotateGlow 6s linear infinite;
+    pointer-events: none;
   }
   @keyframes resultPop {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from { transform: scale(0.75) rotate(5deg); opacity: 0; }
+    to { transform: scale(1) rotate(0); opacity: 1; }
   }
   .result-emoji {
-    font-size: clamp(3.5rem, 12vw, 5.5rem);
+    font-size: clamp(3.2rem, 13vw, 6.5rem);
     display: inline-block;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     animation: resultBounce 1s ease infinite alternate;
+    filter: drop-shadow(0 15px 25px rgba(245,158,11,0.5));
+    position: relative;
+    z-index: 2;
   }
   @keyframes resultBounce {
-    from { transform: translateY(0) rotate(-5deg); }
-    to { transform: translateY(-15px) rotate(5deg); }
+    from { transform: translateY(0) rotate(-6deg) scale(1); }
+    to { transform: translateY(-18px) rotate(6deg) scale(1.05); }
   }
   .result-title {
     font-family: 'Baloo 2', cursive;
-    font-size: clamp(1.5rem, 5vw, 2.3rem);
+    font-size: clamp(1.4rem, 5vw, 2.5rem);
     font-weight: 800;
-    color: #F59E0B;
-    margin-bottom: 6px;
-    text-shadow: 2px 2px 0 #FEF3C7;
+    background: linear-gradient(135deg, #F59E0B, #EF4444, #8B5CF6);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+    text-shadow: 2px 2px 0 rgba(255,255,255,0.8);
+    animation: gradientShift 4s ease infinite;
+    position: relative;
+    z-index: 2;
   }
   .result-sub {
     color: #666;
-    font-size: clamp(0.9rem, 2.4vw, 1.05rem);
-    margin-bottom: 18px;
-    font-weight: 500;
+    font-size: clamp(0.85rem, 2.4vw, 1.08rem);
+    margin-bottom: 20px;
+    font-weight: 600;
+    line-height: 1.5;
+    position: relative;
+    z-index: 2;
   }
   .result-stars {
     display: flex;
     justify-content: center;
-    gap: 8px;
-    margin-bottom: 12px;
+    gap: clamp(6px, 2vw, 10px);
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 2;
   }
   .result-stars .star {
-    font-size: clamp(2.5rem, 9vw, 3.8rem);
+    font-size: clamp(2.2rem, 9vw, 4.2rem);
     opacity: 0.2;
-    transform: scale(0.8);
+    transform: scale(0.7);
     transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   .result-stars .star.show {
     opacity: 1;
     transform: scale(1);
-    filter: drop-shadow(0 5px 12px rgba(245,158,11,0.6));
-    animation: starPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 8px 15px rgba(245,158,11,0.7));
+    animation: starPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   @keyframes starPop {
     0% { transform: scale(0) rotate(-180deg); }
-    70% { transform: scale(1.3) rotate(10deg); }
+    70% { transform: scale(1.35) rotate(15deg); }
     100% { transform: scale(1) rotate(0); }
   }
   .result-score {
     font-family: 'Baloo 2', cursive;
-    font-size: clamp(1rem, 3vw, 1.2rem);
+    font-size: clamp(0.9rem, 2.6vw, 1.25rem);
     font-weight: 800;
     color: #10B981;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 2;
+    background: #ECFDF5;
+    display: inline-block;
+    padding: 8px 22px;
+    border-radius: 20px;
+    border: 2px dashed #6EE7B7;
   }
   .result-buttons {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
   }
   .btn-result {
-    padding: 14px 30px;
-    border-radius: 40px;
+    padding: clamp(12px, 2.8vw, 16px) clamp(20px, 5vw, 32px);
+    border-radius: 45px;
     font-family: 'Baloo 2', cursive;
     font-weight: 800;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2.4vw, 1.02rem);
     border: none;
     cursor: pointer;
     transition: all 0.15s;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.4px;
+    flex: 1 1 auto;
+    min-width: 130px;
+    max-width: 220px;
   }
   .btn-result.primary {
     background: linear-gradient(135deg, #34D399, #10B981);
     color: white;
-    box-shadow: 0 6px 0 #047857, 0 10px 22px rgba(16,185,129,0.4);
+    box-shadow:
+      0 8px 0 #047857,
+      0 12px 25px rgba(16,185,129,0.4),
+      inset 0 -3px 0 rgba(0,0,0,0.15),
+      inset 0 3px 0 rgba(255,255,255,0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.15);
   }
-  .btn-result.primary:hover { transform: translateY(-3px); box-shadow: 0 9px 0 #047857, 0 14px 28px rgba(16,185,129,0.5); }
+  .btn-result.primary:hover { transform: translateY(-4px); box-shadow: 0 12px 0 #047857, 0 18px 32px rgba(16,185,129,0.5), inset 0 -3px 0 rgba(0,0,0,0.15), inset 0 3px 0 rgba(255,255,255,0.3); }
   .btn-result.primary:active { transform: translateY(3px); box-shadow: 0 3px 0 #047857; }
   .btn-result.secondary {
-    background: #fff;
+    background: linear-gradient(180deg, #fff, #F3F4F6);
     color: #4B5563;
     border: 3px solid #D1D5DB;
-    box-shadow: 0 6px 0 #D1D5DB;
+    box-shadow: 0 8px 0 #D1D5DB, 0 12px 25px rgba(0,0,0,0.08);
   }
-  .btn-result.secondary:hover { background: #F3F4F6; transform: translateY(-3px); }
+  .btn-result.secondary:hover { background: #F9FAFB; transform: translateY(-4px); box-shadow: 0 12px 0 #D1D5DB, 0 18px 30px rgba(0,0,0,0.1); }
   .btn-result.secondary:active { transform: translateY(3px); box-shadow: 0 3px 0 #D1D5DB; }
 
-  /* ====== FINAL SCREEN ====== */
+  /* ============================================================
+     FINAL SCREEN
+     ============================================================ */
   .final-wrap {
     flex: 1;
     display: flex;
@@ -714,80 +1275,106 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 20px;
+    padding: 15px;
     position: relative;
     overflow: hidden;
   }
   .confetti {
     position: fixed;
-    top: -20px;
-    font-size: 1.6rem;
+    top: -30px;
+    font-size: 1.8rem;
     animation: confettiFall linear infinite;
     pointer-events: none;
     z-index: 50;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
   }
   @keyframes confettiFall {
-    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(105vh) rotate(720deg); opacity: 0.7; }
+    0% { transform: translateY(-30px) rotate(0deg) scale(0.8); opacity: 1; }
+    20% { opacity: 1; }
+    100% { transform: translateY(105vh) rotate(720deg) scale(1.1); opacity: 0.85; }
   }
   .final-card {
-    background: #fff;
-    border-radius: 30px;
-    padding: clamp(30px, 6vw, 50px) clamp(20px, 4vw, 40px);
-    box-shadow: 0 15px 0 rgba(0,0,0,0.06), 0 25px 50px rgba(0,0,0,0.12);
-    border: 6px solid #FCD34D;
-    max-width: 520px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFEF9 100%);
+    border-radius: clamp(24px, 5vw, 36px);
+    padding: clamp(24px, 5.5vw, 55px) clamp(18px, 4vw, 45px);
+    box-shadow:
+      0 20px 0 #FCD34D,
+      0 35px 70px rgba(252,211,77,0.4);
+    border: clamp(5px, 1.2vw, 7px) solid #FCD34D;
+    max-width: 540px;
     width: 100%;
-    animation: resultPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: resultPop 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
     z-index: 10;
+    overflow: hidden;
+  }
+  .final-card::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(252,211,77,0.15), transparent, rgba(239,68,68,0.1), transparent);
+    animation: rotateGlow 8s linear infinite;
+    pointer-events: none;
   }
   .final-trophy {
-    font-size: clamp(4rem, 16vw, 7rem);
+    font-size: clamp(3.8rem, 16vw, 8rem);
     display: inline-block;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     animation: trophyBounce 1.5s ease infinite alternate;
-    filter: drop-shadow(0 10px 20px rgba(245,158,11,0.5));
+    filter: drop-shadow(0 18px 30px rgba(245,158,11,0.6)) drop-shadow(0 0 40px rgba(252,211,77,0.5));
+    position: relative;
+    z-index: 2;
   }
   @keyframes trophyBounce {
-    from { transform: translateY(0) scale(1) rotate(-5deg); }
-    to { transform: translateY(-18px) scale(1.05) rotate(5deg); }
+    from { transform: translateY(0) scale(1) rotate(-6deg); }
+    to { transform: translateY(-20px) scale(1.08) rotate(6deg); }
   }
   .final-title {
     font-family: 'Baloo 2', cursive;
-    font-size: clamp(1.7rem, 6vw, 2.6rem);
+    font-size: clamp(1.4rem, 5.5vw, 2.8rem);
     font-weight: 800;
-    background: linear-gradient(135deg, #F59E0B, #EF4444, #8B5CF6);
+    background: linear-gradient(135deg, #F59E0B, #EF4444, #8B5CF6, #3B82F6);
+    background-size: 300% 300%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     line-height: 1.1;
+    animation: gradientShift 5s ease infinite;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(2px 2px 0 rgba(255,255,255,0.5));
   }
   .final-sub {
     color: #555;
-    font-size: clamp(0.95rem, 2.5vw, 1.15rem);
-    margin-bottom: 20px;
-    font-weight: 500;
-    line-height: 1.5;
+    font-size: clamp(0.88rem, 2.4vw, 1.15rem);
+    margin-bottom: 24px;
+    font-weight: 600;
+    line-height: 1.55;
+    position: relative;
+    z-index: 2;
   }
   .final-stats {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    margin-bottom: 25px;
+    gap: clamp(10px, 2.5vw, 18px);
+    margin-bottom: 28px;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
   }
   .final-stat {
-    background: linear-gradient(180deg, #FFF, #FFFBEB);
-    border: 3px solid #FCD34D;
-    border-radius: 18px;
-    padding: 12px 20px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFBEB 100%);
+    border: 4px solid #FCD34D;
+    border-radius: 22px;
+    padding: clamp(10px, 2.5vw, 14px) clamp(16px, 4vw, 24px);
     min-width: 100px;
+    box-shadow: 0 6px 0 #F59E0B, 0 12px 25px rgba(245,158,11,0.2);
   }
   .final-stat .num {
     font-family: 'Baloo 2', cursive;
-    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
     font-weight: 800;
     background: linear-gradient(135deg, #F59E0B, #EF4444);
     -webkit-background-clip: text;
@@ -795,19 +1382,167 @@
     -webkit-text-fill-color: transparent;
   }
   .final-stat .label {
-    font-size: 0.78rem;
+    font-size: clamp(0.7rem, 1.9vw, 0.8rem);
     color: #666;
-    font-weight: 600;
+    font-weight: 700;
     margin-top: 2px;
   }
 
-  /* ====== RESPONSIVE ====== */
-  @media (max-width: 400px) {
-    .game-info .level-tag { font-size: 0.7rem; padding: 3px 9px; }
-    .game-info .q-counter { font-size: 0.78rem; }
-    .game-info .score-display { font-size: 0.9rem; }
+  /* ============================================================
+     PARTICLES
+     ============================================================ */
+  .particle-burst {
+    position: fixed;
+    pointer-events: none;
+    z-index: 200;
+    font-size: 2rem;
+    animation: particleFly 1s ease-out forwards;
+  }
+  @keyframes particleFly {
+    0% { transform: translate(0,0) scale(0.5) rotate(0); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(1.3) rotate(var(--tr)); opacity: 0; }
   }
 
+  /* ============================================================
+     BRANDING FOOTER - RAISA
+     ============================================================ */
+  .brand-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+    text-align: center;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.85) 60%, rgba(255,255,255,0.95) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .brand-footer .brand-inner {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #FFFFFF, #FFF9E6);
+    border: 2px solid #FCD34D;
+    padding: 6px 16px;
+    border-radius: 24px;
+    box-shadow: 0 4px 0 #F59E0B, 0 8px 18px rgba(245,158,11,0.25);
+    pointer-events: auto;
+    max-width: 96vw;
+  }
+  .brand-footer .brand-star {
+    font-size: clamp(0.85rem, 2.2vw, 1rem);
+    animation: brandSpin 3s linear infinite;
+    display: inline-block;
+  }
+  @keyframes brandSpin {
+    to { transform: rotate(360deg); }
+  }
+  .brand-footer .brand-text {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: clamp(0.62rem, 1.9vw, 0.85rem);
+    letter-spacing: 1.2px;
+    background: linear-gradient(135deg, #F59E0B, #EF4444, #8B5CF6, #3B82F6, #10B981);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 5s ease infinite;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  /* ============================================================
+     RESPONSIVE BREAKPOINTS
+     ============================================================ */
+
+  /* Tablet Portrait (600px - 900px) */
+  @media (min-width: 600px) and (max-width: 900px) and (orientation: portrait) {
+    .screen { max-width: 760px; }
+    .level-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .options-grid { gap: 14px; }
+    .question-visual { font-size: clamp(5rem, 12vw, 7rem); }
+  }
+
+  /* Tablet Landscape & Small Desktop (900px+) */
+  @media (min-width: 900px) {
+    .screen { max-width: 1000px; padding: clamp(20px, 2.5vw, 30px); }
+    .level-grid { grid-template-columns: repeat(3, 1fr); }
+    .question-area { padding: clamp(30px, 3.5vw, 45px) clamp(24px, 3vw, 36px); }
+  }
+
+  /* Large Desktop (1200px+) */
+  @media (min-width: 1200px) {
+    .screen { max-width: 1100px; }
+    .level-grid { grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  }
+
+  /* Landscape HP - short height */
+  @media (max-height: 520px) and (orientation: landscape) {
+    .start-wrap { padding: 10px 15px 80px; }
+    .start-mascot { font-size: clamp(3rem, 10vw, 5rem); }
+    .start-title { font-size: clamp(1.3rem, 5vw, 2rem); margin-bottom: 6px; }
+    .start-sub { font-size: 0.85rem; margin-bottom: 12px; }
+    .start-emoji-row { margin-top: 12px; }
+    .start-emoji-row span { font-size: 1.5rem; }
+    .btn-start { padding: 10px 28px; font-size: 0.95rem; }
+    .mascot-glow { width: 140px; height: 140px; }
+    .level-head { padding: 10px 10px 15px; }
+    .level-head h2 { font-size: 1.3rem; }
+    .question-visual { font-size: 2.8rem; }
+    .question-area { padding: 12px 16px; margin-bottom: 10px; }
+    .question-text { font-size: 1rem; }
+    .option-btn { min-height: 48px; padding: 8px 10px; font-size: 0.85rem; }
+    .options-grid { gap: 8px; }
+    .feedback-card { padding: 16px 20px; }
+    .feedback-emoji { font-size: 2.5rem; }
+    .result-card, .final-card { padding: 18px 20px; }
+    .final-trophy { font-size: 3rem; }
+    .result-emoji { font-size: 2.5rem; }
+    .result-stars .star { font-size: 2rem; }
+    .brand-footer { padding: 4px 8px calc(4px + env(safe-area-inset-bottom, 0px)); }
+    .brand-footer .brand-inner { padding: 4px 12px; }
+    .brand-footer .brand-text { font-size: 0.6rem; letter-spacing: 0.8px; }
+  }
+
+  /* Small HP (320px - 374px) */
+  @media (max-width: 374px) {
+    .screen { padding: 10px; }
+    .start-title { text-shadow: 2px 2px 0 #10B981, 4px 4px 0 #34D399, 6px 6px 15px rgba(16,185,129,0.4); }
+    .level-head h2 { text-shadow: 2px 2px 0 #10B981, 4px 4px 0 #34D399; }
+    .game-info { padding: 6px 8px; gap: 5px; }
+    .game-info .level-tag { font-size: 0.65rem; padding: 3px 8px; }
+    .game-info .q-counter { font-size: 0.7rem; }
+    .game-info .score-display { font-size: 0.8rem; }
+    .progress-mini { min-width: 20px; }
+    .btn-result { min-width: 100px; font-size: 0.82rem; padding: 10px 16px; }
+    .result-buttons { flex-direction: column; align-items: stretch; }
+    .btn-result { max-width: 100%; }
+  }
+
+  /* Standard HP (375px - 480px) */
+  @media (min-width: 375px) and (max-width: 480px) {
+    .screen { padding: 14px; }
+  }
+
+  /* Very small HP (max 340px) - prevent overflow */
+  @media (max-width: 340px) {
+    .game-info .q-counter { display: none; }
+    .options-grid { gap: 8px; }
+    .option-btn { padding: 10px 8px; font-size: 0.8rem; min-height: 58px; }
+    .option-btn .opt-emoji { font-size: 1.2rem; }
+    .start-emoji-row span { font-size: 1.3rem; }
+  }
+
+  /* HP sangat kecil / portrait sempit, satu kolom pilihan */
+  @media (max-width: 340px) and (orientation: portrait) {
+    .options-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Prefers reduced motion */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
@@ -815,30 +1550,117 @@
       transition-duration: 0.01ms !important;
     }
   }
+
+  /* Print safety */
+  @media print {
+    .bg-world, .brand-footer, .confetti { display: none !important; }
+  }
 </style>
 </head>
 <body>
 
-<!-- BACKGROUND DECO -->
-<div class="bg-deco">
-  <div class="bg-sun"></div>
+<!-- ============================================================
+     BACKGROUND WORLD
+     ============================================================ -->
+<div class="bg-world">
+  <div class="bg-sky"></div>
+
+  <div class="sun">
+    <div class="sun-rays">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="sun-core"></div>
+  </div>
+
   <div class="bg-cloud c1"></div>
   <div class="bg-cloud c2"></div>
   <div class="bg-cloud c3"></div>
+  <div class="bg-cloud c4"></div>
+  <div class="bg-cloud c5"></div>
+
+  <div class="bird b1">🕊️</div>
+  <div class="bird b2">🕊️</div>
+  <div class="bird b3">🕊️</div>
+
+  <div class="twinkle" style="top: 8%; left: 18%;">✨</div>
+  <div class="twinkle" style="top: 14%; left: 42%; animation-delay: 0.5s;">⭐</div>
+  <div class="twinkle" style="top: 6%; right: 30%; animation-delay: 1s;">✨</div>
+  <div class="twinkle" style="top: 22%; left: 28%; animation-delay: 1.5s;">💫</div>
+  <div class="twinkle" style="top: 18%; right: 22%; animation-delay: 2s;">✨</div>
+  <div class="twinkle" style="top: 28%; left: 55%; animation-delay: 2.5s;">⭐</div>
+
+  <div class="balloon" style="left: 5%; animation-duration: 28s; animation-delay: 2s;">🎈</div>
+  <div class="balloon" style="left: 28%; animation-duration: 32s; animation-delay: 10s;">🎈</div>
+  <div class="balloon" style="left: 55%; animation-duration: 34s; animation-delay: 18s;">🎈</div>
+  <div class="balloon" style="left: 82%; animation-duration: 30s; animation-delay: 6s;">🎈</div>
+
+  <div class="butterfly" style="top: 25%; left: 8%; animation-delay: 0s;">🦋</div>
+  <div class="butterfly" style="top: 45%; right: 12%; animation-delay: 5s;">🦋</div>
+  <div class="butterfly" style="top: 60%; left: 15%; animation-delay: 10s;">🦋</div>
+
+  <div class="hills">
+    <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="hillA" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#A7E6A0"/>
+          <stop offset="100%" stop-color="#7CCB73"/>
+        </linearGradient>
+        <linearGradient id="hillB" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#86D97C"/>
+          <stop offset="100%" stop-color="#5FB756"/>
+        </linearGradient>
+        <linearGradient id="hillC" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#6BC55F"/>
+          <stop offset="100%" stop-color="#4CA042"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#hillA)" d="M0,110 Q360,40 720,110 T1440,110 L1440,200 L0,200 Z"/>
+      <path fill="url(#hillB)" d="M0,140 Q360,80 720,140 T1440,140 L1440,200 L0,200 Z"/>
+      <path fill="url(#hillC)" d="M0,165 Q360,130 720,165 T1440,165 L1440,200 L0,200 Z"/>
+    </svg>
+  </div>
+
+  <div class="ground-deco">
+    <span class="tree">🌳</span>
+    <span class="tree">🌲</span>
+    <span class="tree">🌴</span>
+    <span class="tree">🌳</span>
+  </div>
+
+  <div class="grass-row">
+    <span>🌷</span><span>🌿</span><span>🌻</span><span>🌱</span><span>🌸</span>
+    <span>🌿</span><span>🌼</span><span>🌱</span><span>🌺</span><span>🌿</span>
+    <span>🌷</span><span>🌱</span><span>🌻</span><span>🌿</span><span>🌸</span>
+  </div>
 </div>
 
-<!-- ====== START SCREEN ====== -->
+<!-- ============================================================
+     START SCREEN
+     ============================================================ -->
 <div id="startScreen" class="screen active">
   <div class="start-wrap">
     <div class="start-badge">🌱 Pelajaran Alam Sekitar</div>
-    <div class="start-mascot">🌿</div>
-    <h1 class="start-title">Petualangan<br>Alam Sekitar</h1>
+
+    <div class="start-mascot-wrap">
+      <div class="mascot-glow"></div>
+      <div class="sparkle-ring">
+        <span>✨</span><span>⭐</span><span>✨</span><span>💫</span>
+      </div>
+      <div class="start-mascot">🌿</div>
+    </div>
+
+    <h1 class="start-title">
+      Petualangan<br>
+      <span class="grad-text">Alam Sekitar</span>
+    </h1>
     <p class="start-sub">
       Ayo jadi penjelajah cilik! Kenali hewan, tumbuhan, dan tubuh kita sendiri sambil bermain! 🌈
     </p>
     <button class="btn-start" onclick="goToLevels()">
       🚀 Mulai Petualangan!
     </button>
+
     <div class="start-emoji-row">
       <span>🐘</span>
       <span>🌳</span>
@@ -850,15 +1672,19 @@
   </div>
 </div>
 
-<!-- ====== LEVEL SELECT ====== -->
+<!-- ============================================================
+     LEVEL SCREEN
+     ============================================================ -->
 <div id="levelScreen" class="screen">
   <div class="level-head">
     <h2>🌟 Pilih Level 🌟</h2>
-    <p>Selesaikan level untuk membuka level berikutnya!</p>
-    <div class="level-progress">
-      <div class="level-progress-bar" id="progressBar" style="width: 0%"></div>
+    <p>Setiap bermain, soalnya berbeda-beda! 🎲</p>
+    <div class="level-progress-wrap">
+      <div class="level-progress">
+        <div class="level-progress-bar" id="progressBar" style="width: 0%"></div>
+      </div>
+      <div class="level-progress-text" id="progressText">0 dari 5 level selesai</div>
     </div>
-    <div class="level-progress-text" id="progressText">0 dari 5 level selesai</div>
   </div>
   <div class="level-grid" id="levelGrid"></div>
   <div class="level-footer">
@@ -866,7 +1692,9 @@
   </div>
 </div>
 
-<!-- ====== GAME SCREEN ====== -->
+<!-- ============================================================
+     GAME SCREEN
+     ============================================================ -->
 <div id="gameScreen" class="screen">
   <div class="game-top">
     <button class="btn-back" onclick="backToLevels()" aria-label="Kembali">←</button>
@@ -889,7 +1717,9 @@
   <div class="options-grid" id="optionsGrid"></div>
 </div>
 
-<!-- ====== FEEDBACK OVERLAY ====== -->
+<!-- ============================================================
+     FEEDBACK OVERLAY
+     ============================================================ -->
 <div class="feedback-overlay" id="feedbackOverlay">
   <div class="feedback-card good" id="feedbackCard">
     <div class="feedback-emoji" id="feedbackEmoji">🎉</div>
@@ -899,7 +1729,9 @@
   </div>
 </div>
 
-<!-- ====== RESULT SCREEN ====== -->
+<!-- ============================================================
+     RESULT SCREEN
+     ============================================================ -->
 <div id="resultScreen" class="screen">
   <div class="result-wrap">
     <div class="result-card">
@@ -920,7 +1752,9 @@
   </div>
 </div>
 
-<!-- ====== FINAL SCREEN ====== -->
+<!-- ============================================================
+     FINAL SCREEN
+     ============================================================ -->
 <div id="finalScreen" class="screen">
   <div class="final-wrap">
     <div class="final-card">
@@ -948,305 +1782,192 @@
   </div>
 </div>
 
+<!-- ============================================================
+     BRANDING FOOTER
+     ============================================================ -->
+<div class="brand-footer">
+  <div class="brand-inner">
+    <span class="brand-star">⭐</span>
+    <span class="brand-text">RAISA GAME DEVELOPMENT FOR EDUCATION</span>
+    <span class="brand-star">⭐</span>
+  </div>
+</div>
+
 <script>
 /* ============================================================
-   DATA LEVEL - ALAM SEKITAR UNTUK KELAS 1 SD
+   KONFIGURASI
+   ============================================================ */
+const QUESTIONS_PER_SESSION = 5;
+
+/* ============================================================
+   BANK SOAL
    ============================================================ */
 const LEVELS = [
   {
-    id: 1,
-    title: "Kenali Hewan",
-    icon: "🐾",
-    desc: "Tebak nama hewan dari gambarnya",
+    id: 1, title: "Kenali Hewan", icon: "🐾", desc: "Tebak nama hewan dari gambarnya",
     questions: [
-      {
-        visual: "🐘",
-        caption: "Aku besar dan punya belalai panjang",
-        text: "Hewan apa ini?",
-        options: [
-          { emoji: "🐔", label: "Ayam" },
-          { emoji: "🐘", label: "Gajah" },
-          { emoji: "🐟", label: "Ikan" },
-          { emoji: "🐱", label: "Kucing" }
-        ],
-        correct: 1
-      },
-      {
-        visual: "🦁",
-        caption: "Aku raja hutan, suaraku mengaum!",
-        text: "Hewan apa ini?",
-        options: [
-          { emoji: "🐯", label: "Harimau" },
-          { emoji: "🐶", label: "Anjing" },
-          { emoji: "🦁", label: "Singa" },
-          { emoji: "🐮", label: "Sapi" }
-        ],
-        correct: 2
-      },
-      {
-        visual: "🐢",
-        caption: "Aku jalannya lambat dan punya rumah di punggung",
-        text: "Hewan apa ini?",
-        options: [
-          { emoji: "🐢", label: "Kura-kura" },
-          { emoji: "🐇", label: "Kelinci" },
-          { emoji: "🐸", label: "Katak" },
-          { emoji: "🐌", label: "Siput" }
-        ],
-        correct: 0
-      },
-      {
-        visual: "🦋",
-        caption: "Aku punya sayap indah berwarna-warni",
-        text: "Hewan apa ini?",
-        options: [
-          { emoji: "🐝", label: "Lebah" },
-          { emoji: "🦋", label: "Kupu-kupu" },
-          { emoji: "🐦", label: "Burung" },
-          { emoji: "🦗", label: "Belalang" }
-        ],
-        correct: 1
-      },
-      {
-        visual: "🐟",
-        caption: "Aku berenang di air dan bernafas dengan insang",
-        text: "Hewan apa ini?",
-        options: [
-          { emoji: "🐠", label: "Ikan" },
-          { emoji: "🐬", label: "Lumba-lumba" },
-          { emoji: "🐙", label: "Gurita" },
-          { emoji: "🦈", label: "Hiu" }
-        ],
-        correct: 0
-      }
+      { visual:"🐘", caption:"Aku besar dan punya belalai panjang", text:"Hewan apa ini?",
+        options:[{emoji:"🐔",label:"Ayam"},{emoji:"🐘",label:"Gajah"},{emoji:"🐟",label:"Ikan"},{emoji:"🐱",label:"Kucing"}], correct:1 },
+      { visual:"🦁", caption:"Aku raja hutan, suaraku mengaum!", text:"Hewan apa ini?",
+        options:[{emoji:"🐯",label:"Harimau"},{emoji:"🐶",label:"Anjing"},{emoji:"🦁",label:"Singa"},{emoji:"🐮",label:"Sapi"}], correct:2 },
+      { visual:"🐢", caption:"Aku jalannya lambat dan punya rumah di punggung", text:"Hewan apa ini?",
+        options:[{emoji:"🐢",label:"Kura-kura"},{emoji:"🐇",label:"Kelinci"},{emoji:"🐸",label:"Katak"},{emoji:"🐌",label:"Siput"}], correct:0 },
+      { visual:"🦋", caption:"Aku punya sayap indah berwarna-warni", text:"Hewan apa ini?",
+        options:[{emoji:"🐝",label:"Lebah"},{emoji:"🦋",label:"Kupu-kupu"},{emoji:"🐦",label:"Burung"},{emoji:"🦗",label:"Belalang"}], correct:1 },
+      { visual:"🐟", caption:"Aku berenang di air dan bernafas dengan insang", text:"Hewan apa ini?",
+        options:[{emoji:"🐠",label:"Ikan"},{emoji:"🐬",label:"Lumba-lumba"},{emoji:"🐙",label:"Gurita"},{emoji:"🦈",label:"Hiu"}], correct:0 },
+      { visual:"🐰", caption:"Aku punya telinga panjang dan suka melompat", text:"Hewan apa ini?",
+        options:[{emoji:"🐹",label:"Hamster"},{emoji:"🐰",label:"Kelinci"},{emoji:"🐿️",label:"Tupai"},{emoji:"🦘",label:"Kanguru"}], correct:1 },
+      { visual:"🐝", caption:"Aku kecil, bersayap, dan menghasilkan madu", text:"Hewan apa ini?",
+        options:[{emoji:"🦋",label:"Kupu-kupu"},{emoji:"🐝",label:"Lebah"},{emoji:"🪰",label:"Lalat"},{emoji:"🦟",label:"Nyamuk"}], correct:1 },
+      { visual:"🐯", caption:"Aku punya loreng di tubuhku", text:"Hewan apa ini?",
+        options:[{emoji:"🦁",label:"Singa"},{emoji:"🐯",label:"Harimau"},{emoji:"🐆",label:"Macan Tutul"},{emoji:"🐱",label:"Kucing"}], correct:1 },
+      { visual:"🐄", caption:"Aku menghasilkan susu untuk manusia", text:"Hewan apa ini?",
+        options:[{emoji:"🐐",label:"Kambing"},{emoji:"🐑",label:"Domba"},{emoji:"🐄",label:"Sapi"},{emoji:"🐴",label:"Kuda"}], correct:2 },
+      { visual:"🐔", caption:"Aku berkokok di pagi hari dan bertelur", text:"Hewan apa ini?",
+        options:[{emoji:"🐔",label:"Ayam"},{emoji:"🦆",label:"Bebek"},{emoji:"🦢",label:"Angsa"},{emoji:"🦃",label:"Kalkun"}], correct:0 },
+      { visual:"🦒", caption:"Aku punya leher yang sangat panjang", text:"Hewan apa ini?",
+        options:[{emoji:"🐘",label:"Gajah"},{emoji:"🦒",label:"Jerapah"},{emoji:"🦓",label:"Zebra"},{emoji:"🦌",label:"Rusa"}], correct:1 },
+      { visual:"🐧", caption:"Aku hidup di tempat dingin dan tidak bisa terbang", text:"Hewan apa ini?",
+        options:[{emoji:"🦆",label:"Bebek"},{emoji:"🐧",label:"Penguin"},{emoji:"🦅",label:"Elang"},{emoji:"🦉",label:"Burung Hantu"}], correct:1 },
+      { visual:"🦉", caption:"Aku punya mata besar dan aktif di malam hari", text:"Hewan apa ini?",
+        options:[{emoji:"🦅",label:"Elang"},{emoji:"🦜",label:"Kakatua"},{emoji:"🦉",label:"Burung Hantu"},{emoji:"🐦",label:"Burung Pipit"}], correct:2 },
+      { visual:"🐸", caption:"Aku hijau, suka melompat, hidup di air & darat", text:"Hewan apa ini?",
+        options:[{emoji:"🐢",label:"Kura-kura"},{emoji:"🐊",label:"Buaya"},{emoji:"🐸",label:"Katak"},{emoji:"🦎",label:"Kadal"}], correct:2 },
+      { visual:"🐘🦒", caption:"Kami adalah hewan yang sangat besar", text:"Manakah yang lebih besar?",
+        options:[{emoji:"🐘",label:"Gajah"},{emoji:"🐭",label:"Tikus"},{emoji:"🐈",label:"Kucing"},{emoji:"🐇",label:"Kelinci"}], correct:0 }
     ]
   },
   {
-    id: 2,
-    title: "Hewan & Makanan",
-    icon: "🍽️",
-    desc: "Apa makanan hewan-hewan ini?",
+    id: 2, title: "Hewan & Makanan", icon: "🍽️", desc: "Apa makanan hewan-hewan ini?",
     questions: [
-      {
-        visual: "🐰",
-        caption: "Aku suka melompat-lompat",
-        text: "Kelinci suka makan apa?",
-        options: [
-          { emoji: "🥕", label: "Wortel" },
-          { emoji: "🍖", label: "Daging" },
-          { emoji: "🐟", label: "Ikan" },
-          { emoji: "🍯", label: "Madu" }
-        ],
-        correct: 0
-      },
-      {
-        visual: "🐵",
-        caption: "Aku suka memanjat pohon",
-        text: "Monyet suka makan apa?",
-        options: [
-          { emoji: "🥬", label: "Sayur" },
-          { emoji: "🍌", label: "Pisang" },
-          { emoji: "🍖", label: "Daging" },
-          { emoji: "🌰", label: "Biji" }
-        ],
-        correct: 1
-      },
-      {
-        visual: "🐼",
-        caption: "Aku hitam putih dan lucu",
-        text: "Panda suka makan apa?",
-        options: [
-          { emoji: "🍎", label: "Apel" },
-          { emoji: "🐟", label: "Ikan" },
-          { emoji: "🎋", label: "Bambu" },
-          { emoji: "🌽", label: "Jagung" }
-        ],
-        correct: 2
-      },
-      {
-        visual: "🐝",
-        caption: "Aku kecil dan suka terbang",
-        text: "Lebah suka hinggap di?",
-        options: [
-          { emoji: "🌸", label: "Bunga" },
-          { emoji: "🍄", label: "Jamur" },
-          { emoji: "🌿", label: "Rumput" },
-          { emoji: "🪨", label: "Batu" }
-        ],
-        correct: 0
-      }
+      { visual:"🐰", caption:"Aku suka melompat-lompat", text:"Kelinci suka makan apa?",
+        options:[{emoji:"🥕",label:"Wortel"},{emoji:"🍖",label:"Daging"},{emoji:"🐟",label:"Ikan"},{emoji:"🍯",label:"Madu"}], correct:0 },
+      { visual:"🐵", caption:"Aku suka memanjat pohon", text:"Monyet suka makan apa?",
+        options:[{emoji:"🥬",label:"Sayur"},{emoji:"🍌",label:"Pisang"},{emoji:"🍖",label:"Daging"},{emoji:"🌰",label:"Biji"}], correct:1 },
+      { visual:"🐼", caption:"Aku hitam putih dan lucu", text:"Panda suka makan apa?",
+        options:[{emoji:"🍎",label:"Apel"},{emoji:"🐟",label:"Ikan"},{emoji:"🎋",label:"Bambu"},{emoji:"🌽",label:"Jagung"}], correct:2 },
+      { visual:"🐝", caption:"Aku kecil dan suka terbang", text:"Lebah mengambil makanan dari?",
+        options:[{emoji:"🌸",label:"Bunga"},{emoji:"🍄",label:"Jamur"},{emoji:"🌿",label:"Rumput"},{emoji:"🪨",label:"Batu"}], correct:0 },
+      { visual:"🐄", caption:"Aku menghasilkan susu", text:"Sapi suka makan apa?",
+        options:[{emoji:"🌿",label:"Rumput"},{emoji:"🍖",label:"Daging"},{emoji:"🍯",label:"Madu"},{emoji:"🐟",label:"Ikan"}], correct:0 },
+      { visual:"🐱", caption:"Aku suka mengeong", text:"Kucing suka makan apa?",
+        options:[{emoji:"🥕",label:"Wortel"},{emoji:"🐟",label:"Ikan"},{emoji:"🍌",label:"Pisang"},{emoji:"🌿",label:"Rumput"}], correct:1 },
+      { visual:"🐭", caption:"Aku kecil dan suka bersembunyi", text:"Tikus suka makan apa?",
+        options:[{emoji:"🧀",label:"Keju"},{emoji:"🍎",label:"Apel"},{emoji:"🥬",label:"Sayur"},{emoji:"🌸",label:"Bunga"}], correct:0 },
+      { visual:"🐻", caption:"Aku besar dan suka tidur panjang", text:"Beruang suka makan apa?",
+        options:[{emoji:"🍯",label:"Madu"},{emoji:"🥕",label:"Wortel"},{emoji:"🌽",label:"Jagung"},{emoji:"🍌",label:"Pisang"}], correct:0 },
+      { visual:"🐔", caption:"Aku berkokok pagi-pagi", text:"Ayam suka makan apa?",
+        options:[{emoji:"🐛",label:"Cacing & Biji"},{emoji:"🍖",label:"Daging"},{emoji:"🍯",label:"Madu"},{emoji:"🧀",label:"Keju"}], correct:0 },
+      { visual:"🦋", caption:"Aku cantik dan bersayap", text:"Kupu-kupu menghisap apa dari bunga?",
+        options:[{emoji:"💧",label:"Air"},{emoji:"🍯",label:"Nektar"},{emoji:"🌿",label:"Daun"},{emoji:"🍎",label:"Buah"}], correct:1 },
+      { visual:"🐐", caption:"Aku punya tanduk dan jenggot", text:"Kambing suka makan apa?",
+        options:[{emoji:"🌿",label:"Rumput & Daun"},{emoji:"🐟",label:"Ikan"},{emoji:"🍖",label:"Daging"},{emoji:"🧀",label:"Keju"}], correct:0 },
+      { visual:"🐦", caption:"Aku kecil dan bisa terbang", text:"Burung kecil suka makan apa?",
+        options:[{emoji:"🌰",label:"Biji-bijian"},{emoji:"🍖",label:"Daging"},{emoji:"🧀",label:"Keju"},{emoji:"🥛",label:"Susu"}], correct:0 },
+      { visual:"🐶", caption:"Aku sahabat manusia", text:"Anjing suka makan apa?",
+        options:[{emoji:"🦴",label:"Tulang"},{emoji:"🍌",label:"Pisang"},{emoji:"🥕",label:"Wortel"},{emoji:"🍎",label:"Apel"}], correct:0 },
+      { visual:"🐿️", caption:"Aku suka memanjat dan menyimpan makanan", text:"Tupai suka makan apa?",
+        options:[{emoji:"🌰",label:"Kacang"},{emoji:"🐟",label:"Ikan"},{emoji:"🍖",label:"Daging"},{emoji:"🧀",label:"Keju"}], correct:0 }
     ]
   },
   {
-    id: 3,
-    title: "Bagian Tumbuhan",
-    icon: "🌱",
-    desc: "Kenali bagian-bagian tumbuhan",
+    id: 3, title: "Bagian Tumbuhan", icon: "🌱", desc: "Kenali bagian-bagian tumbuhan",
     questions: [
-      {
-        visual: "🌱",
-        text: "Bagian tumbuhan yang menyerap air dari dalam tanah adalah?",
-        options: [
-          { emoji: "🍃", label: "Daun" },
-          { emoji: "🪵", label: "Akar" },
-          { emoji: "🌸", label: "Bunga" },
-          { emoji: "🌰", label: "Buah" }
-        ],
-        correct: 1
-      },
-      {
-        visual: "🍃",
-        text: "Bagian tumbuhan yang membuat makanan dari cahaya matahari adalah?",
-        options: [
-          { emoji: "🪵", label: "Batang" },
-          { emoji: "🌱", label: "Akar" },
-          { emoji: "🍃", label: "Daun" },
-          { emoji: "🌸", label: "Bunga" }
-        ],
-        correct: 2
-      },
-      {
-        visual: "🌸",
-        text: "Bagian tumbuhan yang indah dan berwarna-warni adalah?",
-        options: [
-          { emoji: "🌸", label: "Bunga" },
-          { emoji: "🍃", label: "Daun" },
-          { emoji: "🪵", label: "Batang" },
-          { emoji: "🌰", label: "Biji" }
-        ],
-        correct: 0
-      },
-      {
-        visual: "🪵",
-        text: "Bagian tumbuhan yang menopang dan mengangkut air adalah?",
-        options: [
-          { emoji: "🌱", label: "Akar" },
-          { emoji: "🍃", label: "Daun" },
-          { emoji: "🌸", label: "Bunga" },
-          { emoji: "🪵", label: "Batang" }
-        ],
-        correct: 3
-      }
+      { visual:"🌱", text:"Bagian tumbuhan yang menyerap air dari dalam tanah adalah?",
+        options:[{emoji:"🍃",label:"Daun"},{emoji:"🪵",label:"Akar"},{emoji:"🌸",label:"Bunga"},{emoji:"🌰",label:"Buah"}], correct:1 },
+      { visual:"🍃", text:"Bagian tumbuhan yang membuat makanan dari cahaya matahari adalah?",
+        options:[{emoji:"🪵",label:"Batang"},{emoji:"🌱",label:"Akar"},{emoji:"🍃",label:"Daun"},{emoji:"🌸",label:"Bunga"}], correct:2 },
+      { visual:"🌸", text:"Bagian tumbuhan yang indah dan berwarna-warni adalah?",
+        options:[{emoji:"🌸",label:"Bunga"},{emoji:"🍃",label:"Daun"},{emoji:"🪵",label:"Batang"},{emoji:"🌰",label:"Biji"}], correct:0 },
+      { visual:"🪵", text:"Bagian tumbuhan yang menopang dan mengangkut air adalah?",
+        options:[{emoji:"🌱",label:"Akar"},{emoji:"🍃",label:"Daun"},{emoji:"🌸",label:"Bunga"},{emoji:"🪵",label:"Batang"}], correct:3 },
+      { visual:"🌰", text:"Bagian tumbuhan yang bisa tumbuh menjadi tanaman baru adalah?",
+        options:[{emoji:"🌰",label:"Biji"},{emoji:"🍃",label:"Daun"},{emoji:"🌸",label:"Bunga"},{emoji:"🪵",label:"Batang"}], correct:0 },
+      { visual:"🍎", text:"Bagian tumbuhan yang berisi biji dan bisa dimakan adalah?",
+        options:[{emoji:"🌸",label:"Bunga"},{emoji:"🍎",label:"Buah"},{emoji:"🍃",label:"Daun"},{emoji:"🌱",label:"Akar"}], correct:1 },
+      { visual:"🌳", text:"Apa yang dibutuhkan tumbuhan untuk tumbuh dengan baik?",
+        options:[{emoji:"💧",label:"Air & Matahari"},{emoji:"🍬",label:"Permen"},{emoji:"🧊",label:"Es"},{emoji:"🪨",label:"Batu"}], correct:0 },
+      { visual:"🌱", text:"Warna daun yang sehat biasanya?",
+        options:[{emoji:"🟢",label:"Hijau"},{emoji:"🔴",label:"Merah"},{emoji:"🔵",label:"Biru"},{emoji:"⚫",label:"Hitam"}], correct:0 },
+      { visual:"🌻", text:"Bunga matahari warnanya seperti?",
+        options:[{emoji:"☀️",label:"Kuning cerah"},{emoji:"🌑",label:"Hitam"},{emoji:"🔵",label:"Biru"},{emoji:"⚪",label:"Putih"}], correct:0 },
+      { visual:"🌱", text:"Bagian tumbuhan yang ada di bawah tanah adalah?",
+        options:[{emoji:"🍃",label:"Daun"},{emoji:"🌸",label:"Bunga"},{emoji:"🌱",label:"Akar"},{emoji:"🍎",label:"Buah"}], correct:2 },
+      { visual:"🥕", text:"Wortel yang kita makan adalah bagian?",
+        options:[{emoji:"🌱",label:"Akar"},{emoji:"🍃",label:"Daun"},{emoji:"🌸",label:"Bunga"},{emoji:"🌰",label:"Biji"}], correct:0 },
+      { visual:"🌳", text:"Pohon yang besar dan tinggi memiliki bagian?",
+        options:[{emoji:"🪵",label:"Batang kayu"},{emoji:"🍬",label:"Permen"},{emoji:"🔩",label:"Besi"},{emoji:"💎",label:"Emas"}], correct:0 },
+      { visual:"🌾", text:"Rumput dan tumbuhan kecil biasanya berwarna?",
+        options:[{emoji:"🟢",label:"Hijau"},{emoji:"🟣",label:"Ungu"},{emoji:"🟠",label:"Oranye"},{emoji:"⚫",label:"Hitam"}], correct:0 },
+      { visual:"🌱", text:"Siapa yang membantu tumbuhan mendapat cahaya?",
+        options:[{emoji:"☀️",label:"Matahari"},{emoji:"🌙",label:"Bulan"},{emoji:"⭐",label:"Bintang"},{emoji:"☁️",label:"Awan"}], correct:0 }
     ]
   },
   {
-    id: 4,
-    title: "Anggota Tubuh",
-    icon: "👁️",
-    desc: "Kenali fungsi anggota tubuh kita",
+    id: 4, title: "Anggota Tubuh", icon: "👁️", desc: "Kenali fungsi anggota tubuh kita",
     questions: [
-      {
-        visual: "👁️",
-        text: "Untuk melihat, kita menggunakan?",
-        options: [
-          { emoji: "👂", label: "Telinga" },
-          { emoji: "👁️", label: "Mata" },
-          { emoji: "👃", label: "Hidung" },
-          { emoji: "👄", label: "Mulut" }
-        ],
-        correct: 1
-      },
-      {
-        visual: "👂",
-        text: "Untuk mendengar, kita menggunakan?",
-        options: [
-          { emoji: "👂", label: "Telinga" },
-          { emoji: "👁️", label: "Mata" },
-          { emoji: "👃", label: "Hidung" },
-          { emoji: "✋", label: "Tangan" }
-        ],
-        correct: 0
-      },
-      {
-        visual: "👃",
-        text: "Untuk mencium bau, kita menggunakan?",
-        options: [
-          { emoji: "👄", label: "Mulut" },
-          { emoji: "👁️", label: "Mata" },
-          { emoji: "👃", label: "Hidung" },
-          { emoji: "👂", label: "Telinga" }
-        ],
-        correct: 2
-      },
-      {
-        visual: "👄",
-        text: "Untuk makan dan berbicara, kita menggunakan?",
-        options: [
-          { emoji: "👁️", label: "Mata" },
-          { emoji: "👄", label: "Mulut" },
-          { emoji: "👂", label: "Telinga" },
-          { emoji: "👃", label: "Hidung" }
-        ],
-        correct: 1
-      }
+      { visual:"👁️", text:"Untuk melihat, kita menggunakan?",
+        options:[{emoji:"👂",label:"Telinga"},{emoji:"👁️",label:"Mata"},{emoji:"👃",label:"Hidung"},{emoji:"👄",label:"Mulut"}], correct:1 },
+      { visual:"👂", text:"Untuk mendengar, kita menggunakan?",
+        options:[{emoji:"👂",label:"Telinga"},{emoji:"👁️",label:"Mata"},{emoji:"👃",label:"Hidung"},{emoji:"✋",label:"Tangan"}], correct:0 },
+      { visual:"👃", text:"Untuk mencium bau, kita menggunakan?",
+        options:[{emoji:"👄",label:"Mulut"},{emoji:"👁️",label:"Mata"},{emoji:"👃",label:"Hidung"},{emoji:"👂",label:"Telinga"}], correct:2 },
+      { visual:"👄", text:"Untuk makan dan berbicara, kita menggunakan?",
+        options:[{emoji:"👁️",label:"Mata"},{emoji:"👄",label:"Mulut"},{emoji:"👂",label:"Telinga"},{emoji:"👃",label:"Hidung"}], correct:1 },
+      { visual:"✋", text:"Untuk memegang dan menulis, kita menggunakan?",
+        options:[{emoji:"🦶",label:"Kaki"},{emoji:"✋",label:"Tangan"},{emoji:"👂",label:"Telinga"},{emoji:"👁️",label:"Mata"}], correct:1 },
+      { visual:"🦶", text:"Untuk berjalan dan berlari, kita menggunakan?",
+        options:[{emoji:"✋",label:"Tangan"},{emoji:"👄",label:"Mulut"},{emoji:"🦶",label:"Kaki"},{emoji:"👃",label:"Hidung"}], correct:2 },
+      { visual:"👅", text:"Untuk mengecap rasa manis, asin, atau asam, kita menggunakan?",
+        options:[{emoji:"👅",label:"Lidah"},{emoji:"👁️",label:"Mata"},{emoji:"👂",label:"Telinga"},{emoji:"✋",label:"Tangan"}], correct:0 },
+      { visual:"🦷", text:"Untuk mengunyah makanan, kita menggunakan?",
+        options:[{emoji:"👅",label:"Lidah"},{emoji:"🦷",label:"Gigi"},{emoji:"👄",label:"Bibir"},{emoji:"👃",label:"Hidung"}], correct:1 },
+      { visual:"👃", text:"Berapa jumlah lubang hidung kita?",
+        options:[{emoji:"1️⃣",label:"1"},{emoji:"2️⃣",label:"2"},{emoji:"3️⃣",label:"3"},{emoji:"4️⃣",label:"4"}], correct:1 },
+      { visual:"👁️", text:"Berapa jumlah mata kita?",
+        options:[{emoji:"1️⃣",label:"1"},{emoji:"2️⃣",label:"2"},{emoji:"3️⃣",label:"3"},{emoji:"4️⃣",label:"4"}], correct:1 },
+      { visual:"✋", text:"Berapa jumlah jari pada satu tangan?",
+        options:[{emoji:"3️⃣",label:"3"},{emoji:"4️⃣",label:"4"},{emoji:"5️⃣",label:"5"},{emoji:"6️⃣",label:"6"}], correct:2 },
+      { visual:"🦶", text:"Berapa jumlah kaki kita?",
+        options:[{emoji:"1️⃣",label:"1"},{emoji:"2️⃣",label:"2"},{emoji:"3️⃣",label:"3"},{emoji:"4️⃣",label:"4"}], correct:1 },
+      { visual:"🧠", text:"Bagian tubuh untuk berpikir adalah?",
+        options:[{emoji:"🧠",label:"Otak"},{emoji:"✋",label:"Tangan"},{emoji:"🦶",label:"Kaki"},{emoji:"👂",label:"Telinga"}], correct:0 },
+      { visual:"💇", text:"Bagian tubuh yang tumbuh di atas kepala adalah?",
+        options:[{emoji:"🦷",label:"Gigi"},{emoji:"💇",label:"Rambut"},{emoji:"👅",label:"Lidah"},{emoji:"👁️",label:"Mata"}], correct:1 }
     ]
   },
   {
-    id: 5,
-    title: "Tempat Hidup",
-    icon: "🏞️",
-    desc: "Di mana hewan-hewan ini hidup?",
+    id: 5, title: "Tempat Hidup", icon: "🏞️", desc: "Di mana hewan-hewan ini hidup?",
     questions: [
-      {
-        visual: "🐟",
-        caption: "Aku berenang dengan siripku",
-        text: "Ikan hidup di?",
-        options: [
-          { emoji: "🌳", label: "Darat" },
-          { emoji: "💧", label: "Air" },
-          { emoji: "☁️", label: "Udara" },
-          { emoji: "🏔️", label: "Gunung" }
-        ],
-        correct: 1
-      },
-      {
-        visual: "🐘",
-        caption: "Aku besar dan kuat",
-        text: "Gajah hidup di?",
-        options: [
-          { emoji: "🌳", label: "Darat" },
-          { emoji: "💧", label: "Air" },
-          { emoji: "☁️", label: "Udara" },
-          { emoji: "🌊", label: "Laut" }
-        ],
-        correct: 0
-      },
-      {
-        visual: "🦅",
-        caption: "Aku punya sayap besar",
-        text: "Elang terbang di?",
-        options: [
-          { emoji: "🌳", label: "Darat" },
-          { emoji: "💧", label: "Air" },
-          { emoji: "☁️", label: "Udara" },
-          { emoji: "🕳️", label: "Tanah" }
-        ],
-        correct: 2
-      },
-      {
-        visual: "🐋",
-        caption: "Aku hewan terbesar di dunia",
-        text: "Paus hidup di?",
-        options: [
-          { emoji: "🌳", label: "Darat" },
-          { emoji: "🌊", label: "Air" },
-          { emoji: "☁️", label: "Udara" },
-          { emoji: "🏜️", label: "Gurun" }
-        ],
-        correct: 1
-      },
-      {
-        visual: "🦒",
-        caption: "Aku punya leher yang sangat panjang",
-        text: "Jerapah hidup di?",
-        options: [
-          { emoji: "💧", label: "Air" },
-          { emoji: "☁️", label: "Udara" },
-          { emoji: "🌳", label: "Darat" },
-          { emoji: "🌊", label: "Laut" }
-        ],
-        correct: 2
-      }
+      { visual:"🐟", caption:"Aku berenang dengan siripku", text:"Ikan hidup di?",
+        options:[{emoji:"🌳",label:"Darat"},{emoji:"💧",label:"Air"},{emoji:"☁️",label:"Udara"},{emoji:"🏔️",label:"Gunung"}], correct:1 },
+      { visual:"🐘", caption:"Aku besar dan kuat", text:"Gajah hidup di?",
+        options:[{emoji:"🌳",label:"Darat"},{emoji:"💧",label:"Air"},{emoji:"☁️",label:"Udara"},{emoji:"🌊",label:"Laut"}], correct:0 },
+      { visual:"🦅", caption:"Aku punya sayap besar", text:"Elang terbang di?",
+        options:[{emoji:"🌳",label:"Darat"},{emoji:"💧",label:"Air"},{emoji:"☁️",label:"Udara"},{emoji:"🕳️",label:"Tanah"}], correct:2 },
+      { visual:"🐋", caption:"Aku hewan terbesar di dunia", text:"Paus hidup di?",
+        options:[{emoji:"🌳",label:"Darat"},{emoji:"🌊",label:"Air"},{emoji:"☁️",label:"Udara"},{emoji:"🏜️",label:"Gurun"}], correct:1 },
+      { visual:"🦒", caption:"Aku punya leher yang sangat panjang", text:"Jerapah hidup di?",
+        options:[{emoji:"💧",label:"Air"},{emoji:"☁️",label:"Udara"},{emoji:"🌳",label:"Darat"},{emoji:"🌊",label:"Laut"}], correct:2 },
+      { visual:"🐧", caption:"Aku suka dingin dan bersalju", text:"Penguin hidup di?",
+        options:[{emoji:"🏜️",label:"Gurun Panas"},{emoji:"❄️",label:"Daerah Dingin"},{emoji:"🌴",label:"Pantai"},{emoji:"🌋",label:"Gunung Berapi"}], correct:1 },
+      { visual:"🐪", caption:"Aku punya punuk di punggungku", text:"Unta hidup di?",
+        options:[{emoji:"🏜️",label:"Gurun"},{emoji:"🌊",label:"Laut"},{emoji:"❄️",label:"Salju"},{emoji:"🌳",label:"Hutan"}], correct:0 },
+      { visual:"🐸", caption:"Aku bisa hidup di dua tempat", text:"Katak bisa hidup di?",
+        options:[{emoji:"🏔️",label:"Gunung"},{emoji:"💧🌳",label:"Air & Darat"},{emoji:"☁️",label:"Udara"},{emoji:"🔥",label:"Api"}], correct:1 },
+      { visual:"🐠", caption:"Aku warna-warni dan kecil", text:"Ikan hias hidup di?",
+        options:[{emoji:"🥛",label:"Susu"},{emoji:"💧",label:"Air"},{emoji:"🍯",label:"Madu"},{emoji:"🛢️",label:"Minyak"}], correct:1 },
+      { visual:"🦓", caption:"Aku hitam putih seperti kuda", text:"Zebra hidup di?",
+        options:[{emoji:"🌳",label:"Padang Rumput"},{emoji:"🌊",label:"Laut"},{emoji:"☁️",label:"Langit"},{emoji:"❄️",label:"Kutub"}], correct:0 },
+      { visual:"🐬", caption:"Aku pintar dan suka melompat dari air", text:"Lumba-lumba hidup di?",
+        options:[{emoji:"🌳",label:"Hutan"},{emoji:"🌊",label:"Laut"},{emoji:"🏜️",label:"Gurun"},{emoji:"🏔️",label:"Gunung"}], correct:1 },
+      { visual:"🐒", caption:"Aku suka bergelantungan di pohon", text:"Monyet hidup di?",
+        options:[{emoji:"🌳",label:"Hutan/Pohon"},{emoji:"🌊",label:"Laut"},{emoji:"❄️",label:"Salju"},{emoji:"🏜️",label:"Gurun"}], correct:0 },
+      { visual:"🐝", caption:"Aku kecil dan suka bunga", text:"Lebah sering berada di?",
+        options:[{emoji:"🌸",label:"Taman Bunga"},{emoji:"❄️",label:"Salju"},{emoji:"🌊",label:"Laut"},{emoji:"🏔️",label:"Puncak Gunung"}], correct:0 },
+      { visual:"🦈", caption:"Aku adalah hewan laut", text:"Hiu hidup di?",
+        options:[{emoji:"🌊",label:"Laut"},{emoji:"🌳",label:"Hutan"},{emoji:"🏜️",label:"Gurun"},{emoji:"☁️",label:"Langit"}], correct:0 }
     ]
   }
 ];
@@ -1254,15 +1975,44 @@ const LEVELS = [
 /* ============================================================
    STATE
    ============================================================ */
-const STORAGE_KEY = 'alamSekitarProgress_v1';
-
+const STORAGE_KEY = 'alamSekitarProgress_v4';
 let state = {
   currentLevelIndex: 0,
   currentQuestionIndex: 0,
   score: 0,
   mistakes: 0,
-  progress: {} // { levelId: stars }
+  sessionQuestions: [],
+  progress: {}
 };
+
+/* ============================================================
+   UTIL
+   ============================================================ */
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function prepareSessionQuestions(level, count) {
+  const pool = level.questions;
+  const picked = shuffleArray(pool).slice(0, Math.min(count, pool.length));
+  return picked.map(q => {
+    const opts = q.options.map((o, i) => ({
+      emoji: o.emoji, label: o.label, _isCorrect: i === q.correct
+    }));
+    const shuffled = shuffleArray(opts);
+    const newCorrectIndex = shuffled.findIndex(o => o._isCorrect);
+    return {
+      visual: q.visual, caption: q.caption, text: q.text,
+      options: shuffled.map(o => ({ emoji: o.emoji, label: o.label })),
+      correct: newCorrectIndex
+    };
+  });
+}
 
 /* ============================================================
    PERSISTENCE
@@ -1270,20 +2020,12 @@ let state = {
 function loadProgress() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      state.progress = JSON.parse(saved);
-    }
-  } catch (e) {
-    console.warn('LocalStorage tidak tersedia, progress tidak disimpan.');
-  }
-}
-
-function saveProgress() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.progress));
+    if (saved) state.progress = JSON.parse(saved);
   } catch (e) {}
 }
-
+function saveProgress() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.progress)); } catch (e) {}
+}
 function resetProgress() {
   if (!confirm('Yakin ingin menghapus semua progress? Kamu akan mulai dari awal lagi.')) return;
   state.progress = {};
@@ -1292,26 +2034,18 @@ function resetProgress() {
 }
 
 /* ============================================================
-   SCREEN NAVIGATION
+   NAVIGATION
    ============================================================ */
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
-function goToLevels() {
-  renderLevels();
-  showScreen('levelScreen');
-}
-
-function backToLevels() {
-  showScreen('levelScreen');
-  renderLevels();
-}
+function goToLevels() { renderLevels(); showScreen('levelScreen'); }
+function backToLevels() { showScreen('levelScreen'); renderLevels(); }
 
 /* ============================================================
-   LEVEL SELECT RENDER
+   LEVEL SELECT
    ============================================================ */
 function renderLevels() {
   const grid = document.getElementById('levelGrid');
@@ -1325,7 +2059,6 @@ function renderLevels() {
     `${completedCount} dari ${totalLevels} level selesai`;
 
   LEVELS.forEach((level, idx) => {
-    // Level terbuka jika level 1, atau level sebelumnya sudah selesai
     const isUnlocked = idx === 0 || state.progress[LEVELS[idx - 1].id] !== undefined;
     const stars = state.progress[level.id] || 0;
     const isDone = stars > 0;
@@ -1346,13 +2079,11 @@ function renderLevels() {
       <div class="level-icon">${level.icon}</div>
       <h3>${level.title}</h3>
       <div class="level-desc">${level.desc}</div>
+      <div class="bank-info">📚 Bank: ${level.questions.length} soal</div>
       <div class="level-stars">${isDone ? starsHtml : ''}</div>
     `;
 
-    if (isUnlocked) {
-      card.addEventListener('click', () => startLevel(idx));
-    }
-
+    if (isUnlocked) card.addEventListener('click', () => startLevel(idx));
     grid.appendChild(card);
   });
 }
@@ -1365,33 +2096,31 @@ function startLevel(levelIndex) {
   state.currentQuestionIndex = 0;
   state.score = 0;
   state.mistakes = 0;
+  state.sessionQuestions = prepareSessionQuestions(
+    LEVELS[levelIndex], QUESTIONS_PER_SESSION
+  );
   showScreen('gameScreen');
   renderQuestion();
 }
 
 function renderQuestion() {
   const level = LEVELS[state.currentLevelIndex];
-  const q = level.questions[state.currentQuestionIndex];
-  const totalQ = level.questions.length;
+  const q = state.sessionQuestions[state.currentQuestionIndex];
+  const totalQ = state.sessionQuestions.length;
 
-  // Header
   document.getElementById('gameLevelTag').textContent = `Level ${level.id}`;
   document.getElementById('gameQCounter').textContent =
     `Soal ${state.currentQuestionIndex + 1}/${totalQ}`;
   document.getElementById('gameProgress').style.width =
-    (((state.currentQuestionIndex) / totalQ) * 100) + '%';
+    ((state.currentQuestionIndex / totalQ) * 100) + '%';
   document.getElementById('gameScore').textContent = `⭐ ${state.score}`;
 
-  // Question
   const qArea = document.getElementById('questionArea');
   qArea.style.animation = 'none';
-  // force reflow
   void qArea.offsetWidth;
   qArea.style.animation = '';
 
-  const visualEl = document.getElementById('qVisual');
-  visualEl.textContent = q.visual;
-  visualEl.classList.toggle('two', q.visual.length > 2);
+  document.getElementById('qVisual').textContent = q.visual;
 
   const captionEl = document.getElementById('qCaption');
   if (q.caption) {
@@ -1403,7 +2132,6 @@ function renderQuestion() {
 
   document.getElementById('qText').textContent = q.text;
 
-  // Options
   const grid = document.getElementById('optionsGrid');
   grid.innerHTML = '';
   q.options.forEach((opt, i) => {
@@ -1416,26 +2144,49 @@ function renderQuestion() {
 }
 
 function selectAnswer(index, btn) {
-  const level = LEVELS[state.currentLevelIndex];
-  const q = level.questions[state.currentQuestionIndex];
+  const q = state.sessionQuestions[state.currentQuestionIndex];
   const isCorrect = index === q.correct;
 
-  // Disable all buttons
   document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
 
   if (isCorrect) {
     btn.classList.add('correct');
     state.score += 20;
     document.getElementById('gameScore').textContent = `⭐ ${state.score}`;
+    const scoreEl = document.getElementById('gameScore');
+    scoreEl.classList.remove('bump');
+    void scoreEl.offsetWidth;
+    scoreEl.classList.add('bump');
+    spawnParticles(btn);
     showFeedback(true);
   } else {
     btn.classList.add('wrong');
-    // Tandai jawaban benar
     document.querySelectorAll('.option-btn').forEach((b, i) => {
       if (i === q.correct) b.classList.add('correct');
     });
     state.mistakes++;
     showFeedback(false);
+  }
+}
+
+function spawnParticles(el) {
+  const rect = el.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  const emojis = ['⭐', '✨', '🌟', '💚', '🎉', '💫'];
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle-burst';
+    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    p.style.left = cx + 'px';
+    p.style.top = cy + 'px';
+    const angle = (Math.PI * 2 * i) / 8 + Math.random() * 0.5;
+    const dist = 100 + Math.random() * 80;
+    p.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+    p.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+    p.style.setProperty('--tr', (Math.random() * 720 - 360) + 'deg');
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1000);
   }
 }
 
@@ -1463,20 +2214,14 @@ function showFeedback(isCorrect) {
     text.textContent = 'Tidak apa-apa, coba ingat-ingat lagi ya. Jawaban yang benar sudah ditandai warna hijau.';
     btn.textContent = 'Mengerti 👍';
   }
-
   overlay.classList.add('show');
 }
 
 function nextQuestion() {
   document.getElementById('feedbackOverlay').classList.remove('show');
-  const level = LEVELS[state.currentLevelIndex];
   state.currentQuestionIndex++;
-
-  if (state.currentQuestionIndex >= level.questions.length) {
-    finishLevel();
-  } else {
-    renderQuestion();
-  }
+  if (state.currentQuestionIndex >= state.sessionQuestions.length) finishLevel();
+  else renderQuestion();
 }
 
 /* ============================================================
@@ -1488,14 +2233,12 @@ function finishLevel() {
   if (state.mistakes === 1) stars = 2;
   else if (state.mistakes >= 2) stars = 1;
 
-  // Simpan bintang tertinggi
   const prevStars = state.progress[level.id] || 0;
   if (stars > prevStars) {
     state.progress[level.id] = stars;
     saveProgress();
   }
 
-  // Tampilkan hasil
   const emojiEl = document.getElementById('resultEmoji');
   const titleEl = document.getElementById('resultTitle');
   const subEl = document.getElementById('resultSub');
@@ -1517,65 +2260,50 @@ function finishLevel() {
   document.getElementById('resultScore').textContent =
     `Skor: ${state.score} • Kesalahan: ${state.mistakes}`;
 
-  // Reset bintang
   ['star1','star2','star3'].forEach((id, i) => {
     const el = document.getElementById(id);
     el.classList.remove('show');
-    setTimeout(() => {
-      if (i < stars) el.classList.add('show');
-    }, 300 + i * 250);
+    setTimeout(() => { if (i < stars) el.classList.add('show'); }, 300 + i * 250);
   });
 
-  // Tombol Next
   const nextBtn = document.getElementById('nextLevelBtn');
   const isLastLevel = state.currentLevelIndex === LEVELS.length - 1;
-  if (isLastLevel) {
-    nextBtn.textContent = '🏆 Lihat Hadiah';
-  } else {
-    nextBtn.textContent = '➡️ Level Berikutnya';
-  }
+  nextBtn.textContent = isLastLevel ? '🏆 Lihat Hadiah' : '➡️ Level Berikutnya';
 
   showScreen('resultScreen');
 }
 
-function retryLevel() {
-  startLevel(state.currentLevelIndex);
-}
+function retryLevel() { startLevel(state.currentLevelIndex); }
 
 function nextLevel() {
   const isLastLevel = state.currentLevelIndex === LEVELS.length - 1;
-  if (isLastLevel) {
-    showFinalScreen();
-  } else {
-    startLevel(state.currentLevelIndex + 1);
-  }
+  if (isLastLevel) showFinalScreen();
+  else startLevel(state.currentLevelIndex + 1);
 }
 
 /* ============================================================
-   FINAL SCREEN + CONFETTI
+   FINAL + CONFETTI
    ============================================================ */
 function showFinalScreen() {
-  // Hitung total bintang
   let totalStars = 0;
   Object.values(state.progress).forEach(s => totalStars += s);
   document.getElementById('finalStars').textContent = totalStars;
-
   showScreen('finalScreen');
   launchConfetti();
 }
 
 function launchConfetti() {
-  const emojis = ['🎉', '⭐', '🌟', '🎊', '✨', '🌈', '💚', '🌸'];
-  for (let i = 0; i < 30; i++) {
+  const emojis = ['🎉', '⭐', '🌟', '🎊', '✨', '🌈', '💚', '🌸', '🎈', '🦋'];
+  for (let i = 0; i < 45; i++) {
     const c = document.createElement('div');
     c.className = 'confetti';
     c.textContent = emojis[Math.floor(Math.random() * emojis.length)];
     c.style.left = Math.random() * 100 + 'vw';
-    c.style.animationDuration = (3 + Math.random() * 3) + 's';
-    c.style.animationDelay = (Math.random() * 3) + 's';
-    c.style.fontSize = (1.2 + Math.random() * 1.2) + 'rem';
+    c.style.animationDuration = (3 + Math.random() * 3.5) + 's';
+    c.style.animationDelay = (Math.random() * 4) + 's';
+    c.style.fontSize = (1.2 + Math.random() * 1.3) + 'rem';
     document.body.appendChild(c);
-    setTimeout(() => c.remove(), 9000);
+    setTimeout(() => c.remove(), 12000);
   }
 }
 
@@ -1587,22 +2315,16 @@ function restartGame() {
 }
 
 /* ============================================================
-   KEYBOARD SUPPORT (opsional)
+   KEYBOARD
    ============================================================ */
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
-    if (document.getElementById('gameScreen').classList.contains('active')) {
-      backToLevels();
-    }
+    if (document.getElementById('gameScreen').classList.contains('active')) backToLevels();
   }
-  // Angka 1-4 untuk pilih jawaban
   if (document.getElementById('gameScreen').classList.contains('active')) {
     const overlay = document.getElementById('feedbackOverlay');
     if (overlay.classList.contains('show')) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        nextQuestion();
-      }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); nextQuestion(); }
       return;
     }
     const n = parseInt(e.key);
@@ -1611,6 +2333,20 @@ document.addEventListener('keydown', (e) => {
       if (btns[n - 1] && !btns[n - 1].disabled) btns[n - 1].click();
     }
   }
+});
+
+/* ============================================================
+   ORIENTATION CHANGE HANDLER
+   ============================================================ */
+let resizeTimeout;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    // Force reflow saat orientasi berubah
+    document.body.style.display = 'none';
+    void document.body.offsetHeight;
+    document.body.style.display = '';
+  }, 150);
 });
 
 /* ============================================================
