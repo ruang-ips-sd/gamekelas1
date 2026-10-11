@@ -9,14 +9,12 @@
 <style>
   /* ====== PREMIUM COLOR SYSTEM ====== */
   :root {
-    /* Background gradient utama */
     --bg-1: #FFD3E0;
     --bg-2: #FFE8CC;
     --bg-3: #FFF4D6;
     --bg-4: #E8F4FF;
     --bg-5: #D6F0FF;
 
-    /* Accent premium */
     --rose: #FF6B9D;
     --rose-deep: #E84A7F;
     --orange: #FFB347;
@@ -27,18 +25,15 @@
     --gold-deep: #D4A017;
     --mint: #5EC4C4;
 
-    /* Text */
     --text: #3D3D5C;
     --text-soft: #6B6B8A;
     --text-muted: #9191A8;
 
-    /* Premium shadows (colored, not black) */
     --shadow-rose: 0 8px 24px rgba(255,107,157,0.25);
     --shadow-orange: 0 8px 24px rgba(255,179,71,0.25);
     --shadow-sky: 0 8px 24px rgba(125,211,252,0.25);
     --shadow-gold: 0 8px 24px rgba(245,197,66,0.3);
 
-    /* Glass */
     --glass: rgba(255,255,255,0.7);
     --glass-border: rgba(255,255,255,0.9);
   }
@@ -63,16 +58,222 @@
     font-weight: 600;
     -webkit-font-smoothing: antialiased;
   }
+  body.loading { overflow: hidden; }
 
   h1, h2, h3, h4 {
     font-family: 'Baloo 2', cursive;
     letter-spacing: -0.3px;
   }
 
+  /* ====== LOADING SCREEN ====== */
+  #loadingScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg,
+      #FFD3E0 0%,
+      #FFE8CC 30%,
+      #FFF4D6 55%,
+      #E8F4FF 80%,
+      #D6F0FF 100%);
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+    overflow: hidden;
+  }
+  #loadingScreen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(255,255,255,0.7) 0%, transparent 30%),
+      radial-gradient(circle at 85% 75%, rgba(255,255,255,0.5) 0%, transparent 35%),
+      radial-gradient(circle at 50% 50%, rgba(255,255,255,0.3) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  #loadingScreen.hide {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .loader-wrap {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    animation: loaderPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes loaderPop {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* Lingkaran RKS */
+  .loader-circle {
+    position: relative;
+    width: clamp(130px, 30vw, 180px);
+    height: clamp(130px, 30vw, 180px);
+    margin: 0 auto clamp(20px, 4vw, 32px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Cincin berputar */
+  .loader-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-top-color: #FF6B9D;
+    border-right-color: #FFB347;
+    animation: ringSpin 1.4s linear infinite;
+    filter: drop-shadow(0 4px 12px rgba(255,107,157,0.4));
+  }
+  .loader-ring-2 {
+    inset: 12px;
+    border-top-color: #7DD3FC;
+    border-right-color: #5EC4C4;
+    animation: ringSpin 1.8s linear infinite reverse;
+    filter: drop-shadow(0 4px 12px rgba(125,211,252,0.4));
+  }
+  .loader-ring-3 {
+    inset: 24px;
+    border-top-color: #F5C542;
+    border-right-color: #E8952E;
+    animation: ringSpin 2.2s linear infinite;
+    filter: drop-shadow(0 4px 12px rgba(245,197,66,0.4));
+  }
+  @keyframes ringSpin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Inti lingkaran dengan tulisan RKS */
+  .loader-core {
+    position: relative;
+    width: 62%;
+    height: 62%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%,
+      #FFFFFF 0%,
+      #FFF4D6 40%,
+      #FFD3E0 75%,
+      #FFB6D5 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 8px 24px rgba(255,107,157,0.35),
+      0 0 0 4px rgba(255,255,255,0.85),
+      inset 0 -6px 12px rgba(232,74,127,0.15),
+      inset 0 4px 8px rgba(255,255,255,0.9);
+    animation: corePulse 1.6s ease-in-out infinite;
+  }
+  @keyframes corePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  .loader-rks {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #E84A7F 0%, #E8952E 50%, #D4A017 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 2px rgba(255,107,157,0.4));
+  }
+
+  /* Tulisan Raisa Kids Studio berkedip warna-warni — JELAS & TAJAM */
+  .loader-brand {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: clamp(1.05rem, 3.4vw, 1.6rem);
+    letter-spacing: 1px;
+    margin-bottom: clamp(14px, 3vw, 22px);
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    flex-wrap: wrap;
+    filter: none;
+  }
+
+  .loader-brand span {
+    display: inline-block;
+    -webkit-text-stroke: 0.6px rgba(255,255,255,0.9);
+    text-shadow:
+      0 1px 0 rgba(255,255,255,0.9),
+      0 2px 3px rgba(0,0,0,0.12);
+    animation: colorBlink 1.4s ease-in-out infinite;
+    will-change: color, transform;
+  }
+  .loader-brand span.space { animation: none; }
+
+  /* Warna per huruf — kontras tinggi & tajam */
+  .loader-brand span:nth-child(1)  { color: #E84A7F; animation-delay: 0.0s; }
+  .loader-brand span:nth-child(2)  { color: #F0722B; animation-delay: 0.1s; }
+  .loader-brand span:nth-child(3)  { color: #E8952E; animation-delay: 0.2s; }
+  .loader-brand span:nth-child(4)  { color: #D4A017; animation-delay: 0.3s; }
+  .loader-brand span:nth-child(5)  { color: #38BDF8; animation-delay: 0.4s; }
+  .loader-brand span:nth-child(6)  { animation-delay: 0.5s; }
+  .loader-brand span:nth-child(7)  { color: #2E8B7E; animation-delay: 0.6s; }
+  .loader-brand span:nth-child(8)  { color: #0284C7; animation-delay: 0.7s; }
+  .loader-brand span:nth-child(9)  { color: #7C3AED; animation-delay: 0.8s; }
+  .loader-brand span:nth-child(10) { color: #E84A7F; animation-delay: 0.9s; }
+  .loader-brand span:nth-child(11) { animation-delay: 1.0s; }
+  .loader-brand span:nth-child(12) { color: #F0722B; animation-delay: 1.1s; }
+  .loader-brand span:nth-child(13) { color: #D4A017; animation-delay: 1.2s; }
+  .loader-brand span:nth-child(14) { color: #38BDF8; animation-delay: 1.3s; }
+  .loader-brand span:nth-child(15) { color: #2E8B7E; animation-delay: 1.4s; }
+  .loader-brand span:nth-child(16) { color: #E84A7F; animation-delay: 1.5s; }
+
+  /* Efek kedip: hanya warna & sedikit bounce, TANPA blur/opacity */
+  @keyframes colorBlink {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+      filter: brightness(1);
+    }
+    50% {
+      transform: translateY(-3px) scale(1.08);
+      filter: brightness(1.25) saturate(1.4);
+    }
+  }
+
+  /* Titik-titik ceria */
+  .loader-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  .loader-dots span {
+    width: clamp(10px, 2vw, 14px);
+    height: clamp(10px, 2vw, 14px);
+    border-radius: 50%;
+    animation: dotBounce 1.2s ease-in-out infinite;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  .loader-dots span:nth-child(1) {
+    background: linear-gradient(135deg, #FF6B9D, #E84A7F);
+    animation-delay: 0s;
+  }
+  .loader-dots span:nth-child(2) {
+    background: linear-gradient(135deg, #FFB347, #E8952E);
+    animation-delay: 0.2s;
+  }
+  .loader-dots span:nth-child(3) {
+    background: linear-gradient(135deg, #7DD3FC, #38BDF8);
+    animation-delay: 0.4s;
+  }
+  @keyframes dotBounce {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+    50% { transform: translateY(-10px) scale(1.2); opacity: 1; }
+  }
+
   /* ====== BACKGROUND DECORATION ====== */
   .bg-deco { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
 
-  /* Sun — premium gold glow */
   .sun-deco {
     position: absolute;
     top: clamp(15px, 4vw, 40px);
@@ -102,7 +303,6 @@
   @keyframes sunPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
   @keyframes raysSpin { to { transform: rotate(360deg); } }
 
-  /* Clouds — soft premium blur */
   .cloud-deco {
     position: absolute;
     background: rgba(255,255,255,0.85);
@@ -122,7 +322,6 @@
   .cloud-4 { top: 12%; left: -180px; width: 80px; height: 28px; opacity: 0.85; animation: drift 50s linear infinite 30s; }
   @keyframes drift { to { transform: translateX(calc(100vw + 300px)); } }
 
-  /* Butterflies */
   .butterfly {
     position: absolute;
     font-size: clamp(1.2rem, 2.5vw, 1.8rem);
@@ -139,7 +338,6 @@
     75% { transform: translate(30px,50px) rotate(8deg); }
   }
 
-  /* Twinkles */
   .twinkle {
     position: absolute;
     color: #FFF8D6;
@@ -153,7 +351,6 @@
     50% { opacity: 1; transform: scale(1.15); }
   }
 
-  /* Balloons */
   .balloon {
     position: absolute;
     font-size: clamp(1.8rem, 4vw, 2.5rem);
@@ -167,7 +364,6 @@
     100% { transform: translateY(-150px) rotate(10deg); opacity: 0; }
   }
 
-  /* Hearts */
   .heart-float {
     position: absolute;
     font-size: clamp(1rem, 2.5vw, 1.4rem);
@@ -182,7 +378,6 @@
     100% { transform: translateY(-100px) scale(1); opacity: 0; }
   }
 
-  /* Hills — premium gradient */
   .hills-deco {
     position: fixed;
     bottom: 0; left: 0; right: 0;
@@ -193,7 +388,7 @@
   }
   .hills-deco svg { display: block; width: 100%; height: 100%; }
 
-  /* ====== NAVBAR — Glassmorphism Premium ====== */
+  /* ====== NAVBAR ====== */
   nav {
     position: sticky;
     top: 0;
@@ -273,7 +468,6 @@
     margin: 0 auto;
   }
 
-  /* Premium Badge */
   .hero-badge {
     display: inline-flex;
     align-items: center;
@@ -307,7 +501,6 @@
     75% { transform: rotate(15deg); }
   }
 
-  /* Title Premium */
   .hero h1 {
     font-size: clamp(1.8rem, 6.5vw, 4rem);
     font-weight: 800;
@@ -346,7 +539,6 @@
     line-height: 1.65;
   }
 
-  /* CTA Button Premium */
   .btn-main {
     display: inline-flex;
     align-items: center;
@@ -396,7 +588,6 @@
       0 10px 20px rgba(255,107,157,0.3);
   }
 
-  /* Emoji Row */
   .hero-emoji-row {
     margin-top: clamp(30px, 5vw, 50px);
     display: flex;
@@ -517,7 +708,6 @@
     font-weight: 600;
   }
 
-  /* Card color themes — premium soft */
   .card.math {
     border-color: rgba(125,211,252,0.5);
     background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(232,244,255,0.9));
@@ -572,7 +762,6 @@
     box-shadow: 0 3px 0 #B83A66;
   }
 
-  /* Sky blue button — Berhitung */
   .card.math .card-play {
     background: linear-gradient(135deg, var(--sky), var(--sky-deep));
     box-shadow:
@@ -590,7 +779,6 @@
   }
   .card.math:active .card-play { box-shadow: 0 3px 0 #0284C7; }
 
-  /* Teal button — Alam Sekitar */
   .card.sains .card-play {
     background: linear-gradient(135deg, var(--mint), #3AA8A8);
     box-shadow:
@@ -608,7 +796,6 @@
   }
   .card.sains:active .card-play { box-shadow: 0 3px 0 #2E8B7E; }
 
-  /* Gold button — Menggambar */
   .card.seni .card-play {
     background: linear-gradient(135deg, var(--gold), var(--orange-deep));
     box-shadow:
@@ -627,7 +814,7 @@
   }
   .card.seni:active .card-play { box-shadow: 0 3px 0 #B8860B; }
 
-  /* ====== GAME CARDS PREMIUM ====== */
+  /* ====== GAME CARDS ====== */
   .game-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -671,7 +858,6 @@
   }
   .game-card:active { transform: translateY(-3px) scale(1); }
 
-  /* Premium game gradients */
   .game1 { background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); }
   .game2 { background: linear-gradient(135deg, var(--rose) 0%, #F5576C 100%); }
   .game3 { background: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%); }
@@ -735,7 +921,6 @@
     box-shadow: 0 3px 0 rgba(0,0,0,0.22);
   }
 
-  /* Ribbon BARU — premium gold */
   .game-card.baru::after {
     content: '✨ BARU';
     position: absolute;
@@ -754,7 +939,7 @@
     text-shadow: 0 1px 3px rgba(0,0,0,0.25);
   }
 
-  /* ====== INFO BOX PREMIUM ====== */
+  /* ====== INFO BOX ====== */
   .info {
     background: linear-gradient(180deg, transparent, rgba(255,255,255,0.5), transparent);
   }
@@ -803,7 +988,7 @@
     font-size: clamp(0.8rem, 2.2vw, 0.95rem);
   }
 
-  /* ====== CTA SECTION PREMIUM ====== */
+  /* ====== CTA SECTION ====== */
   .cta {
     background: linear-gradient(135deg, #FFD3E0 0%, #FFE8CC 50%, #FFF4D6 100%);
     text-align: center;
@@ -885,7 +1070,7 @@
     50% { transform: translateY(-15px) rotate(5deg); }
   }
 
-  /* ====== FOOTER PREMIUM ====== */
+  /* ====== FOOTER ====== */
   footer {
     background: linear-gradient(180deg, var(--rose) 0%, var(--orange) 100%);
     color: white;
@@ -977,39 +1162,59 @@
 </head>
 <body>
 
+<!-- ====== LOADING SCREEN ====== -->
+<div id="loadingScreen">
+  <div class="loader-wrap">
+    <div class="loader-circle">
+      <div class="loader-ring"></div>
+      <div class="loader-ring loader-ring-2"></div>
+      <div class="loader-ring loader-ring-3"></div>
+      <div class="loader-core">
+        <span class="loader-rks">RKS</span>
+      </div>
+    </div>
+
+    <div class="loader-brand">
+      <span>R</span><span>a</span><span>i</span><span>s</span><span>a</span>
+      <span class="space">&nbsp;</span>
+      <span>K</span><span>i</span><span>d</span><span>s</span>
+      <span class="space">&nbsp;</span>
+      <span>S</span><span>t</span><span>u</span><span>d</span><span>i</span><span>o</span>
+    </div>
+
+    <div class="loader-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</div>
+
 <!-- ====== BACKGROUND DECORATION ====== -->
 <div class="bg-deco">
-  <!-- Sun -->
   <div class="sun-deco">
     <div class="sun-rays"></div>
     <div class="sun-core"></div>
   </div>
 
-  <!-- Clouds -->
   <div class="cloud-deco cloud-1"></div>
   <div class="cloud-deco cloud-2"></div>
   <div class="cloud-deco cloud-3"></div>
   <div class="cloud-deco cloud-4"></div>
 
-  <!-- Butterflies -->
   <div class="butterfly butterfly-1">🦋</div>
   <div class="butterfly butterfly-2">🦋</div>
   <div class="butterfly butterfly-3">🦋</div>
 
-  <!-- Twinkles -->
   <div class="twinkle" style="top: 8%; left: 20%;">✨</div>
   <div class="twinkle" style="top: 12%; left: 45%;">⭐</div>
   <div class="twinkle" style="top: 5%; right: 25%;">✨</div>
   <div class="twinkle" style="top: 22%; left: 30%;">⭐</div>
   <div class="twinkle" style="top: 18%; right: 15%;">✨</div>
 
-  <!-- Balloons -->
   <div class="balloon" style="left: 5%; animation-duration: 24s; animation-delay: 2s;">🎈</div>
   <div class="balloon" style="left: 25%; animation-duration: 28s; animation-delay: 8s;">🎈</div>
   <div class="balloon" style="left: 55%; animation-duration: 30s; animation-delay: 14s;">🎈</div>
   <div class="balloon" style="left: 80%; animation-duration: 26s; animation-delay: 5s;">🎈</div>
 
-  <!-- Hearts -->
   <div class="heart-float" style="left: 12%; animation-duration: 22s; animation-delay: 3s;">💗</div>
   <div class="heart-float" style="left: 45%; animation-duration: 26s; animation-delay: 10s;">💕</div>
   <div class="heart-float" style="left: 70%; animation-duration: 20s; animation-delay: 6s;">💖</div>
@@ -1219,6 +1424,22 @@
 </footer>
 
 <script>
+  // ====== LOADING SCREEN ======
+  (function() {
+    document.body.classList.add('loading');
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loader = document.getElementById('loadingScreen');
+        if (loader) {
+          loader.classList.add('hide');
+          document.body.classList.remove('loading');
+          setTimeout(() => loader.remove(), 700);
+        }
+      }, 2200);
+    });
+  })();
+
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
